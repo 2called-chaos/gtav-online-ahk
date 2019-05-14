@@ -82,7 +82,7 @@ The issue is just to find words that won't trigger things like chat or the inter
 
 ```ahk
 ::lester::
-  CallLester
+  GoTo CallLester
   return
 ```
 
