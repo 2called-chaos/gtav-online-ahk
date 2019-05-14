@@ -55,6 +55,7 @@ You can copy them all but we only need pssuspend so go ahead and extract/copy `p
 * **EquipScarf** – Equip scarf (heist outfit speed, see miscellaneous)
 * **CycleOutfit** – Cycle through your saved outfits
 * **ToggleVIP** – Toggle VIP(/CEO/MC) mode
+* **CEOBuzzard** – Spawn a free CEO Buzzard
 * **RandomHeist** – Join a random heist (on-call) solo aka don't invite friends in session
 * **ForceDisconnect** – Force disconnect the game by freezing the process for 10 seconds (requires pssuspend.exe)
 * **ChatSnippets** – Select a sentence from a configurable list which will get typed out in the game (chat should already be open)
