@@ -1,5 +1,5 @@
 ;
-; GTA V Online AHK-Macros v1.0.0 by 2called-chaos
+; GTA V Online AHK-Macros v1.0.1 by 2called-chaos
 ; based on/inspired by GTA V Useful Macros v4.21 by twentyafterfour
 ;
 ; # Description
@@ -319,32 +319,37 @@ RandomHeist:
 
 ; Show a list of chat snippets to type out (chat must be opened)
 ChatSnippets:
-  Gui, add, Text, , Choose your snippet:
+  Gui, CSNIP:add, Text, , Choose your snippet:
   for index, element in ArrayChatSnippets
   {
     if (index = 0) {
-      Gui, add, Radio, vSnippetChoice, %element%
+      Gui, CSNIP:add, Radio, vSnippetChoice, %element%
     } else {
-      Gui, add, Radio, , %element%
+      Gui, CSNIP:add, Radio, , %element%
     }
   }
 
-  Gui, add, Button, Default g_ChatSnippetsTypeout, type out...
-  Gui, show
+  Gui, CSNIP:add, Button, Default g_ChatSnippetsTypeout, type out...
+  Gui, CSNIP:show
   Return
 
-; I don't understand but ok
-GuiEscape:
-  Gui, cancel
-  Gui, destroy
+CSNIPGuiEscape:
+  Gui, CSNIP:cancel
+  Gui, CSNIP:destroy
+  bringGameIntoFocus()
+  return
+
+CSNIPGuiClose:
+  Gui, CSNIP:cancel
+  Gui, CSNIP:destroy
   bringGameIntoFocus()
   return
 
 _ChatSnippetsTypeout:
-  Gui, submit
+  Gui, CSNIP:submit
   bringGameIntoFocus(true)
   Send % ArrayChatSnippets[SnippetChoice - 1]
-  Gui, destroy
+  Gui, CSNIP:destroy
   Return
 
 ; Phone calls
