@@ -1,5 +1,5 @@
 ;
-; GTA V Online AHK-Macros v1.0.1 by 2called-chaos
+; GTA V Online AHK-Macros v1.0.2 by 2called-chaos
 ; based on/inspired by GTA V Useful Macros v4.21 by twentyafterfour
 ;
 ; # Description
@@ -53,6 +53,7 @@ ToggleVIPKey         := "NumpadSub" ; Toggle VIP mode (required when VIP/CEO/MC)
 ForceDisconnectKey   := "F12" ; Force disconnect by suspending process for 10s, requires pssuspend.exe
 ChatSnippetsKey      := "F11" ; Gives you a few text snippets to put in chat (chat must be already open)
 RandomHeistKey       := "F7" ; Chooses on-call random heist from phone options
+CEOBuzzardKey        := "F24" ; Spawn free CEO buzzard
 
 CallMechanicKey      := "F5" ; Call Mechanic
 CallPegasusKey       := "F24" ; Call Pegasus
@@ -120,6 +121,7 @@ Hotkey, %ToggleVIPKey%, ToggleVIP
 Hotkey, %ForceDisconnectKey%, ForceDisconnect
 Hotkey, %RandomHeistKey%, RandomHeist
 Hotkey, %ChatSnippetsKey%, ChatSnippets
+Hotkey, %CEOBuzzardKey%, CEOBuzzard
 Hotkey, %CallMechanicKey%, CallMechanic
 Hotkey, %CallPegasusKey%, CallPegasus
 Hotkey, %CallMerryweatherKey%, CallMerryweather
@@ -315,6 +317,12 @@ RandomHeist:
   sleep IntKeySendDelay
   scrollPhoneUp(2) ; scroll up twice to solo-q
   Send {Enter}{Enter}
+  return
+
+; Calls in free CEO buzzard (if you are CEO)
+CEOBuzzard:
+  openInteractionMenu(false)
+  Send {Enter}{Up 2}{Enter}{Down 4}{Enter}
   return
 
 ; Show a list of chat snippets to type out (chat must be opened)
