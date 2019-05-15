@@ -55,6 +55,7 @@ ChatSnippetsKey      := "F11" ; Gives you a few text snippets to put in chat (ch
 RandomHeistKey       := "F7" ; Chooses on-call random heist from phone options
 CEOBuzzardKey        := "F24" ; Spawn free CEO buzzard
 
+DialDialogKey        := "+F5" ; Call GUI with a list of almost all numbers
 CallMechanicKey      := "F5" ; Call Mechanic
 CallPegasusKey       := "F24" ; Call Pegasus
 CallMerryweatherKey  := "F24" ; Call Merryweather
@@ -91,6 +92,22 @@ IGB_Interaction := "m"
 IGB_Phone := "up"
 
 
+; Phone numbers for DialDialog GUI dialog (you can change the order if you want or hide entries by commenting them out)
+ArrayPhonebook := []
+ArrayPhonebook.push("911           - Emergency Services")
+ArrayPhonebook.push("328-555-0153  - Mechanic")
+ArrayPhonebook.push("611-555-0149  - Mors Mutual Insurance")
+ArrayPhonebook.push("328-555-0122  - Pegasus Lifestyle Management")
+ArrayPhonebook.push("273-555-0120  - Merryweather Security")
+ArrayPhonebook.push("346-555-0176  - Atomic Blimp")
+ArrayPhonebook.push("323-555-5555  - Downtown Cab Co.")
+ArrayPhonebook.push("346-555-0102  - Lester Crest")
+ArrayPhonebook.push("555-0182      - (useless) *modem* ")
+ArrayPhonebook.push("1-999-9327667 - (useless) *holding music* ")
+ArrayPhonebook.push("425-555-0170  - (useless) 'This mailbox is full' ")
+ArrayPhonebook.push("310-555-0156  - (useless) *Pickup* .. *Hangup*")
+ArrayPhonebook.push("1-999-768822  - (useless) 'This number is no longer in service'")
+ArrayPhonebook.push("273-555-0155  - (useless) Truthseeker Helpline")
 
 ; ==============================
 ; === CONFIGURATION GOES ^^^ ===
@@ -130,6 +147,7 @@ Hotkey, %ForceDisconnectKey%, ForceDisconnect
 Hotkey, %RandomHeistKey%, RandomHeist
 Hotkey, %ChatSnippetsKey%, ChatSnippets
 Hotkey, %CEOBuzzardKey%, CEOBuzzard
+Hotkey, %DialDialogKey%, DialDialog
 Hotkey, %CallMechanicKey%, CallMechanic
 Hotkey, %CallPegasusKey%, CallPegasus
 Hotkey, %CallMerryweatherKey%, CallMerryweather
@@ -200,13 +218,97 @@ makeCall(scrollUp, doOpenPhone = false, menu = 2) {
   scrollPhoneUp(menu)
   sleep IntKeySendDelay
   Send {Enter}
+  sleep IntPhoneMenuDelay2
 
   ; scroll to contact
-  sleep IntPhoneMenuDelay2
   scrollPhoneUp(scrollUp)
 
   ; call it
   Send {Enter}
+}
+
+dialNumber(number, doOpenPhone = false) {
+  global IntKeySendDelay
+  global IntKeyPressDuration
+  global IntPhoneScrollDelay
+  global IntPhoneMenuDelay2
+
+  if(doOpenPhone)
+    openPhone()
+
+  ; go to contacts
+  scrollPhoneUp(2)
+  Send {Enter}
+  sleep IntPhoneMenuDelay2
+
+  ; enter number screen
+  Send {Space}
+  sleep IntPhoneMenuDelay2
+
+  ; change key delay for this function
+  setkeydelay IntPhoneScrollDelay, IntKeyPressDuration
+
+  ; cleanup number
+  number_clean := RegExReplace(number, "[^0-9]", "")
+
+  ; enter the actual number
+  pointer := 1
+  Loop, parse, number_clean
+  {
+    deltax := _phonePointerCol(A_LoopField) - _phonePointerCol(pointer)
+    deltay := _phonePointerRow(A_LoopField) - _phonePointerRow(pointer)
+
+    ; wrap around shortcuts
+    if (deltax = 2)
+      deltax := -1
+    if (deltax = -2)
+      deltax := 1
+    if (deltay = -3)
+      deltay := 1
+    if (deltay = 3)
+      deltay := -1
+
+    ; move pointer
+    if (deltax > 0)
+      Send {right %deltax%}
+
+    if (deltay > 0)
+      Send {down %deltay%}
+    
+    if (deltax < 0) {
+      deltax := Abs(deltax)
+      Send {left %deltax%}
+    }
+    
+    if (deltay < 0) {
+      deltay := Abs(deltay)
+      Send {up %deltay%}
+    }
+
+    pointer := A_LoopField
+    Send {Enter}
+  }
+
+  ; reset key delay (should not be necessary)
+  setkeydelay IntKeySendDelay, IntKeyPressDuration
+
+  ; call it
+  Send {Space}
+}
+
+_phonePointerRow(num) {
+  if (num = 0)
+    return 4
+  else
+    return Ceil(num / 3)
+}
+
+_phonePointerCol(num) {
+  if (num = 0)
+    return 2
+  else
+    div := Mod(num, 3)
+    return div = 0 ? 3 : div
 }
 
 splashCountdown(title, message, seconds, addZero = false) {
@@ -368,22 +470,68 @@ _ChatSnippetsTypeout:
   Return
 
 ; Phone calls
+DialDialog:
+  pbl := ""
+  For each, item in ArrayPhonebook
+    pbl .= (!pbl ? "" : "|") item
+  Gui, DIAL:add, Text, , double click item
+  Gui, DIAL:Font,, Courier New
+  Gui, DIAL:add, ListBox, w500 h250 vPhoneNumberSelect g_DialDialogMakeCallFromSelect, %pbl%
+  Gui, DIAL:Font,, Arial
+  Gui, DIAL:add, Text, , or type number:
+  Gui, DIAL:add, Edit, w500 vPhoneNumber,
+  Gui, DIAL:add, Button, w500 Default g_DialDialogMakeCall, make call...
+  Gui, DIAL:show
+  return
+
+DIALGuiEscape:
+  Gui, DIAL:cancel
+  Gui, DIAL:destroy
+  bringGameIntoFocus()
+  return
+
+DIALGuiClose:
+  Gui, DIAL:cancel
+  Gui, DIAL:destroy
+  bringGameIntoFocus()
+  return
+
+_DialDialogMakeCallFromSelect:
+  if(A_GuiEvent = "DoubleClick")
+    GoTo _DialDialogMakeCall
+  Return
+
+_DialDialogMakeCall:
+  Gui, DIAL:submit
+  bringGameIntoFocus(true)
+  if PhoneNumber
+    dialNumber(PhoneNumber, true)
+  else if PhoneNumberSelect
+    dialNumber(PhoneNumberSelect, true)
+  Gui, DIAL:destroy
+  return
+
 CallMechanic:
-  makeCall(8, true)
+  ;makeCall(8, true)
+  dialNumber("328-555-0153", true)
   return
 
 CallPegasus:
-  makeCall(4, true)
+  ;makeCall(4, true)
+  dialNumber("328-555-0122", true)
   return
 
 CallMerryweather:
-  makeCall(7, true)
+  ;makeCall(7, true)
+  dialNumber("273-555-0120", true)
   return
 
 CallInsurance:
-  makeCall(6, true)
+  ;makeCall(6, true)
+  dialNumber("611-555-0149", true)
   return
 
 CallLester:
-  makeCall(12, true)
+  ;makeCall(12, true)
+  dialNumber("346-555-0102", true)
   return
