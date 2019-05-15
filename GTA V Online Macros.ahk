@@ -1,5 +1,5 @@
 ;
-; GTA V Online AHK-Macros v1.0.3 by 2called-chaos
+; GTA V Online AHK-Macros v1.0.4 by 2called-chaos
 ; based on/inspired by GTA V Useful Macros v4.21 by twentyafterfour
 ;
 ; # Description
@@ -65,7 +65,7 @@ CallLesterKey        := "F24" ; Call Lester
 ; Options (should be fine out of the box)
 DoConfirmDisconnect  := true  ; If true the ForceDisconnect action will ask for confirmation before suspending the process
 IntDisconnectDelay   := 10    ; Amount of seconds to freeze the process for, 10 works fine
-IntVIPActivated      := false ; Initial status of CEO/VIP mode (after (re)loading script)
+IsVIPActivated       := false ; Initial status of CEO/VIP mode (after (re)loading script)
 
 
 ; Chat snippets (you can add more, just increment the number)
@@ -244,8 +244,8 @@ ForceDisconnect:
 
 ; Toggle VIP mode (if VIP/CEO/MC all interaction menu entries are offset by one)
 ToggleVIP:
-  IntVIPActivated := !IntVIPActivated
-  if (IntVIPActivated) {
+  IsVIPActivated := !IsVIPActivated
+  if (IsVIPActivated) {
     SplashTextOn 250, 20, VIP mode, VIP mode has been ACTIVATED
   } else {
     SplashTextOn 250, 20, VIP mode, VIP mode has been DEACTIVATED
@@ -257,33 +257,33 @@ ToggleVIP:
 
 ; Open up snack menu for manual selection (or stock check) of snacks
 SnackMenu:
-  openInteractionMenu(IntVIPActivated)
+  openInteractionMenu(IsVIPActivated)
   openSnackMenu()
   return
 
 ; Automatic snacking. Eats 2 snacks from second snack slot and close menu.
 AutoHealth:
-  openInteractionMenu(IntVIPActivated)
+  openInteractionMenu(IsVIPActivated)
   openSnackMenu()
   Send {Down}{Enter}{Enter}{m}
   return
 
 ; Open up armor menu for manual selection (or stock check) of armor
 ArmorMenu:
-  openInteractionMenu(IntVIPActivated)
+  openInteractionMenu(IsVIPActivated)
   openArmorMenu()
   return
 
 ; Equips super heavy armor and exits menu automatically
 AutoArmor:
-  openInteractionMenu(IntVIPActivated)
+  openInteractionMenu(IsVIPActivated)
   openArmorMenu()
   Send {Down}{Down}{Down}{Down}{Enter}{m}
   return
 
 ; Equips scarf to allow faster running with heist armor (see readme/misc)
 EquipScarf:
-  openInteractionMenu(IntVIPActivated)
+  openInteractionMenu(IsVIPActivated)
   ; Opens scarf menu
   Send {Down}{Down}{Enter}{Down}{Enter}
   ; equip scarf and exit menu. This line can be changed to pick different scarfs.
@@ -292,7 +292,7 @@ EquipScarf:
 
 ; Cycle between your saved outfits
 CycleOutfit:
-  openInteractionMenu(IntVIPActivated)
+  openInteractionMenu(IsVIPActivated)
   openOutfitMenu()
   Send {Right}{Enter}{m}
   return
@@ -305,7 +305,7 @@ TogglePassive:
 
 ; Retrieve your currently active vehicle
 RetrieveCar:
-  openInteractionMenu(IntVIPActivated)
+  openInteractionMenu(IsVIPActivated)
   Send {Down}{Down}{Down}{Enter}{Enter}{m}
   return
 
