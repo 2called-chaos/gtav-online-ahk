@@ -66,6 +66,7 @@ At the end it's your call but I'm 99% certain that it wont get you banned.
 * **RandomHeist** – Join a random heist (on-call) solo aka don't invite friends in session
 * **ForceDisconnect** – Force disconnect the game by freezing the process for 10 seconds (requires pssuspend.exe)
 * **ChatSnippets** – Select a sentence from a configurable list which will get typed out in the game (chat should already be open)
+* **DialDialog** – Select a number from a list and call it automatically (add items, change order or remove entries in config)
 
 The following calls can be directly bound to a hotkey (adding more is trivial):
 
