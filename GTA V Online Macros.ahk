@@ -85,6 +85,13 @@ IntPhoneScrollDelay  := 50   ; delay (in ms) between scrolls in the phone menu.
 IntKeySendDelay      := 25   ; delay (in ms) delay between send key commands.
 IntKeyPressDuration  := 5    ; duration (in ms) each key press is held down.
 
+
+; In case you changed your ingame bindings:
+IGB_Interaction := "m"
+IGB_Phone := "up"
+
+
+
 ; ==============================
 ; === CONFIGURATION GOES ^^^ ===
 ; ==============================
@@ -144,7 +151,8 @@ Return
 
 openInteractionMenu(isVIPActive) {
   global IntMenuDelay
-  Send {m}
+  global IGB_Interaction
+  Send {%IGB_Interaction%}
   sleep, IntMenuDelay
   if (isVIPActive = 1) {
     Send {Down}
@@ -165,9 +173,10 @@ openOutfitMenu() {
 
 openPhone() {
   global IntPhoneMenuDelay
+  global IGB_Phone
 
   ; Opens Phone Menu
-  Send {Up}
+  Send {%IGB_Phone%}
 
   ; Necessary delay to allow phone menu to open properly (which it often doesn't anyways)
   sleep, IntPhoneMenuDelay
@@ -265,7 +274,7 @@ SnackMenu:
 AutoHealth:
   openInteractionMenu(IsVIPActivated)
   openSnackMenu()
-  Send {Down}{Enter}{Enter}{m}
+  Send {Down}{Enter}{Enter}{%IGB_Interaction%}
   return
 
 ; Open up armor menu for manual selection (or stock check) of armor
@@ -278,7 +287,7 @@ ArmorMenu:
 AutoArmor:
   openInteractionMenu(IsVIPActivated)
   openArmorMenu()
-  Send {Down}{Down}{Down}{Down}{Enter}{m}
+  Send {Down}{Down}{Down}{Down}{Enter}{%IGB_Interaction%}
   return
 
 ; Equips scarf to allow faster running with heist armor (see readme/misc)
@@ -287,26 +296,26 @@ EquipScarf:
   ; Opens scarf menu
   Send {Down}{Down}{Enter}{Down}{Enter}
   ; equip scarf and exit menu. This line can be changed to pick different scarfs.
-  Send {Up}{Up}{Up}{Up}{Right}{m}
+  Send {Up}{Up}{Up}{Up}{Right}{%IGB_Interaction%}
   return
 
 ; Cycle between your saved outfits
 CycleOutfit:
   openInteractionMenu(IsVIPActivated)
   openOutfitMenu()
-  Send {Right}{Enter}{m}
+  Send {Right}{Enter}{%IGB_Interaction%}
   return
 
 ; Toggle passive mode
 TogglePassive:
   openInteractionMenu(false) ; Ignore VIP status when going up
-  Send {Up}{Enter}{m}
+  Send {Up}{Enter}{%IGB_Interaction%}
   return
 
 ; Retrieve your currently active vehicle
 RetrieveCar:
   openInteractionMenu(IsVIPActivated)
-  Send {Down}{Down}{Down}{Enter}{Enter}{m}
+  Send {Down}{Down}{Down}{Enter}{Enter}{%IGB_Interaction%}
   return
 
 ; Chooses on-call random heist from phone options
