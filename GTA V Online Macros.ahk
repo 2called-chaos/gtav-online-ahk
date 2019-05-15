@@ -69,12 +69,12 @@ IntDisconnectDelay   := 10    ; Amount of seconds to freeze the process for, 10 
 IsVIPActivated       := false ; Initial status of CEO/VIP mode (after (re)loading script)
 
 
-; Chat snippets (you can add more, just increment the number)
-ArrayChatSnippets    := []
-ArrayChatSnippets[0] := "Player saved outfits please :)"
-ArrayChatSnippets[1] := "Yay, cheaters"
-ArrayChatSnippets[2] := "I take that explosive sniper of yours and insert it sideways..."
-ArrayChatSnippets[3] := "You want some cool AHK macros? github.com/2called-chaos/gtav-online-ahk"
+; Chat snippets (you can add more, comment them out or remove them, the pushs that is)
+ArrayChatSnippets := []
+ArrayChatSnippets.push("Player saved outfits please :)")
+ArrayChatSnippets.push("Yay, cheaters")
+ArrayChatSnippets.push("I take that explosive sniper of yours and insert it sideways...")
+ArrayChatSnippets.push("You want some cool AHK macros? github.com/2called-chaos/gtav-online-ahk")
 
 
 ; Delays (you normally don't want to change these, you can try to play with these values if you have a slow/fast PC)
