@@ -63,8 +63,9 @@ CallLesterKey        := "F24" ; Call Lester
 
 
 ; Options (should be fine out of the box)
-DoConfirmDisconnect  := true ; If true the ForceDisconnect action will ask for confirmation before suspending the process
-IntDisconnectDelay   := 10   ; Amount of seconds to freeze the process for, 10 works fine
+DoConfirmDisconnect  := true  ; If true the ForceDisconnect action will ask for confirmation before suspending the process
+IntDisconnectDelay   := 10    ; Amount of seconds to freeze the process for, 10 works fine
+IntVIPActivated      := false ; Initial status of CEO/VIP mode (after (re)loading script)
 
 
 ; Chat snippets (you can add more, just increment the number)
@@ -127,9 +128,6 @@ Hotkey, %CallPegasusKey%, CallPegasus
 Hotkey, %CallMerryweatherKey%, CallMerryweather
 Hotkey, %CallInsuranceKey%, CallInsurance
 Hotkey, %CallLesterKey%, CallLester
-
-; state variables
-IntVIPActivated := false
 
 ; Sets delay(ms) between keystrokes issued. Arguments are delay between keystrokes and press duration, respectively.
 ; They might be able to go lower but these values are pretty fast and work reliably.
