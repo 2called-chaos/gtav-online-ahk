@@ -1,5 +1,5 @@
 ;
-; GTA V Online AHK-Macros v1.1.0 by 2called-chaos
+; GTA V Online AHK-Macros v1.1.1 by 2called-chaos
 ; based on/inspired by GTA V Useful Macros v4.21 by twentyafterfour
 ;
 ; # Description
@@ -439,7 +439,7 @@ ChatSnippets:
   Gui, CSNIP:add, Text, , Choose your snippet:
   for index, element in ArrayChatSnippets
   {
-    if (index = 0) {
+    if (index = 1) {
       Gui, CSNIP:add, Radio, vSnippetChoice, %element%
     } else {
       Gui, CSNIP:add, Radio, , %element%
@@ -465,7 +465,7 @@ CSNIPGuiClose:
 _ChatSnippetsTypeout:
   Gui, CSNIP:submit
   bringGameIntoFocus(true)
-  Send % ArrayChatSnippets[SnippetChoice - 1]
+  Send % ArrayChatSnippets[SnippetChoice]
   Gui, CSNIP:destroy
   Return
 
