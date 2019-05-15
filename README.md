@@ -3,9 +3,9 @@
 Provides hotkeys for several useful features in GTA V:Online, see list further down.
 
 
-**NOTE**: I tested this on my SC installation and with my account. If phone entries are different, or
-          the Steam version doesn't work, let me know :) I evidently do heists most of the time so if
-          you have ideas for useful CEO macros, let me know or just send them in!
+**NOTE**: I tested this on my SC installation and with my account. If something doesn't work, ask (open issue)!
+          I evidently do heists most of the time so if you have ideas for useful CEO macros, let me know
+          or just send them in!
 
 
 ## Requirements
@@ -60,13 +60,15 @@ You can copy them all but we only need pssuspend so go ahead and extract/copy `p
 * **ForceDisconnect** – Force disconnect the game by freezing the process for 10 seconds (requires pssuspend.exe)
 * **ChatSnippets** – Select a sentence from a configurable list which will get typed out in the game (chat should already be open)
 
-The following calls can be bound to a hotkey (adding more is trivial but I'm not sure if you have less contacts in the beginning):
+The following calls can be directly bound to a hotkey (adding more is trivial):
 
 * **CallMechanic**
 * **CallPegasus**
 * **CallMerryweather**
 * **CallInsurance**
 * **CallLester**
+
+You can reach more (useful or useless contacts) by binding `DialDialog`
 
 
 ## Miscellaneous
