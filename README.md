@@ -31,6 +31,13 @@ You can copy them all but we only need pssuspend so go ahead and extract/copy `p
 * C:\Windows\system32
 
 
+## Will I get banned?
+
+I'm not aware of any bans issued by Rockstar following the usage of AHK-scripts. I personally use AHK-scripts within
+GTA:O since 2014 and did not get banned. This is also not the only AHK-script available, I'm sure many are using them.
+At the end it's your call but I'm 99% certain that it wont get you banned.
+
+
 ## Usage
 
 * You should run the game in window(ed fullscreen) or some functions will alt-tab you and will not work properly
