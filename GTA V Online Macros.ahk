@@ -1,5 +1,5 @@
 ;
-; GTA V Online AHK-Macros v1.0.2 by 2called-chaos
+; GTA V Online AHK-Macros v1.0.3 by 2called-chaos
 ; based on/inspired by GTA V Useful Macros v4.21 by twentyafterfour
 ;
 ; # Description
