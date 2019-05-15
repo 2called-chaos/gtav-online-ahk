@@ -82,7 +82,7 @@ IntFocusDelay        := 100  ; delay (in ms) after focussing game when AHK-GUI t
 IntMenuDelay         := 120  ; delay (in ms) after opening interaction menu.
 IntPhoneMenuDelay    := 1850 ; delay (in ms) after opening phone menu.
 IntPhoneMenuDelay2   := 250  ; delay (in ms) after selecting phone menu entries.
-IntPhoneScrollDelay  := 50   ; delay (in ms) between scrolls in the phone menu.
+IntPhoneScrollDelay  := 75   ; delay (in ms) between scrolls in the phone menu.
 IntKeySendDelay      := 25   ; delay (in ms) delay between send key commands.
 IntKeyPressDuration  := 5    ; duration (in ms) each key press is held down.
 
