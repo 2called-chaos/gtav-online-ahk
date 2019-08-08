@@ -30,6 +30,8 @@ You can copy them all but we only need pssuspend so go ahead and extract/copy `p
 * C:\Windows
 * C:\Windows\system32
 
+**NOTE:** Start the pssuspend.exe once by double clicking on it and accept the license agreement or it will silently fail.
+
 
 ## Will I get banned?
 
