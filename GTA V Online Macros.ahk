@@ -178,15 +178,15 @@ openInteractionMenu(isVIPActive) {
 }
 
 openSnackMenu() {
-  Send {Down}{Enter}{Down}{Down}{Enter}
+  Send {Down}{Down}{Enter}{Down}{Down}{Enter}
 }
 
 openArmorMenu() {
-  Send {Down}{Enter}{Down}{Enter}
+  Send {Down}{Down}{Enter}{Down}{Enter}
 }
 
 openOutfitMenu() {
-  Send {Down}{Down}{Enter}{Down}{Down}{Down}
+  Send {Down}{Down}{Down}{Enter}{Down}{Down}{Down}
 }
 
 openPhone() {
@@ -396,7 +396,7 @@ AutoArmor:
 EquipScarf:
   openInteractionMenu(IsVIPActivated)
   ; Opens scarf menu
-  Send {Down}{Down}{Enter}{Down}{Enter}
+  Send {Down}{Down}{Down}{Enter}{Down}{Enter}
   ; equip scarf and exit menu. This line can be changed to pick different scarfs.
   Send {Up}{Up}{Up}{Up}{Right}{%IGB_Interaction%}
   return
@@ -417,12 +417,12 @@ TogglePassive:
 ; Retrieve your currently active vehicle
 RetrieveCar:
   openInteractionMenu(IsVIPActivated)
-  Send {Down}{Down}{Down}{Enter}{Enter}{%IGB_Interaction%}
+  Send {Down}{Down}{Down}{Down}{Enter}{Enter}{%IGB_Interaction%}
   return
 
 ; Chooses on-call random heist from phone options
 RandomHeist:
-  makeCall(12, true, 1)
+  makeCall(13, true, 1)
   sleep IntKeySendDelay
   scrollPhoneUp(2) ; scroll up twice to solo-q
   Send {Enter}{Enter}
