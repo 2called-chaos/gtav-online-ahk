@@ -42,6 +42,7 @@ At the end it's your call but I'm 99% certain that it wont get you banned.
 
 ## Usage
 
+* On Windows 10 you have to start the AHK script as administrator (right click -> Run as administator)
 * You should run the game in window(ed fullscreen) or some functions will alt-tab you and will not work properly
 * You will have to toggle VIP/CEO/MC mode manually since the interaction menu will be changed and most functions need to be aware of that.
 * Doesn't work well inside apartments, maybe in CEO mode while not being one (menu changes)
