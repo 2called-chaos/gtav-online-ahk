@@ -11,26 +11,26 @@ Provides hotkeys for several useful features in GTA V:Online, see list further d
 ## Requirements
 
   * [AutoHotkey](https://www.autohotkey.com/)
-  * [pssuspend.exe](https://docs.microsoft.com/en-us/sysinternals/downloads/pssuspend) in your path (for force disconnect, see instructions below)
+  * [pssuspend.exe and pskill.exe](https://docs.microsoft.com/en-us/sysinternals/downloads/pssuspend) in your path (for force disconnect and process killing, see instructions below)
 
 
 ## Installation
 
   * Download the .ahk file
   * Open it in a text editor (e.g. notepad++ with AutoIT syntax highlighting) and change the hotkeys ([key list](https://www.autohotkey.com/docs/KeyList.htm))
-  * Doubleclick your .ahk file (open with AHK)
+  * Doubleclick your .ahk file (open with AHK) Note: On Windows 10 right click -> run as admin
 
 
-## Installation (pssuspend.exe)
+## Installation (pssuspend.exe / pskill.exe)
 
-pssuspend.exe is a tool from the sysinternals collection. You can download the whole package (~3MB) [directly from Microsoft](https://docs.microsoft.com/en-us/sysinternals/downloads/pssuspend).
-You can copy them all but we only need pssuspend so go ahead and extract/copy `pssuspend.exe` to ANY of the following:
+pssuspend.exe and pskill.exe are a tools from the sysinternals collection. You can download the whole package (~3MB) [directly from Microsoft](https://docs.microsoft.com/en-us/sysinternals/downloads/pssuspend).
+You can copy them all but we only need pssuspend and pskill so go ahead and extract/copy `pssuspend.exe` `pskill.exe` to ANY of the following:
 
 * into the same location where the .ahk file is
 * C:\Windows
 * C:\Windows\system32
 
-**NOTE:** Start the pssuspend.exe once by double clicking on it and accept the license agreement or it will silently fail.
+**NOTE:** Start the pssuspend.exe AND pskill.exe once by double clicking on it and accept the license agreement or it will silently fail.
 
 
 ## Will I get banned?
