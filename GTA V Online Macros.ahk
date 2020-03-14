@@ -50,6 +50,7 @@ TogglePassiveKey     := "F3" ; Toggle passive mode.
 EquipScarfKey        := "NumpadDot" ; Equip first scarf (heist outfit glitch, see readme/misc).
 CycleOutfitKey       := "NumpadAdd" ; Equip next/cycle through saved outfits.
 ToggleVIPKey         := "NumpadSub" ; Toggle VIP mode (required when VIP/CEO/MC).
+KillGameKey          := "+F12" ; Kill game process, requires pskill.exe
 ForceDisconnectKey   := "F12" ; Force disconnect by suspending process for 10s, requires pssuspend.exe
 ChatSnippetsKey      := "F11" ; Gives you a few text snippets to put in chat (chat must be already open)
 RandomHeistKey       := "F7" ; Chooses on-call random heist from phone options
@@ -64,6 +65,7 @@ CallLesterKey        := "F24" ; Call Lester
 
 
 ; Options (should be fine out of the box)
+DoConfirmKill        := true  ; If true the KillGame action will ask for confirmation before killing the process
 DoConfirmDisconnect  := true  ; If true the ForceDisconnect action will ask for confirmation before suspending the process
 IntDisconnectDelay   := 10    ; Amount of seconds to freeze the process for, 10 works fine
 IsVIPActivated       := false ; Initial status of CEO/VIP mode (after (re)loading script)
@@ -143,6 +145,7 @@ Hotkey, %RetrieveCarKey%, RetrieveCar
 Hotkey, %EquipScarfKey%, EquipScarf
 Hotkey, %CycleOutfitKey%, CycleOutfit
 Hotkey, %ToggleVIPKey%, ToggleVIP
+Hotkey, %KillGameKey%, KillGame
 Hotkey, %ForceDisconnectKey%, ForceDisconnect
 Hotkey, %RandomHeistKey%, RandomHeist
 Hotkey, %ChatSnippetsKey%, ChatSnippets
@@ -351,6 +354,19 @@ ForceDisconnect:
   Sleep 1000
   SplashTextOff
   bringGameIntoFocus()
+  return
+
+; kill game process
+; Requires pskill.exe (see readme)
+KillGame:
+  if (DoConfirmKill) {
+    MsgBox, 1, , Kill game process?, 5
+    IfMsgBox, Cancel
+      Return
+    IfMsgBox, Timeout
+      Return
+  }
+  Run, pskill gta5.exe ,,Hide
   return
 
 ; Toggle VIP mode (if VIP/CEO/MC all interaction menu entries are offset by one)
