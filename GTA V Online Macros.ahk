@@ -50,6 +50,7 @@ AutoArmorKey         := "F1" ; Automatic armor equip (uses super heavy armor onl
 RetrieveCarKey       := "F2" ; Request Personal Vehicle.
 TogglePassiveKey     := "F3" ; Toggle passive mode.
 EquipScarfKey        := "NumpadDot" ; Equip first scarf (heist outfit glitch, see readme/misc).
+ToggleRadarKey       := "+F2" ; Toggle between extended and standar radar.
 CycleOutfitKey       := "NumpadAdd" ; Equip next/cycle through saved outfits.
 ToggleVIPKey         := "NumpadSub" ; Toggle VIP mode (required when VIP/CEO/MC).
 ToggleAFKKey         := "+NumpadSub" ; Toggle AFK mode
@@ -98,6 +99,7 @@ IntKeyPressDuration  := 5    ; duration (in ms) each key press is held down.
 ; In case you changed your ingame bindings:
 IGB_Interaction := "m"
 IGB_Phone := "up"
+IGB_Pause := "p"
 
 
 ; Phone numbers for DialDialog GUI dialog (you can change the order if you want or hide entries by commenting them out)
@@ -153,6 +155,7 @@ Hotkey, %CycleOutfitKey%, CycleOutfit
 Hotkey, %ToggleVIPKey%, ToggleVIP
 Hotkey, %ToggleAFKKey%, ToggleAFK
 Hotkey, %ToggleClickerKey%, ToggleClicker
+Hotkey, %ToggleRadarKey%, ToggleRadar
 Hotkey, %KillGameKey%, KillGame
 Hotkey, %ForceDisconnectKey%, ForceDisconnect
 Hotkey, %RandomHeistKey%, RandomHeist
@@ -407,6 +410,30 @@ ToggleAFK:
       }
     }
   }
+  return
+
+; Toggle Radar
+ToggleRadar:
+  ; Open settings
+  SoundPlay, %A_WinDir%\Media\Windows Battery Critical.wav
+  Send {%IGB_Pause%}
+
+  ; Necessary delay to allow settings to open properly
+  sleep, IntPhoneMenuDelay2
+
+  Send {Right}{Right}{Right}{Right}
+  Sleep IntPhoneMenuDelay2 * 2
+  Send {Enter}
+  Sleep IntPhoneMenuDelay2
+  Send {Down}{Down}{Down}{Down}{Down}
+  Sleep IntPhoneMenuDelay2
+  Send {Enter}
+  Sleep IntPhoneMenuDelay2
+  Send {Down}{Down}{Down}{Down}{Down}
+  Sleep IntPhoneMenuDelay2
+  Send {Enter}
+  Sleep IntPhoneMenuDelay2
+  Send {%IGB_Pause%}
   return
 
 ; Toggle Clicker
