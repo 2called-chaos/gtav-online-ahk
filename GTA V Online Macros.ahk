@@ -371,7 +371,7 @@ ForceDisconnect:
 ; Requires pskill.exe (see readme)
 KillGame:
   if (DoConfirmKill) {
-    MsgBox, 1, , Kill game process?, 5
+    MsgBox, 1, , Kill game process?, 30
     IfMsgBox, Cancel
       Return
     IfMsgBox, Timeout
