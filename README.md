@@ -23,7 +23,7 @@ Provides hotkeys for several useful features in GTA V:Online, see list further d
 
 ## Installation (pssuspend.exe / pskill.exe)
 
-pssuspend.exe and pskill.exe are a tools from the sysinternals collection. You can download the whole package (~3MB) [directly from Microsoft](https://docs.microsoft.com/en-us/sysinternals/downloads/pssuspend).
+pssuspend.exe and pskill.exe are tools from the sysinternals collection. You can download the whole package (~3MB) [directly from Microsoft](https://docs.microsoft.com/en-us/sysinternals/downloads/pssuspend).
 You can copy them all but we only need pssuspend and pskill so go ahead and extract/copy `pssuspend.exe` `pskill.exe` to ANY of the following:
 
 * into the same location where the .ahk file is
