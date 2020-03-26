@@ -65,9 +65,13 @@ At the end it's your call but I'm 99% certain that it wont get you banned.
 * **EquipScarf** – Equip scarf (heist outfit speed, see miscellaneous)
 * **CycleOutfit** – Cycle through your saved outfits
 * **ToggleVIP** – Toggle VIP(/CEO/MC) mode
+* **ToggleAFK** – Toggle AFK mode
+* **ToggleClicker** – Toggle auto clicker
+* **ToggleRadar** – Toggle extended radar
 * **CEOBuzzard** – Spawn a free CEO Buzzard
 * **RandomHeist** – Join a random heist (on-call) solo aka don't invite friends in session
 * **ForceDisconnect** – Force disconnect the game by freezing the process for 10 seconds (requires pssuspend.exe)
+* **KillGame** – Kill the game process immediately (requires pskill.exe)
 * **ChatSnippets** – Select a sentence from a configurable list which will get typed out in the game (chat should already be open)
 * **DialDialog** – Select a number from a list and call it automatically (add items, change order or remove entries in config)
 
