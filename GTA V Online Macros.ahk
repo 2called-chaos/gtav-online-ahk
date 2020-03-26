@@ -50,6 +50,7 @@ TogglePassiveKey     := "F3" ; Toggle passive mode.
 EquipScarfKey        := "NumpadDot" ; Equip first scarf (heist outfit glitch, see readme/misc).
 CycleOutfitKey       := "NumpadAdd" ; Equip next/cycle through saved outfits.
 ToggleVIPKey         := "NumpadSub" ; Toggle VIP mode (required when VIP/CEO/MC).
+ToggleAFKKey         := "+NumpadSub" ; Toggle AFK mode
 KillGameKey          := "+F12" ; Kill game process, requires pskill.exe
 ForceDisconnectKey   := "F12" ; Force disconnect by suspending process for 10s, requires pssuspend.exe
 ChatSnippetsKey      := "F11" ; Gives you a few text snippets to put in chat (chat must be already open)
@@ -69,6 +70,7 @@ DoConfirmKill        := true  ; If true the KillGame action will ask for confirm
 DoConfirmDisconnect  := true  ; If true the ForceDisconnect action will ask for confirmation before suspending the process
 IntDisconnectDelay   := 10    ; Amount of seconds to freeze the process for, 10 works fine
 IsVIPActivated       := false ; Initial status of CEO/VIP mode (after (re)loading script)
+IsAFKActivated       := false ; Initial status of AFK mode (should always be false)
 
 
 ; Chat snippets (you can add more, comment them out or remove them, the pushs that is)
@@ -145,6 +147,7 @@ Hotkey, %RetrieveCarKey%, RetrieveCar
 Hotkey, %EquipScarfKey%, EquipScarf
 Hotkey, %CycleOutfitKey%, CycleOutfit
 Hotkey, %ToggleVIPKey%, ToggleVIP
+Hotkey, %ToggleAFKKey%, ToggleAFK
 Hotkey, %KillGameKey%, KillGame
 Hotkey, %ForceDisconnectKey%, ForceDisconnect
 Hotkey, %RandomHeistKey%, RandomHeist
@@ -367,6 +370,38 @@ KillGame:
       Return
   }
   Run, pskill gta5.exe ,,Hide
+  return
+
+; Toggle AFK (move left/right in a loop to not get kicked)
+ToggleAFK:
+  IsAFKActivated := !IsAFKActivated
+  if (IsAFKActivated) {
+    SplashTextOn 250, 20, AFK mode, AFK mode has been ACTIVATED
+  } else {
+    SplashTextOn 250, 20, AFK mode, AFK mode has been DEACTIVATED
+  }
+  Sleep 2000
+  SplashTextOff
+  bringGameIntoFocus()
+  Sleep 100
+
+  if (IsAFKActivated) {
+    Loop {
+      sleep, 500
+      send, {a}
+
+      if (!IsAFKActivated) {
+        break
+      }
+
+      sleep, 500
+      send, {d}
+
+      if (!IsAFKActivated) {
+        break
+      }
+    }
+  }
   return
 
 ; Toggle VIP mode (if VIP/CEO/MC all interaction menu entries are offset by one)
