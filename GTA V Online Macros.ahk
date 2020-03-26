@@ -1,3 +1,5 @@
+#MaxThreadsPerHotkey 2
+
 ;
 ; GTA V Online AHK-Macros v1.1.1 by 2called-chaos
 ; based on/inspired by GTA V Useful Macros v4.21 by twentyafterfour
@@ -51,6 +53,7 @@ EquipScarfKey        := "NumpadDot" ; Equip first scarf (heist outfit glitch, se
 CycleOutfitKey       := "NumpadAdd" ; Equip next/cycle through saved outfits.
 ToggleVIPKey         := "NumpadSub" ; Toggle VIP mode (required when VIP/CEO/MC).
 ToggleAFKKey         := "+NumpadSub" ; Toggle AFK mode
+ToggleClickerKey     := "+XButton2" ; Toggle Clicker (XButton2 = Mouse5)
 KillGameKey          := "+F12" ; Kill game process, requires pskill.exe
 ForceDisconnectKey   := "F12" ; Force disconnect by suspending process for 10s, requires pssuspend.exe
 ChatSnippetsKey      := "F11" ; Gives you a few text snippets to put in chat (chat must be already open)
@@ -71,6 +74,7 @@ DoConfirmDisconnect  := true  ; If true the ForceDisconnect action will ask for 
 IntDisconnectDelay   := 10    ; Amount of seconds to freeze the process for, 10 works fine
 IsVIPActivated       := false ; Initial status of CEO/VIP mode (after (re)loading script)
 IsAFKActivated       := false ; Initial status of AFK mode (should always be false)
+IsClickerActivated   := false ; Initial status of Clicker (should always be false)
 
 
 ; Chat snippets (you can add more, comment them out or remove them, the pushs that is)
@@ -148,6 +152,7 @@ Hotkey, %EquipScarfKey%, EquipScarf
 Hotkey, %CycleOutfitKey%, CycleOutfit
 Hotkey, %ToggleVIPKey%, ToggleVIP
 Hotkey, %ToggleAFKKey%, ToggleAFK
+Hotkey, %ToggleClickerKey%, ToggleClicker
 Hotkey, %KillGameKey%, KillGame
 Hotkey, %ForceDisconnectKey%, ForceDisconnect
 Hotkey, %RandomHeistKey%, RandomHeist
@@ -398,6 +403,29 @@ ToggleAFK:
       send, {d}
 
       if (!IsAFKActivated) {
+        break
+      }
+    }
+  }
+  return
+
+; Toggle Clicker
+ToggleClicker:
+  IsClickerActivated := !IsClickerActivated
+  if (IsClickerActivated) {
+    SoundPlay, %A_WinDir%\Media\Windows Battery Critical.wav
+  } else {
+    SoundPlay, %A_WinDir%\Media\Windows Balloon.wav
+  }
+  bringGameIntoFocus()
+  Sleep 10
+
+  if (IsClickerActivated) {
+    Loop {
+      Click
+      Sleep 10
+
+      if (!IsClickerActivated) {
         break
       }
     }
