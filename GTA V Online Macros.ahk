@@ -66,7 +66,7 @@ CallMechanicKey      := "F5" ; Call Mechanic
 CallPegasusKey       := "F24" ; Call Pegasus
 CallMerryweatherKey  := "F24" ; Call Merryweather
 CallInsuranceKey     := "F6" ; Call Insurance
-CallLesterKey        := "F24" ; Call Lester
+CallLesterKey        := "+F6" ; Call Lester
 
 
 ; Options (should be fine out of the box)
@@ -76,6 +76,7 @@ IntDisconnectDelay   := 10    ; Amount of seconds to freeze the process for, 10 
 IsVIPActivated       := false ; Initial status of CEO/VIP mode (after (re)loading script)
 IsAFKActivated       := false ; Initial status of AFK mode (should always be false)
 IsClickerActivated   := false ; Initial status of Clicker (should always be false)
+DisableCapsOnAction  := true  ; Disable caps lock before executing macros, some macros might fail if caps lock is on
 
 
 ; Chat snippets (you can add more, comment them out or remove them, the pushs that is)
@@ -181,9 +182,19 @@ Return
 ; === Functions ===
 ; =================
 
+turnCapslockOff() {
+  if (!DisableCapsOnAction)
+    return
+  if (GetKeyState("CapsLock", "T") = 1) {
+    ;Input, SingleKey, V L1
+    SetCapsLockState, off
+  }
+}
+
 openInteractionMenu(isVIPActive) {
   global IntMenuDelay
   global IGB_Interaction
+  turnCapslockOff()
   Send {%IGB_Interaction%}
   sleep, IntMenuDelay
   if (isVIPActive = 1) {
@@ -208,6 +219,7 @@ openPhone() {
   global IGB_Phone
 
   ; Opens Phone Menu
+  turnCapslockOff()
   Send {%IGB_Phone%}
 
   ; Necessary delay to allow phone menu to open properly (which it often doesn't anyways)
@@ -225,6 +237,7 @@ scrollPhoneUp(by = 1) {
 makeCall(scrollUp, doOpenPhone = false, menu = 2) {
   global IntPhoneMenuDelay2
   global IntKeySendDelay
+  turnCapslockOff()
   if(doOpenPhone)
     openPhone()
 
@@ -247,6 +260,7 @@ dialNumber(number, doOpenPhone = false) {
   global IntPhoneScrollDelay
   global IntPhoneMenuDelay2
 
+  turnCapslockOff()
   if(doOpenPhone)
     openPhone()
 
@@ -415,6 +429,7 @@ ToggleAFK:
 ; Toggle Radar
 ToggleRadar:
   ; Open settings
+  turnCapslockOff()
   SoundPlay, %A_WinDir%\Media\Windows Battery Critical.wav
   Send {%IGB_Pause%}
 
@@ -528,6 +543,7 @@ RetrieveCar:
 
 ; Chooses on-call random heist from phone options
 RandomHeist:
+  turnCapslockOff()
   makeCall(13, true, 1)
   sleep IntKeySendDelay
   scrollPhoneUp(2) ; scroll up twice to solo-q
@@ -542,6 +558,7 @@ CEOBuzzard:
 
 ; Show a list of chat snippets to type out (chat must be opened)
 ChatSnippets:
+  turnCapslockOff()
   Gui, CSNIP:add, Text, , Choose your snippet:
   for index, element in ArrayChatSnippets
   {
