@@ -87,6 +87,23 @@ The following calls can be directly bound to a hotkey (adding more is trivial):
 You can reach more (useful or useless contacts) by binding `DialDialog`
 
 
+## Config
+
+You can (optionally) create a file `config.ahk` in the same location as the main script to overwrite settings without needing
+to change the main file making updates easier. You can include any or all settings in the top of the script.
+
+```ahk
+SnackMenuKey := "F12" ; change a single key bind
+
+; add a chat snippet
+ArrayChatSnippets.push("Hey there!")
+
+; start with a clear list (discard default snippets by clearing array)
+ArrayChatSnippets := []
+ArrayChatSnippets.push("The one and only snippet!")
+```
+
+
 ## Miscellaneous
 
 #### modifier keys for hotkeys

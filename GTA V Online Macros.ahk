@@ -125,6 +125,13 @@ ArrayPhonebook.push("310-555-0156  - (useless) *Pickup* .. *Hangup*")
 ArrayPhonebook.push("1-999-768822  - (useless) 'This number is no longer in service'")
 ArrayPhonebook.push("273-555-0155  - (useless) Truthseeker Helpline")
 
+
+; Create a file (at the same location as this one) named "config.ahk"
+; and overwrite settings without changing them here (easier to update).
+; See Readme for more info.
+#Include *i config.ahk
+
+
 ; ==============================
 ; === CONFIGURATION GOES ^^^ ===
 ; ==============================
