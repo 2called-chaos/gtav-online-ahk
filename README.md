@@ -7,6 +7,10 @@ Provides hotkeys for several useful features in GTA V:Online, see list further d
           I evidently do heists most of the time so if you have ideas for useful CEO macros, let me know
           or just send them in!
 
+**UPDATE-NOTE**: For the Cayo Perico Heist Final you will need the updated script and then either bind `ToggleCPHKey`
+                 (default Ctrl+NumpadSub) or set `DoToggleCPHWithVIP` to `true` which will change the VIP toggle to
+                 a 3-way toggle (none/VIP/CP-heist).
+
 
 ## Requirements
 
