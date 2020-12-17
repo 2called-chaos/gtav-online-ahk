@@ -53,6 +53,7 @@ EquipScarfKey        := "NumpadDot" ; Equip first scarf (heist outfit glitch, se
 ToggleRadarKey       := "+F2" ; Toggle between extended and standar radar.
 CycleOutfitKey       := "NumpadAdd" ; Equip next/cycle through saved outfits.
 ToggleVIPKey         := "NumpadSub" ; Toggle VIP mode (required when VIP/CEO/MC).
+ToggleCPHKey         := "^NumpadSub" ; Toggle Cayo Perico Heist Final mode (extra menu entry), also see DoToggleCPHWithVIP
 ToggleAFKKey         := "+NumpadSub" ; Toggle AFK mode
 ToggleClickerKey     := "+XButton2" ; Toggle Clicker (XButton2 = Mouse5)
 KillGameKey          := "+F12" ; Kill game process, requires pskill.exe
@@ -73,11 +74,13 @@ CallLesterKey        := "+F6" ; Call Lester
 DoConfirmKill        := true  ; If true the KillGame action will ask for confirmation before killing the process
 DoConfirmDisconnect  := true  ; If true the ForceDisconnect action will ask for confirmation before suspending the process
 IntDisconnectDelay   := 10    ; Amount of seconds to freeze the process for, 10 works fine
+DoToggleCPHWithVIP   := false ; If true ToggleVIP will become a 3-way toggle (off/on/CayoPericoHeistFinal)
 DisableCapsOnAction  := true  ; Disable caps lock before executing macros, some macros might fail if caps lock is on
 
 ; Internal variables (probably no need to edit)
 IsVIPActivated       := false ; Initial status of CEO/VIP mode (after (re)loading script)
 IsAFKActivated       := false ; Initial status of AFK mode (should always be false)
+IsCPHActivated       := false ; Initial status of CPH mode (should always be false)
 IsClickerActivated   := false ; Initial status of Clicker (should always be false)
 
 
@@ -156,6 +159,7 @@ Hotkey, %RetrieveCarKey%, RetrieveCar
 Hotkey, %EquipScarfKey%, EquipScarf
 Hotkey, %CycleOutfitKey%, CycleOutfit
 Hotkey, %ToggleVIPKey%, ToggleVIP
+Hotkey, %ToggleCPHKey%, ToggleCPH
 Hotkey, %ToggleAFKKey%, ToggleAFK
 Hotkey, %ToggleClickerKey%, ToggleClicker
 Hotkey, %ToggleRadarKey%, ToggleRadar
@@ -193,13 +197,16 @@ turnCapslockOff() {
   }
 }
 
-openInteractionMenu(isVIPActive) {
+openInteractionMenu(isVIPActive, isCPHActive) {
   global IntMenuDelay
   global IGB_Interaction
   turnCapslockOff()
   Send {%IGB_Interaction%}
   sleep, IntMenuDelay
-  if (isVIPActive = 1) {
+  if (isCPHActive = 1) {
+    Send {Down}
+    Send {Down}
+  } else if (isVIPActive = 1) {
     Send {Down}
   }
 }
@@ -478,11 +485,36 @@ ToggleClicker:
 
 ; Toggle VIP mode (if VIP/CEO/MC all interaction menu entries are offset by one)
 ToggleVIP:
-  IsVIPActivated := !IsVIPActivated
   if (IsVIPActivated) {
-    SplashTextOn 250, 20, VIP mode, VIP mode has been ACTIVATED
+    if (DoToggleCPHWithVIP) {
+      if (IsCPHActivated) {
+        IsCPHActivated := false
+        IsVIPActivated := false
+        SplashTextOn 280, 20, VIP&CPH mode, VIP&&CPH mode has been DEACTIVATED
+      } else {
+        IsCPHActivated := true
+        SplashTextOn 350, 20, CPH mode, Cayo Perico Heist mode has been ACTIVATED
+      }
+    } else {
+      IsVIPActivated := false
+      SplashTextOn 250, 20, VIP mode, VIP mode has been DEACTIVATED
+    }
   } else {
-    SplashTextOn 250, 20, VIP mode, VIP mode has been DEACTIVATED
+    IsVIPActivated := true
+    SplashTextOn 250, 20, VIP mode, VIP mode has been ACTIVATED
+  }
+  Sleep 2000
+  SplashTextOff
+  bringGameIntoFocus()
+  return
+
+; Toggle CPH mode (Cayo Perico Heist Final)
+ToggleCPH:
+  IsCPHActivated := !IsCPHActivated
+  if (IsCPHActivated) {
+    SplashTextOn 350, 20, CPH mode, Cayo Perico Heist mode has been ACTIVATED
+  } else {
+    SplashTextOn 350, 20, CPH mode, Cayo Perico Heist mode has been DEACTIVATED
   }
   Sleep 2000
   SplashTextOff
@@ -491,33 +523,33 @@ ToggleVIP:
 
 ; Open up snack menu for manual selection (or stock check) of snacks
 SnackMenu:
-  openInteractionMenu(IsVIPActivated)
+  openInteractionMenu(IsVIPActivated, IsCPHActivated)
   openSnackMenu()
   return
 
 ; Automatic snacking. Eats 2 snacks from second snack slot and close menu.
 AutoHealth:
-  openInteractionMenu(IsVIPActivated)
+  openInteractionMenu(IsVIPActivated, IsCPHActivated)
   openSnackMenu()
   Send {Down}{Enter}{Enter}{%IGB_Interaction%}
   return
 
 ; Open up armor menu for manual selection (or stock check) of armor
 ArmorMenu:
-  openInteractionMenu(IsVIPActivated)
+  openInteractionMenu(IsVIPActivated, IsCPHActivated)
   openArmorMenu()
   return
 
 ; Equips super heavy armor and exits menu automatically
 AutoArmor:
-  openInteractionMenu(IsVIPActivated)
+  openInteractionMenu(IsVIPActivated, IsCPHActivated)
   openArmorMenu()
   Send {Down}{Down}{Down}{Down}{Enter}{%IGB_Interaction%}
   return
 
 ; Equips scarf to allow faster running with heist armor (see readme/misc)
 EquipScarf:
-  openInteractionMenu(IsVIPActivated)
+  openInteractionMenu(IsVIPActivated, IsCPHActivated)
   ; Opens scarf menu
   Send {Down}{Down}{Down}{Enter}{Down}{Enter}
   ; equip scarf and exit menu. This line can be changed to pick different scarfs.
@@ -526,20 +558,20 @@ EquipScarf:
 
 ; Cycle between your saved outfits
 CycleOutfit:
-  openInteractionMenu(IsVIPActivated)
+  openInteractionMenu(IsVIPActivated, IsCPHActivated)
   openOutfitMenu()
   Send {Right}{Enter}{%IGB_Interaction%}
   return
 
 ; Toggle passive mode
 TogglePassive:
-  openInteractionMenu(false) ; Ignore VIP status when going up
+  openInteractionMenu(false, false) ; Ignore VIP status when going up
   Send {Up}{Enter}{%IGB_Interaction%}
   return
 
 ; Retrieve your currently active vehicle
 RetrieveCar:
-  openInteractionMenu(IsVIPActivated)
+  openInteractionMenu(IsVIPActivated, IsCPHActivated)
   Send {Down}{Down}{Down}{Down}{Enter}{Enter}{%IGB_Interaction%}
   return
 
@@ -554,7 +586,7 @@ RandomHeist:
 
 ; Calls in free CEO buzzard (if you are CEO)
 CEOBuzzard:
-  openInteractionMenu(false)
+  openInteractionMenu(false, false)
   Send {Enter}{Up 2}{Enter}{Down 4}{Enter}
   return
 

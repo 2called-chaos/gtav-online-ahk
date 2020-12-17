@@ -65,6 +65,7 @@ At the end it's your call but I'm 99% certain that it wont get you banned.
 * **EquipScarf** – Equip scarf (heist outfit speed, see miscellaneous)
 * **CycleOutfit** – Cycle through your saved outfits
 * **ToggleVIP** – Toggle VIP(/CEO/MC) mode
+* **ToggleCPH** – Toggle CPH (Cayo Perico Heist Final) mode
 * **ToggleAFK** – Toggle AFK mode
 * **ToggleClicker** – Toggle auto clicker
 * **ToggleRadar** – Toggle extended radar
