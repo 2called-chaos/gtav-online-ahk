@@ -73,10 +73,12 @@ CallLesterKey        := "+F6" ; Call Lester
 DoConfirmKill        := true  ; If true the KillGame action will ask for confirmation before killing the process
 DoConfirmDisconnect  := true  ; If true the ForceDisconnect action will ask for confirmation before suspending the process
 IntDisconnectDelay   := 10    ; Amount of seconds to freeze the process for, 10 works fine
+DisableCapsOnAction  := true  ; Disable caps lock before executing macros, some macros might fail if caps lock is on
+
+; Internal variables (probably no need to edit)
 IsVIPActivated       := false ; Initial status of CEO/VIP mode (after (re)loading script)
 IsAFKActivated       := false ; Initial status of AFK mode (should always be false)
 IsClickerActivated   := false ; Initial status of Clicker (should always be false)
-DisableCapsOnAction  := true  ; Disable caps lock before executing macros, some macros might fail if caps lock is on
 
 
 ; Chat snippets (you can add more, comment them out or remove them, the pushs that is)
