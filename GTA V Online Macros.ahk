@@ -196,6 +196,7 @@ Return
 ; =================
 
 turnCapslockOff() {
+  global DisableCapsOnAction
   if (!DisableCapsOnAction)
     return
   if (GetKeyState("CapsLock", "T") = 1) {
