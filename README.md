@@ -37,6 +37,16 @@ You can copy them all but we only need pssuspend and pskill so go ahead and extr
 **NOTE:** Start the pssuspend.exe AND pskill.exe once by double clicking on it and accept the license agreement or it will silently fail.
 
 
+## Updates
+
+Since v1.2.0 the script includes a simple auto updater. By default it will check for a new version on GitHub every time you launch the script.
+If a new (or actually different) version is found it will prompt you to proceed or cancel.
+See the readme section about using config.ahk if you plan on changing settings as the update will replace the main script file!
+
+You can disable the automatic check and/or bind a manual check to a hotkey in the configuration (`DoCheckForUpdates` and `CheckForUpdatesKey`).
+Note that the update check hotkey still only works when GTA is active.
+
+
 ## Will I get banned?
 
 I'm not aware of any bans issued by Rockstar following the usage of AHK-scripts. I personally use AHK-scripts within

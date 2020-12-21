@@ -71,6 +71,8 @@ CallMerryweatherKey  := "F24" ; Call Merryweather
 CallInsuranceKey     := "F6" ; Call Insurance
 CallLesterKey        := "+F6" ; Call Lester
 
+CheckForUpdatesKey   := "F24" ; Checks on startup by default, see DoCheckForUpdates option
+
 
 ; Options (should be fine out of the box)
 DoConfirmKill        := true  ; If true the KillGame action will ask for confirmation before killing the process
@@ -78,6 +80,7 @@ DoConfirmDisconnect  := true  ; If true the ForceDisconnect action will ask for 
 IntDisconnectDelay   := 10    ; Amount of seconds to freeze the process for, 10 works fine
 DoToggleCPHWithVIP   := false ; If true ToggleVIP will become a 3-way toggle (off/on/CayoPericoHeistFinal)
 DisableCapsOnAction  := true  ; Disable caps lock before executing macros, some macros might fail if caps lock is on
+DoCheckForUpdates    := true  ; Check for script updates on startup (you can manually bind this instead or additionally)
 
 ; Internal variables (probably no need to edit)
 IsVIPActivated       := false ; Initial status of CEO/VIP mode (after (re)loading script)
@@ -159,6 +162,7 @@ SetWorkingDir A_ScriptDir
 #IfWinActive ahk_class grcWindow
 
 ; Hotkey/Function mapping
+Hotkey, %CheckForUpdatesKey%, CheckForUpdates
 Hotkey, %SnackMenuKey%, SnackMenu
 Hotkey, %AutoHealthKey%, AutoHealth
 Hotkey, %ArmorMenuKey%, ArmorMenu
@@ -187,6 +191,11 @@ Hotkey, %CallLesterKey%, CallLester
 ; Sets delay(ms) between keystrokes issued. Arguments are delay between keystrokes and press duration, respectively.
 ; They might be able to go lower but these values are pretty fast and work reliably.
 setkeydelay, IntKeySendDelay, IntKeyPressDuration
+
+; Check for updates?
+if (DoCheckForUpdates) {
+  performUpdateCheck(true)
+}
 
 ; setup done, only functions and macros follow
 Return
@@ -375,6 +384,49 @@ bringGameIntoFocus(applyDelay = false) {
   if(applyDelay)
     Sleep IntFocusDelay
 }
+
+
+
+; ==============
+; === UPDATE ===
+; ==============
+performUpdateCheck(silentSuccess = false) {
+  URLDownloadToFile,https://raw.githubusercontent.com/2called-chaos/gtav-online-ahk/master/GTA`%20V`%20Online`%20Macros.ahk,update.txt
+  if (errorlevel) {
+    msgbox, 0, Error - GTA V Online AHK-Macros, Received error response from GitHub and update check was canceled.`nPlease retry later or check manually.`n`nHint: Set DoCheckForUpdates to false to disable automatic checking!
+    FileDelete, update.txt
+    return
+  }
+
+  FileReadLine, update, update.txt, 1
+  FileReadLine, currentVersion, %A_ScriptName%, 1
+  if (update = currentVersion) {
+    FileDelete, update.txt
+    if (!silentSuccess)
+      msgbox, You are running the latest version!`n`n%update%`n`nIf something doesn't work please let me know!`n`nhttps://github.com/2called-chaos/gtav-online-ahk
+  } else if (InStr(update, "; v") = 1) {
+    MsgBox, 4, Update available! - GTA V Online AHK-Macros, A new version of GTA V Online AHK-Macros has been released!`n`n%currentVersion% <-- your version`n%update% <-- available update`n`nWould you like to update?`n`nWarning: If you don't use config.ahk this might reset all your settings!
+    IfMsgBox Yes
+    {
+      FileCopy, update.txt, %A_ScriptName%, 1
+      FileDelete, update.txt
+      msgbox, 0, Update successful! - GTA V Online AHK-Macros, Update successful, the script will now reload!`n`nHint: Check for new stuff `;)
+      Reload
+    }
+    IfMsgBox No
+    {
+      msgbox, This script will NOT be updated!`n`nHint: Set DoCheckForUpdates to false to disable automatic checking!
+      FileDelete, update.txt
+    }
+  } else {
+    msgbox, 0, Error - GTA V Online AHK-Macros, Received invalid response from GitHub and update check was canceled.`nPlease retry later or check manually.`n`nHint: Set DoCheckForUpdates to false to disable automatic checking!
+    FileDelete, update.txt
+  }
+}
+
+CheckForUpdates:
+  performUpdateCheck()
+  return
 
 
 
