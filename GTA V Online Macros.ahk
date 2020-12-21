@@ -1,9 +1,9 @@
-; v1.2.0
+; v1.2.1
 ; ^ don't remove or alter this line (autoupdate)
 #MaxThreadsPerHotkey 2
 
 ;
-; GTA V Online AHK-Macros v1.2.0 by 2called-chaos
+; GTA V Online AHK-Macros v1.2.1 by 2called-chaos
 ; based on/inspired by GTA V Useful Macros v4.21 by twentyafterfour
 ;
 ; # Description
