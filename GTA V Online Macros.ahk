@@ -70,6 +70,7 @@ CallPegasusKey       := "F24" ; Call Pegasus
 CallMerryweatherKey  := "F24" ; Call Merryweather
 CallInsuranceKey     := "F6" ; Call Insurance
 CallLesterKey        := "+F6" ; Call Lester
+CallAssistantKey     := "^F6" ; Call Assistant
 
 CheckForUpdatesKey   := "F24" ; Checks on startup by default, see DoCheckForUpdates option
 
@@ -116,6 +117,7 @@ IGB_Pause := "p"
 ; Phone numbers for DialDialog GUI dialog (you can change the order if you want or hide entries by commenting them out)
 ArrayPhonebook := []
 ArrayPhonebook.push("911           - Emergency Services")
+ArrayPhonebook.push("346-555-0137  - Assistant")
 ArrayPhonebook.push("328-555-0153  - Mechanic")
 ArrayPhonebook.push("611-555-0149  - Mors Mutual Insurance")
 ArrayPhonebook.push("328-555-0122  - Pegasus Lifestyle Management")
@@ -123,12 +125,35 @@ ArrayPhonebook.push("273-555-0120  - Merryweather Security")
 ArrayPhonebook.push("346-555-0176  - Atomic Blimp")
 ArrayPhonebook.push("323-555-5555  - Downtown Cab Co.")
 ArrayPhonebook.push("346-555-0102  - Lester Crest")
-ArrayPhonebook.push("555-0182      - (useless) *modem* ")
-ArrayPhonebook.push("1-999-9327667 - (useless) *holding music* ")
-ArrayPhonebook.push("425-555-0170  - (useless) 'This mailbox is full' ")
-ArrayPhonebook.push("310-555-0156  - (useless) *Pickup* .. *Hangup*")
-ArrayPhonebook.push("1-999-768822  - (useless) 'This number is no longer in service'")
-ArrayPhonebook.push("273-555-0155  - (useless) Truthseeker Helpline")
+ArrayPhonebook.push("273-555-0172  - Captain (Yacht)")
+ArrayPhonebook.push("273-555-0185  - Brucie (Bull Shark Testosterone)")
+ArrayPhonebook.push("346-555-0141  - Lamar (Mugger/Mission)")
+ArrayPhonebook.push("346-555-0188  - Martin Madrazo (Job)")
+ArrayPhonebook.push("328-555-0198  - Ron (Job)")
+ArrayPhonebook.push("611-555-0120  - Simeon (Job)")
+ArrayPhonebook.push("611-555-0152  - Gerald (Job)")
+ArrayPhonebook.push("020-755-0152  - Agent 14 (?)")
+ArrayPhonebook.push("273-555-0193  - Benny (broken?)")
+ArrayPhonebook.push("611-555-0192  - Paige (?)")
+ArrayPhonebook.push("273-555-0180  - Bryony (?)")
+ArrayPhonebook.push("346-555-0196  - Wendy (?)")
+
+; Hookers
+ArrayPhonebook.push("611-555-0163  - Chastity (Prostitute)")
+ArrayPhonebook.push("328-555-0167  - Cheetah (Prostitute")
+ArrayPhonebook.push("346-555-0186  - Fufu (Prostitute)")
+ArrayPhonebook.push("611-555-0184  - Infernus (Prostitute)")
+ArrayPhonebook.push("346-555-0183  - Nikki (Prostitute)")
+ArrayPhonebook.push("273-555-0189  - Peach (Prostitute)")
+ArrayPhonebook.push("328-555-0177  - Sapphire (Prostitute)")
+
+; Random stuff
+;ArrayPhonebook.push("555-0182      - (useless) *modem* ")
+;ArrayPhonebook.push("1-999-9327667 - (useless) *holding music* ")
+;ArrayPhonebook.push("425-555-0170  - (useless) 'This mailbox is full' ")
+;ArrayPhonebook.push("310-555-0156  - (useless) *Pickup* .. *Hangup*")
+;ArrayPhonebook.push("1-999-768822  - (useless) 'This number is no longer in service'")
+;ArrayPhonebook.push("273-555-0155  - (useless) Truthseeker Helpline")
 
 
 ; Create a file (at the same location as this one) named "config.ahk"
@@ -187,6 +212,7 @@ Hotkey, %CallPegasusKey%, CallPegasus
 Hotkey, %CallMerryweatherKey%, CallMerryweather
 Hotkey, %CallInsuranceKey%, CallInsurance
 Hotkey, %CallLesterKey%, CallLester
+Hotkey, %CallAssistantKey%, CallAssistant
 
 ; Sets delay(ms) between keystrokes issued. Arguments are delay between keystrokes and press duration, respectively.
 ; They might be able to go lower but these values are pretty fast and work reliably.
@@ -753,4 +779,8 @@ CallInsurance:
 CallLester:
   ;makeCall(12, true)
   dialNumber("346-555-0102", true)
+  return
+
+CallAssistant:
+  dialNumber("346-555-0137", true)
   return
