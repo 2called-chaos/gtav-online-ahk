@@ -111,6 +111,7 @@ IntKeyPressDuration  := 5    ; duration (in ms) each key press is held down.
 ; In case you changed your ingame bindings:
 IGB_Interaction := "m"
 IGB_Phone := "up"
+IGB_PhoneSpecial := "Space"
 IGB_Pause := "p"
 
 
@@ -317,6 +318,7 @@ dialNumber(number, doOpenPhone = false) {
   global IntKeyPressDuration
   global IntPhoneScrollDelay
   global IntPhoneMenuDelay2
+  global IGB_PhoneSpecial
 
   turnCapslockOff()
   if(doOpenPhone)
@@ -328,7 +330,7 @@ dialNumber(number, doOpenPhone = false) {
   sleep IntPhoneMenuDelay2
 
   ; enter number screen
-  Send {Space}
+  Send {%IGB_PhoneSpecial%}
   sleep IntPhoneMenuDelay2
 
   ; change key delay for this function
@@ -379,7 +381,7 @@ dialNumber(number, doOpenPhone = false) {
   setkeydelay IntKeySendDelay, IntKeyPressDuration
 
   ; call it
-  Send {Space}
+  Send {%IGB_PhoneSpecial%}
 }
 
 _phonePointerRow(num) {
