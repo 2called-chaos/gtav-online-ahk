@@ -226,6 +226,10 @@ if (DoCheckForUpdates) {
 ; setup done, only functions and macros follow
 Return
 
+; Create a file (at the same location as this one) named "custom.ahk"
+; and add functions or macros.
+#Include *i custom.ahk
+
 
 
 ; =================
