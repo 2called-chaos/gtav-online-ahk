@@ -262,7 +262,7 @@ openInteractionMenu(isVIPActive, isCPHActive) {
 }
 
 openSnackMenu() {
-  Send {Down}{Down}{Enter}{Down}{Down}{Enter}
+  Send {Down}{Down}{Enter}{Down}{Down}{Down}{Down}{Enter}
 }
 
 openArmorMenu() {
