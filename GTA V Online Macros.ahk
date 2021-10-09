@@ -266,7 +266,7 @@ openSnackMenu() {
 }
 
 openArmorMenu() {
-  Send {Down}{Down}{Enter}{Down}{Enter}
+  Send {Down}{Down}{Enter}{Down}{Down}{Down}{Enter}
 }
 
 openOutfitMenu() {
