@@ -63,6 +63,8 @@ ForceDisconnectKey   := "F12" ; Force disconnect by suspending process for 10s, 
 ChatSnippetsKey      := "F11" ; Gives you a few text snippets to put in chat (chat must be already open)
 RandomHeistKey       := "F7" ; Chooses on-call random heist from phone options
 CEOBuzzardKey        := "F24" ; Spawn free CEO buzzard
+RequestSparrowKey    := "F24" ; Call in your Sparrow (or whatever you last requested moon pool vehicle was)
+ReturnSparrowKey     := "F24" ; Return your Sparrow to the Kosatka
 
 DialDialogKey        := "+F5" ; Call GUI with a list of almost all numbers
 CallMechanicKey      := "F5" ; Call Mechanic
@@ -207,6 +209,8 @@ Hotkey, %ForceDisconnectKey%, ForceDisconnect
 Hotkey, %RandomHeistKey%, RandomHeist
 Hotkey, %ChatSnippetsKey%, ChatSnippets
 Hotkey, %CEOBuzzardKey%, CEOBuzzard
+Hotkey, %RequestSparrowKey%, RequestSparrow
+Hotkey, %ReturnSparrowKey%, ReturnSparrow
 Hotkey, %DialDialogKey%, DialDialog
 Hotkey, %CallMechanicKey%, CallMechanic
 Hotkey, %CallPegasusKey%, CallPegasus
@@ -684,6 +688,18 @@ RandomHeist:
 CEOBuzzard:
   openInteractionMenu(false, false)
   Send {Enter}{Up 2}{Enter}{Down 4}{Enter}
+  return
+
+; Call in your Sparrow (or whatever you last requested moon pool vehicle was)
+RequestSparrow:
+  openInteractionMenu(IsVIPActivated, IsCPHActivated)
+  Send {Down}{Down}{Down}{Down}{Down}{Enter}{Up}{Enter}{Down}{Enter}
+  return
+
+; Return your Sparrow to the Kosatka
+ReturnSparrow:
+  openInteractionMenu(IsVIPActivated, IsCPHActivated)
+  Send {Down}{Down}{Down}{Down}{Down}{Enter}{Up}{Enter}{Down}{Down}{Down}{Enter}{Up}{Up}{Enter}
   return
 
 ; Show a list of chat snippets to type out (chat must be opened)
