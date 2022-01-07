@@ -672,7 +672,9 @@ RetrieveCar:
 ; Chooses on-call random heist from phone options
 RandomHeist:
   turnCapslockOff()
-  makeCall(13, true, 1)
+  makeCall(6, true, 1)
+  sleep IntKeySendDelay
+  Send {Enter}
   sleep IntKeySendDelay
   scrollPhoneUp(2) ; scroll up twice to solo-q
   Send {Enter}{Enter}
