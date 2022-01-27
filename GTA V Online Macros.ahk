@@ -111,10 +111,19 @@ IntKeyPressDuration  := 5    ; duration (in ms) each key press is held down.
 
 
 ; In case you changed your ingame bindings:
-IGB_Interaction := "m"
-IGB_Phone := "up"
-IGB_PhoneSpecial := "Space"
-IGB_Pause := "p"
+global IGB_Interaction := "m"
+global IGB_Phone := "up"
+global IGB_PhoneSpecial := "space"
+global IGB_Pause := "p"
+; the following refer to your phone binding and also apply to the interaction menu
+global IGB_Up := "up"
+global IGB_Down := "down"
+global IGB_Left := "left"
+global IGB_Right := "right"
+global IGB_Enter := "enter"
+; the following refer to movement (used for AFK)
+global IGB_MoveLeft := "a"
+global IGB_MoveRight := "d"
 
 
 ; Phone numbers for DialDialog GUI dialog (you can change the order if you want or hide entries by commenting them out)
@@ -253,33 +262,31 @@ turnCapslockOff() {
 
 openInteractionMenu(isVIPActive, isCPHActive) {
   global IntMenuDelay
-  global IGB_Interaction
   turnCapslockOff()
   Send {%IGB_Interaction%}
   sleep, IntMenuDelay
   if (isCPHActive = 1) {
-    Send {Down}
-    Send {Down}
+    Send {%IGB_Down%}
+    Send {%IGB_Down%}
   } else if (isVIPActive = 1) {
-    Send {Down}
+    Send {%IGB_Down%}
   }
 }
 
 openSnackMenu() {
-  Send {Down}{Down}{Enter}{Down}{Down}{Down}{Down}{Enter}
+  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}
 }
 
 openArmorMenu() {
-  Send {Down}{Down}{Enter}{Down}{Down}{Down}{Enter}
+  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}
 }
 
 openOutfitMenu() {
-  Send {Down}{Down}{Down}{Enter}{Down}{Down}{Down}
+  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
 }
 
 openPhone() {
   global IntPhoneMenuDelay
-  global IGB_Phone
 
   ; Opens Phone Menu
   turnCapslockOff()
@@ -307,14 +314,14 @@ makeCall(scrollUp, doOpenPhone = false, menu = 2) {
   ; go to contacts
   scrollPhoneUp(menu)
   sleep IntKeySendDelay
-  Send {Enter}
+  Send {%IGB_Enter%}
   sleep IntPhoneMenuDelay2
 
   ; scroll to contact
   scrollPhoneUp(scrollUp)
 
   ; call it
-  Send {Enter}
+  Send {%IGB_Enter%}
 }
 
 dialNumber(number, doOpenPhone = false) {
@@ -322,7 +329,6 @@ dialNumber(number, doOpenPhone = false) {
   global IntKeyPressDuration
   global IntPhoneScrollDelay
   global IntPhoneMenuDelay2
-  global IGB_PhoneSpecial
 
   turnCapslockOff()
   if(doOpenPhone)
@@ -330,7 +336,7 @@ dialNumber(number, doOpenPhone = false) {
 
   ; go to contacts
   scrollPhoneUp(2)
-  Send {Enter}
+  Send {%IGB_Enter%}
   sleep IntPhoneMenuDelay2
 
   ; enter number screen
@@ -362,23 +368,23 @@ dialNumber(number, doOpenPhone = false) {
 
     ; move pointer
     if (deltax > 0)
-      Send {right %deltax%}
+      Send {%IGB_Right% %deltax%}
 
     if (deltay > 0)
-      Send {down %deltay%}
+      Send {%IGB_Down% %deltay%}
     
     if (deltax < 0) {
       deltax := Abs(deltax)
-      Send {left %deltax%}
+      Send {%IGB_Left% %deltax%}
     }
     
     if (deltay < 0) {
       deltay := Abs(deltay)
-      Send {up %deltay%}
+      Send {%IGB_Up% %deltay%}
     }
 
     pointer := A_LoopField
-    Send {Enter}
+    Send {%IGB_Enter%}
   }
 
   ; reset key delay (should not be necessary)
@@ -517,14 +523,14 @@ ToggleAFK:
   if (IsAFKActivated) {
     Loop {
       sleep, 500
-      send, {a}
+      send, {%IGB_MoveLeft%}
 
       if (!IsAFKActivated) {
         break
       }
 
       sleep, 500
-      send, {d}
+      send, {%IGB_MoveRight%}
 
       if (!IsAFKActivated) {
         break
@@ -543,6 +549,7 @@ ToggleRadar:
   ; Necessary delay to allow settings to open properly
   sleep, IntPhoneMenuDelay2
 
+  ; Not using IGB_ variables on purpose as pause menu has static bindings
   Send {Right}{Right}{Right}{Right}
   Sleep IntPhoneMenuDelay2 * 2
   Send {Enter}
@@ -629,7 +636,7 @@ SnackMenu:
 AutoHealth:
   openInteractionMenu(IsVIPActivated, IsCPHActivated)
   openSnackMenu()
-  Send {Down}{Enter}{Enter}{%IGB_Interaction%}
+  Send {%IGB_Down%}{%IGB_Enter%}{%IGB_Enter%}{%IGB_Interaction%}
   return
 
 ; Open up armor menu for manual selection (or stock check) of armor
@@ -642,35 +649,35 @@ ArmorMenu:
 AutoArmor:
   openInteractionMenu(IsVIPActivated, IsCPHActivated)
   openArmorMenu()
-  Send {Down}{Down}{Down}{Down}{Enter}{%IGB_Interaction%}
+  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Interaction%}
   return
 
 ; Equips scarf to allow faster running with heist armor (see readme/misc)
 EquipScarf:
   openInteractionMenu(IsVIPActivated, IsCPHActivated)
   ; Opens scarf menu
-  Send {Down}{Down}{Down}{Enter}{Down}{Enter}
+  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Enter%}
   ; equip scarf and exit menu. This line can be changed to pick different scarfs.
-  Send {Up}{Up}{Up}{Up}{Right}{%IGB_Interaction%}
+  Send {%IGB_Up%}{%IGB_Up%}{%IGB_Up%}{%IGB_Up%}{%IGB_Right%}{%IGB_Interaction%}
   return
 
 ; Cycle between your saved outfits
 CycleOutfit:
   openInteractionMenu(IsVIPActivated, IsCPHActivated)
   openOutfitMenu()
-  Send {Right}{Enter}{%IGB_Interaction%}
+  Send {%IGB_Right%}{%IGB_Enter%}{%IGB_Interaction%}
   return
 
 ; Toggle passive mode
 TogglePassive:
   openInteractionMenu(false, false) ; Ignore VIP status when going up
-  Send {Up}{Enter}{%IGB_Interaction%}
+  Send {%IGB_Up%}{%IGB_Enter%}{%IGB_Interaction%}
   return
 
 ; Retrieve your currently active vehicle
 RetrieveCar:
   openInteractionMenu(IsVIPActivated, IsCPHActivated)
-  Send {Down}{Down}{Down}{Down}{Enter}{Enter}{%IGB_Interaction%}
+  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Enter%}{%IGB_Interaction%}
   return
 
 ; Chooses on-call random heist from phone options
@@ -678,28 +685,28 @@ RandomHeist:
   turnCapslockOff()
   makeCall(6, true, 1)
   sleep IntKeySendDelay
-  Send {Enter}
+  Send {%IGB_Enter%}
   sleep IntKeySendDelay
   scrollPhoneUp(2) ; scroll up twice to solo-q
-  Send {Enter}{Enter}
+  Send {%IGB_Enter%}{%IGB_Enter%}
   return
 
 ; Calls in free CEO buzzard (if you are CEO)
 CEOBuzzard:
   openInteractionMenu(false, false)
-  Send {Enter}{Up 2}{Enter}{Down 4}{Enter}
+  Send {%IGB_Enter%}{%IGB_Up% 2}{%IGB_Enter%}{%IGB_Down% 4}{%IGB_Enter%}
   return
 
 ; Call in your Sparrow (or whatever you last requested moon pool vehicle was)
 RequestSparrow:
   openInteractionMenu(IsVIPActivated, IsCPHActivated)
-  Send {Down}{Down}{Down}{Down}{Down}{Enter}{Up}{Enter}{Down}{Enter}
+  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Up%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Enter%}
   return
 
 ; Return your Sparrow to the Kosatka
 ReturnSparrow:
   openInteractionMenu(IsVIPActivated, IsCPHActivated)
-  Send {Down}{Down}{Down}{Down}{Down}{Enter}{Up}{Enter}{Down}{Down}{Down}{Enter}{Up}{Up}{Enter}
+  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Up%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Up%}{%IGB_Up%}{%IGB_Enter%}
   return
 
 ; Show a list of chat snippets to type out (chat must be opened)
