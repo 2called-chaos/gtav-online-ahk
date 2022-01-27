@@ -7,10 +7,6 @@ Provides hotkeys for several useful features in GTA V:Online, see list further d
           I evidently do heists most of the time so if you have ideas for useful CEO macros, let me know
           or just send them in!
 
-**UPDATE-NOTE**: For the Cayo Perico Heist Final you will need the updated script and then either bind `ToggleCPHKey`
-                 (default Ctrl+NumpadSub) or set `DoToggleCPHWithVIP` to `true` which will change the VIP toggle to
-                 a 3-way toggle (none/VIP/CP-heist).
-
 
 ## Requirements
 
@@ -84,19 +80,23 @@ At the end it's your call but I'm 99% certain that it wont get you banned.
 * **ToggleClicker** – Toggle auto clicker
 * **ToggleRadar** – Toggle extended radar
 * **CEOBuzzard** – Spawn a free CEO Buzzard
+* **RequestSparrow** – Call in your Sparrow (or whatever you last requested moon pool vehicle was)
+* **ReturnSparrow**: – Return your Sparrow to the Kosatka
 * **RandomHeist** – Join a random heist (on-call) solo aka don't invite friends in session
 * **ForceDisconnect** – Force disconnect the game by freezing the process for 10 seconds (requires pssuspend.exe)
 * **KillGame** – Kill the game process immediately (requires pskill.exe)
 * **ChatSnippets** – Select a sentence from a configurable list which will get typed out in the game (chat should already be open)
 * **DialDialog** – Select a number from a list and call it automatically (add items, change order or remove entries in config)
+* **CheckForUpdates** – Manually check for updates
 
 The following calls can be directly bound to a hotkey (adding more is trivial):
 
-* **CallMechanic**
-* **CallPegasus**
-* **CallMerryweather**
+* **CallAssistant**
 * **CallInsurance**
 * **CallLester**
+* **CallMechanic**
+* **CallMerryweather**
+* **CallPegasus**
 
 You can reach more (useful or useless contacts) by binding `DialDialog`
 
@@ -115,6 +115,38 @@ ArrayChatSnippets.push("Hey there!")
 ; start with a clear list (discard default snippets by clearing array)
 ArrayChatSnippets := []
 ArrayChatSnippets.push("The one and only snippet!")
+
+; custom keybind, see custom additions (if you want all your keybind settings in one place)
+Hotkey, ^F6, ExampleMacro
+```
+
+## Custom additions
+
+You can (optionally) create a file `custom.ahk` in the same location as the main script to add custom macros without needing
+to change the main file making updates easier.
+
+```ahk
+; directly bind onto a key with double-colons
+^F3::
+  ; do something
+  return
+
+; AHK hotstring (typing ll<tab> will trigger this example)
+::ex::
+  goto ExampleMacro
+  return
+
+; target macro for the hotstring above
+ExampleMacro:
+  SplashTextOn 250, 20, Foo, Bar
+  Sleep 1000
+  SplashTextOff
+  return
+
+; hotstring an existing macro from the main file
+::lester::
+  goto CallLester
+  return
 ```
 
 
