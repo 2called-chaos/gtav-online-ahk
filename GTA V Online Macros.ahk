@@ -78,6 +78,7 @@ CheckForUpdatesKey   := "F24" ; Checks on startup by default, see DoCheckForUpda
 
 
 ; Options (should be fine out of the box)
+WindowScale          := 1.0   ; Change this to reflect your Windows display scale (e.g. set it to 3 if you have UI scale set to 300%)
 DoConfirmKill        := true  ; If true the KillGame action will ask for confirmation before killing the process
 DoConfirmDisconnect  := true  ; If true the ForceDisconnect action will ask for confirmation before suspending the process
 IntDisconnectDelay   := 10    ; Amount of seconds to freeze the process for, 10 works fine
@@ -410,12 +411,13 @@ _phonePointerCol(num) {
 }
 
 splashCountdown(title, message, seconds, addZero = false) {
+  global WindowScale
   Loop %seconds% {
-    SplashTextOn 250, 20, %title%, % StrReplace(message, "%i", seconds + 1 - A_Index)
+    SplashTextOn 250 * WindowScale, 20 * WindowScale, %title%, % StrReplace(message, "%i", seconds + 1 - A_Index)
     Sleep 1000
   }
   if(addZero) {
-    SplashTextOn 250, 20, %title%, % StrReplace(message, "%i", 0)
+    SplashTextOn 250 * WindowScale, 20 * WindowScale, %title%, % StrReplace(message, "%i", 0)
     Sleep 1000
   }
 }
@@ -511,9 +513,9 @@ KillGame:
 ToggleAFK:
   IsAFKActivated := !IsAFKActivated
   if (IsAFKActivated) {
-    SplashTextOn 250, 20, AFK mode, AFK mode has been ACTIVATED
+    SplashTextOn 250 * WindowScale, 20 * WindowScale, AFK mode, AFK mode has been ACTIVATED
   } else {
-    SplashTextOn 250, 20, AFK mode, AFK mode has been DEACTIVATED
+    SplashTextOn 250 * WindowScale, 20 * WindowScale, AFK mode, AFK mode has been DEACTIVATED
   }
   Sleep 2000
   SplashTextOff
@@ -595,18 +597,18 @@ ToggleVIP:
       if (IsCPHActivated) {
         IsCPHActivated := false
         IsVIPActivated := false
-        SplashTextOn 280, 20, VIP&CPH mode, VIP&&CPH mode has been DEACTIVATED
+        SplashTextOn 280 * WindowScale, 20 * WindowScale, VIP&CPH mode, VIP&&CPH mode has been DEACTIVATED
       } else {
         IsCPHActivated := true
-        SplashTextOn 350, 20, CPH mode, Cayo Perico Heist mode has been ACTIVATED
+        SplashTextOn 350 * WindowScale, 20 * WindowScale, CPH mode, Cayo Perico Heist mode has been ACTIVATED
       }
     } else {
       IsVIPActivated := false
-      SplashTextOn 250, 20, VIP mode, VIP mode has been DEACTIVATED
+      SplashTextOn 250 * WindowScale, 20 * WindowScale, VIP mode, VIP mode has been DEACTIVATED
     }
   } else {
     IsVIPActivated := true
-    SplashTextOn 250, 20, VIP mode, VIP mode has been ACTIVATED
+    SplashTextOn 250 * WindowScale, 20 * WindowScale, VIP mode, VIP mode has been ACTIVATED
   }
   Sleep 2000
   SplashTextOff
@@ -617,9 +619,9 @@ ToggleVIP:
 ToggleCPH:
   IsCPHActivated := !IsCPHActivated
   if (IsCPHActivated) {
-    SplashTextOn 350, 20, CPH mode, Cayo Perico Heist mode has been ACTIVATED
+    SplashTextOn 350 * WindowScale, 20 * WindowScale, CPH mode, Cayo Perico Heist mode has been ACTIVATED
   } else {
-    SplashTextOn 350, 20, CPH mode, Cayo Perico Heist mode has been DEACTIVATED
+    SplashTextOn 350 * WindowScale, 20 * WindowScale, CPH mode, Cayo Perico Heist mode has been DEACTIVATED
   }
   Sleep 2000
   SplashTextOff
