@@ -40,7 +40,6 @@
 ; ==============================
 ; === CONFIGURATION GOES vvv ===
 ; ==============================
-global WindowScale := 3
 
 ; Bindings (bind the desired functions to a key of your choice)
 ;   https://www.autohotkey.com/docs/KeyList.htm
@@ -79,6 +78,7 @@ CheckForUpdatesKey   := "F24" ; Checks on startup by default, see DoCheckForUpda
 
 
 ; Options (should be fine out of the box)
+WindowScale          := 1.0   ; Change this to reflect your Windows display scale (e.g. set it to 3 if you have UI scale set to 300%)
 DoConfirmKill        := true  ; If true the KillGame action will ask for confirmation before killing the process
 DoConfirmDisconnect  := true  ; If true the ForceDisconnect action will ask for confirmation before suspending the process
 IntDisconnectDelay   := 10    ; Amount of seconds to freeze the process for, 10 works fine
@@ -511,7 +511,6 @@ KillGame:
 
 ; Toggle AFK (move left/right in a loop to not get kicked)
 ToggleAFK:
-global WindowScale
   IsAFKActivated := !IsAFKActivated
   if (IsAFKActivated) {
     SplashTextOn 250 * WindowScale, 20 * WindowScale, AFK mode, AFK mode has been ACTIVATED
@@ -593,7 +592,6 @@ ToggleClicker:
 
 ; Toggle VIP mode (if VIP/CEO/MC all interaction menu entries are offset by one)
 ToggleVIP:
-  global WindowScale
   if (IsVIPActivated) {
     if (DoToggleCPHWithVIP) {
       if (IsCPHActivated) {
@@ -619,7 +617,6 @@ ToggleVIP:
 
 ; Toggle CPH mode (Cayo Perico Heist Final)
 ToggleCPH:
-  global WindowScale
   IsCPHActivated := !IsCPHActivated
   if (IsCPHActivated) {
     SplashTextOn 350 * WindowScale, 20 * WindowScale, CPH mode, Cayo Perico Heist mode has been ACTIVATED
