@@ -40,6 +40,7 @@
 ; ==============================
 ; === CONFIGURATION GOES vvv ===
 ; ==============================
+global WindowScale := 3
 
 ; Bindings (bind the desired functions to a key of your choice)
 ;   https://www.autohotkey.com/docs/KeyList.htm
@@ -410,12 +411,13 @@ _phonePointerCol(num) {
 }
 
 splashCountdown(title, message, seconds, addZero = false) {
+  global WindowScale
   Loop %seconds% {
-    SplashTextOn 250, 20, %title%, % StrReplace(message, "%i", seconds + 1 - A_Index)
+    SplashTextOn 250 * WindowScale, 20 * WindowScale, %title%, % StrReplace(message, "%i", seconds + 1 - A_Index)
     Sleep 1000
   }
   if(addZero) {
-    SplashTextOn 250, 20, %title%, % StrReplace(message, "%i", 0)
+    SplashTextOn 250 * WindowScale, 20 * WindowScale, %title%, % StrReplace(message, "%i", 0)
     Sleep 1000
   }
 }
@@ -509,11 +511,12 @@ KillGame:
 
 ; Toggle AFK (move left/right in a loop to not get kicked)
 ToggleAFK:
+global WindowScale
   IsAFKActivated := !IsAFKActivated
   if (IsAFKActivated) {
-    SplashTextOn 250, 20, AFK mode, AFK mode has been ACTIVATED
+    SplashTextOn 250 * WindowScale, 20 * WindowScale, AFK mode, AFK mode has been ACTIVATED
   } else {
-    SplashTextOn 250, 20, AFK mode, AFK mode has been DEACTIVATED
+    SplashTextOn 250 * WindowScale, 20 * WindowScale, AFK mode, AFK mode has been DEACTIVATED
   }
   Sleep 2000
   SplashTextOff
@@ -590,23 +593,24 @@ ToggleClicker:
 
 ; Toggle VIP mode (if VIP/CEO/MC all interaction menu entries are offset by one)
 ToggleVIP:
+  global WindowScale
   if (IsVIPActivated) {
     if (DoToggleCPHWithVIP) {
       if (IsCPHActivated) {
         IsCPHActivated := false
         IsVIPActivated := false
-        SplashTextOn 280, 20, VIP&CPH mode, VIP&&CPH mode has been DEACTIVATED
+        SplashTextOn 280 * WindowScale, 20 * WindowScale, VIP&CPH mode, VIP&&CPH mode has been DEACTIVATED
       } else {
         IsCPHActivated := true
-        SplashTextOn 350, 20, CPH mode, Cayo Perico Heist mode has been ACTIVATED
+        SplashTextOn 350 * WindowScale, 20 * WindowScale, CPH mode, Cayo Perico Heist mode has been ACTIVATED
       }
     } else {
       IsVIPActivated := false
-      SplashTextOn 250, 20, VIP mode, VIP mode has been DEACTIVATED
+      SplashTextOn 250 * WindowScale, 20 * WindowScale, VIP mode, VIP mode has been DEACTIVATED
     }
   } else {
     IsVIPActivated := true
-    SplashTextOn 250, 20, VIP mode, VIP mode has been ACTIVATED
+    SplashTextOn 250 * WindowScale, 20 * WindowScale, VIP mode, VIP mode has been ACTIVATED
   }
   Sleep 2000
   SplashTextOff
@@ -615,11 +619,12 @@ ToggleVIP:
 
 ; Toggle CPH mode (Cayo Perico Heist Final)
 ToggleCPH:
+  global WindowScale
   IsCPHActivated := !IsCPHActivated
   if (IsCPHActivated) {
-    SplashTextOn 350, 20, CPH mode, Cayo Perico Heist mode has been ACTIVATED
+    SplashTextOn 350 * WindowScale, 20 * WindowScale, CPH mode, Cayo Perico Heist mode has been ACTIVATED
   } else {
-    SplashTextOn 350, 20, CPH mode, Cayo Perico Heist mode has been DEACTIVATED
+    SplashTextOn 350 * WindowScale, 20 * WindowScale, CPH mode, Cayo Perico Heist mode has been DEACTIVATED
   }
   Sleep 2000
   SplashTextOff
