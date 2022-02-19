@@ -53,13 +53,17 @@ RetrieveCarKey       := "F2" ; Request Personal Vehicle.
 TogglePassiveKey     := "F3" ; Toggle passive mode.
 EquipScarfKey        := "NumpadDot" ; Equip first scarf (heist outfit glitch, see readme/misc).
 ToggleRadarKey       := "+F2" ; Toggle between extended and standar radar.
-CycleOutfitKey       := "NumpadAdd" ; Equip next/cycle through saved outfits.
-ToggleVIPKey         := "NumpadSub" ; Toggle VIP mode (required when VIP/CEO/MC).
-ToggleCPHKey         := "^NumpadSub" ; Toggle Cayo Perico Heist Final mode (extra menu entry), also see DoToggleCPHWithVIP
+CycleOutfitKey       := "NumpadMult" ; Equip next/cycle through saved outfits.
+ToggleVIPKey         := "NumpadSub" ; Toggle VIP mode (required when VIP/CEO/MC).  Won't have effect if using ManualInventoryLocation option.
+ToggleCPHKey         := "^NumpadSub" ; Toggle Cayo Perico Heist Final mode (extra menu entry), also see DoToggleCPHWithVIP.  Won't have effect if using ManualInventoryLocation option.  
 ToggleAFKKey         := "+NumpadSub" ; Toggle AFK mode
-ToggleClickerKey     := "+XButton2" ; Toggle Clicker (XButton2 = Mouse5)
-KillGameKey          := "+F12" ; Kill game process, requires pskill.exe
-ForceDisconnectKey   := "F12" ; Force disconnect by suspending process for 10s, requires pssuspend.exe
+IncInvKey						 := "NumpadAdd" ; for increasing the value of the inventory line
+DecInvKey 			 		 := "NumpadSub" ; for decreasing the value of the inventory line
+IncSnackKey 	  	 	 := "^NumpadAdd" ; for increasing the line for the snack selected by autosnacking
+DecSnackKey 		 		 := "^NumpadSub" ; for decreasing the line for the snack selected by autosnacking
+ToggleClickerKey     := "F24" ; Toggle Clicker (XButton2 = Mouse5)
+KillGameKey          := "+F24" ; Kill game process, requires pskill.exe
+ForceDisconnectKey   := "F24" ; Force disconnect by suspending process for 10s, requires pssuspend.exe
 ChatSnippetsKey      := "F11" ; Gives you a few text snippets to put in chat (chat must be already open)
 RandomHeistKey       := "F7" ; Chooses on-call random heist from phone options
 CEOBuzzardKey        := "F24" ; Spawn free CEO buzzard
@@ -78,13 +82,16 @@ CheckForUpdatesKey   := "F24" ; Checks on startup by default, see DoCheckForUpda
 
 
 ; Options (should be fine out of the box)
-WindowScale          := 1.0   ; Change this to reflect your Windows display scale (e.g. set it to 3 if you have UI scale set to 300%)
-DoConfirmKill        := true  ; If true the KillGame action will ask for confirmation before killing the process
-DoConfirmDisconnect  := true  ; If true the ForceDisconnect action will ask for confirmation before suspending the process
-IntDisconnectDelay   := 10    ; Amount of seconds to freeze the process for, 10 works fine
-DoToggleCPHWithVIP   := false ; If true ToggleVIP will become a 3-way toggle (off/on/CayoPericoHeistFinal)
-DisableCapsOnAction  := true  ; Disable caps lock before executing macros, some macros might fail if caps lock is on
-DoCheckForUpdates    := true  ; Check for script updates on startup (you can manually bind this instead or additionally)
+WindowScale          := 1.0       ; Change this to reflect your Windows display scale (e.g. set it to 3 if you have UI scale set to 300%)
+InvLocation 				 := 3         ; by default, this is the location of the inventory in the menu
+AutoSnackLocation 	 := 2					; by default, this is the snack autosnack will select
+ManualInventoryLocation :=  false ; if true, use manual calibration of the inventory line in the interactive menu. IsCPHActive and IsVIPActive flags will be ignored.  
+DoConfirmKill        := true      ; If true the KillGame action will ask for confirmation before killing the process
+DoConfirmDisconnect  := true      ; If true the ForceDisconnect action will ask for confirmation before suspending the process
+IntDisconnectDelay   := 10        ; Amount of seconds to freeze the process for, 10 works fine
+DoToggleCPHWithVIP   := false     ; If true ToggleVIP will become a 3-way toggle (off/on/CayoPericoHeistFinal)
+DisableCapsOnAction  := true      ; Disable caps lock before executing macros, some macros might fail if caps lock is on
+DoCheckForUpdates    := true      ; Check for script updates on startup (you can manually bind this instead or additionally)
 
 ; Internal variables (probably no need to edit)
 IsVIPActivated       := false ; Initial status of CEO/VIP mode (after (re)loading script)
@@ -184,10 +191,6 @@ ArrayPhonebook.push("328-555-0177  - Sapphire (Prostitute)")
 
 
 
-
-
-
-
 ; ================================================
 ; === Are you sure you want to scroll further? ===
 ; ================================================
@@ -200,6 +203,10 @@ SetWorkingDir A_ScriptDir
 #IfWinActive ahk_class grcWindow
 
 ; Hotkey/Function mapping
+Hotkey, %IncInvKey%, IncrementInventoryLocation 
+Hotkey, %DecInvKey%, DecrementInventoryLocation
+Hotkey, %IncSnackKey%, IncrementSnackLocation
+Hotkey, %DecSnackKey%, DecrementSnackLocation
 Hotkey, %CheckForUpdatesKey%, CheckForUpdates
 Hotkey, %SnackMenuKey%, SnackMenu
 Hotkey, %AutoHealthKey%, AutoHealth
@@ -261,29 +268,52 @@ turnCapslockOff() {
   }
 }
 
-openInteractionMenu(isVIPActive, isCPHActive) {
+openInteractionMenu(isVIPActive, isCPHActive, goingDown) {
   global IntMenuDelay
+	global ManualInventoryLocation
+	global InvLocation	
   turnCapslockOff()
   Send {%IGB_Interaction%}
   sleep, IntMenuDelay
-  if (isCPHActive = 1) {
-    Send {%IGB_Down%}
-    Send {%IGB_Down%}
-  } else if (isVIPActive = 1) {
-    Send {%IGB_Down%}
-  }
-}
+  
+	if goingDown {
+		TimesDown := 0
+		if (ManualInventoryLocation = 1) {
+			TimesDown := InvLocation - 1 
+			}
+		else {
+			if (isCPHActive = 1) {
+				TimesDown := 2
+			} 
+			else if (isVIPActive = 1) {
+				TimesDown := 1
+			}
+		}	
+		Loop %TimesDown% {
+			Send {%IGB_Down%}
+		}
+	}
+}			
 
 openSnackMenu() {
-  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}
+  global ManualInventoryLocation
+	if !ManualInventoryLocation
+		Send {%IGB_Down%}{%IGB_Down%}
+  Send {%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}
 }
 
 openArmorMenu() {
-  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}
+  global ManualInventoryLocation
+	if !ManualInventoryLocation
+		Send {%IGB_Down%}{%IGB_Down%}
+  Send {%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}
 }
 
 openOutfitMenu() {
-  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
+  global ManualInventoryLocation
+	if !ManualInventoryLocation
+		Send {%IGB_Down%}{%IGB_Down%}
+  Send {%IGB_Down%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
 }
 
 openPhone() {
@@ -628,58 +658,108 @@ ToggleCPH:
   bringGameIntoFocus()
   return
 
+IncrementInventoryLocation:
+  InvLocation := InvLocation + 1
+  SplashTextOn 350 * WindowScale, 20 * WindowScale, Increase Inventory Line, The Inventory Line is now %InvLocation%
+  Sleep 2000
+  SplashTextOff
+  bringGameIntoFocus()
+  return
+
+DecrementInventoryLocation:
+  InvLocation := InvLocation - 1
+  if (InvLocation < 1) {
+		InvLocation := 1
+  }
+  SplashTextOn 350 * WindowScale, 20 * WindowScale, Decrease Inventory Line, The Inventory Line is now %InvLocation%
+  Sleep 2000
+  SplashTextOff
+  bringGameIntoFocus()
+  return
+
+IncrementSnackLocation:
+  AutoSnackLocation := AutoSnackLocation + 1
+  SplashTextOn 350 * WindowScale, 20 * WindowScale, Incease AutoSnack Line, The Snack Line is now %AutoSnackLocation%
+  Sleep 2000
+  SplashTextOff
+  bringGameIntoFocus()
+  return
+
+DecrementSnackLocation:
+  AutoSnackLocation := AutoSnackLocation - 1
+  if (AutoSnackLocation < 1) {
+	AutoSnackLocation := 1
+  }
+  
+  SplashTextOn 350 * WindowScale, 20 * WindowScale, Decrease AutoSnack Line, The Snack Line is now %AutoSnackLocation%
+  Sleep 2000
+  SplashTextOff
+  bringGameIntoFocus()
+  return
+  
 ; Open up snack menu for manual selection (or stock check) of snacks
 SnackMenu:
-  openInteractionMenu(IsVIPActivated, IsCPHActivated)
+  openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
   openSnackMenu()
   return
 
-; Automatic snacking. Eats 2 snacks from second snack slot and close menu.
+; Automatic snacking. Eats 2 snacks from AutoSnackLocation slot and close menu.
 AutoHealth:
-  openInteractionMenu(IsVIPActivated, IsCPHActivated)
+  openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
   openSnackMenu()
-  Send {%IGB_Down%}{%IGB_Enter%}{%IGB_Enter%}{%IGB_Interaction%}
+	if ManualInventoryLocation
+		TimesDown := AutoSnackLocation - 1
+	else
+		TimesDown := 1
+  Loop %TimesDown% {
+		Send {%IGB_Down%}
+  }
+  Send {%IGB_Enter%}{%IGB_Enter%}{%IGB_Interaction%}
   return
 
 ; Open up armor menu for manual selection (or stock check) of armor
 ArmorMenu:
-  openInteractionMenu(IsVIPActivated, IsCPHActivated)
+  openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
   openArmorMenu()
   return
 
 ; Equips super heavy armor and exits menu automatically
 AutoArmor:
-  openInteractionMenu(IsVIPActivated, IsCPHActivated)
+  openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
   openArmorMenu()
   Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Interaction%}
   return
 
 ; Equips scarf to allow faster running with heist armor (see readme/misc)
 EquipScarf:
-  openInteractionMenu(IsVIPActivated, IsCPHActivated)
+  openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
+	if !ManualInventoryLocation
+		Send {%IGB_Down%}{%IGB_Down%}
   ; Opens scarf menu
-  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Enter%}
+  Send {%IGB_Down%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Enter%}
   ; equip scarf and exit menu. This line can be changed to pick different scarfs.
   Send {%IGB_Up%}{%IGB_Up%}{%IGB_Up%}{%IGB_Up%}{%IGB_Right%}{%IGB_Interaction%}
   return
 
 ; Cycle between your saved outfits
 CycleOutfit:
-  openInteractionMenu(IsVIPActivated, IsCPHActivated)
+  openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
   openOutfitMenu()
   Send {%IGB_Right%}{%IGB_Enter%}{%IGB_Interaction%}
   return
 
 ; Toggle passive mode
 TogglePassive:
-  openInteractionMenu(false, false) ; Ignore VIP status when going up
+  openInteractionMenu(false, false, false) ; Ignore VIP status when going up
   Send {%IGB_Up%}{%IGB_Enter%}{%IGB_Interaction%}
   return
 
 ; Retrieve your currently active vehicle
 RetrieveCar:
-  openInteractionMenu(IsVIPActivated, IsCPHActivated)
-  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Enter%}{%IGB_Interaction%}
+  openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
+	if !ManualInventoryLocation
+		Send {%IGB_Down%}{%IGB_Down%}
+  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Enter%}{%IGB_Interaction%}
   return
 
 ; Chooses on-call random heist from phone options
@@ -695,20 +775,24 @@ RandomHeist:
 
 ; Calls in free CEO buzzard (if you are CEO)
 CEOBuzzard:
-  openInteractionMenu(false, false)
+  openInteractionMenu(false, false, false) 
   Send {%IGB_Enter%}{%IGB_Up% 2}{%IGB_Enter%}{%IGB_Down% 4}{%IGB_Enter%}
   return
 
 ; Call in your Sparrow (or whatever you last requested moon pool vehicle was)
 RequestSparrow:
-  openInteractionMenu(IsVIPActivated, IsCPHActivated)
-  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Up%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Enter%}
+  openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
+	if !ManualInventoryLocation
+		Send {%IGB_Down%}{%IGB_Down%}
+  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Up%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Enter%}
   return
 
 ; Return your Sparrow to the Kosatka
 ReturnSparrow:
-  openInteractionMenu(IsVIPActivated, IsCPHActivated)
-  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Up%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Up%}{%IGB_Up%}{%IGB_Enter%}
+  openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
+	if !ManualInventoryLocation
+		Send {%IGB_Down%}{%IGB_Down%}
+  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Up%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Up%}{%IGB_Up%}{%IGB_Enter%}
   return
 
 ; Show a list of chat snippets to type out (chat must be opened)
