@@ -65,6 +65,7 @@ RandomHeistKey       := "F7" ; Chooses on-call random heist from phone options
 CEOBuzzardKey        := "F24" ; Spawn free CEO buzzard
 RequestSparrowKey    := "F24" ; Call in your Sparrow (or whatever you last requested moon pool vehicle was)
 ReturnSparrowKey     := "F24" ; Return your Sparrow to the Kosatka
+ToggleAutoHeliKey    := "+XButton1" ; keeps W and 8 pressed,First take heli to sufficient height and then use this as auto Pilot
 
 DialDialogKey        := "+F5" ; Call GUI with a list of almost all numbers
 CallMechanicKey      := "F5" ; Call Mechanic
@@ -214,6 +215,7 @@ Hotkey, %ToggleCPHKey%, ToggleCPH
 Hotkey, %ToggleAFKKey%, ToggleAFK
 Hotkey, %ToggleClickerKey%, ToggleClicker
 Hotkey, %ToggleRadarKey%, ToggleRadar
+HotKey, %ToggleAutoHeliKey% ToggleAutoHeli
 Hotkey, %KillGameKey%, KillGame
 Hotkey, %ForceDisconnectKey%, ForceDisconnect
 Hotkey, %RandomHeistKey%, RandomHeist
@@ -627,6 +629,32 @@ ToggleCPH:
   SplashTextOff
   bringGameIntoFocus()
   return
+
+AutoHeli:
+{
+	SetKeyDelay, -1
+	if( autoHeliToggle )
+	{
+    SoundPlay, %A_WinDir%\Media\Windows Battery Critical.wav
+		Send, {Blind}{w DownTemp}
+		Send, {Blind}{Numpad8 DownTemp}
+	}
+	else
+	{
+    SoundPlay, %A_WinDir%\Media\Windows Balloon.wav
+		SetTimer, AutoHeli, OFF
+		Send, {Blind}{w UP}
+		Send, {Blind}{Numpad8 UP}
+	}
+return
+}
+
+ToggleAutoHeli:
+{
+	autoHeliToggle := ( autoHeliToggle ? 0 : 1 )
+	SetTimer, AutoHeli, 40
+return
+}
 
 ; Open up snack menu for manual selection (or stock check) of snacks
 SnackMenu:
