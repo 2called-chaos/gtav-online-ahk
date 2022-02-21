@@ -55,7 +55,7 @@ EquipScarfKey        := "NumpadDot" ; Equip first scarf (heist outfit glitch, se
 ToggleRadarKey       := "+F2" ; Toggle between extended and standar radar.
 CycleOutfitKey       := "NumpadMult" ; Equip next/cycle through saved outfits.
 ToggleVIPKey         := "NumpadSub" ; Toggle VIP mode (required when VIP/CEO/MC).  Won't have effect if using ManualInventoryLocation option.
-ToggleCPHKey         := "^NumpadSub" ; Toggle Cayo Perico Heist Final mode (extra menu entry), also see DoToggleCPHWithVIP.  Won't have effect if using ManualInventoryLocation option.  
+ToggleCPHKey         := "^NumpadSub" ; Toggle Cayo Perico Heist Final mode (extra menu entry), also see DoToggleCPHWithVIP.  Won't have effect if using ManualInventoryLocation option.
 ToggleAFKKey         := "+NumpadSub" ; Toggle AFK mode
 IncInvKey            := "NumpadAdd" ; for increasing the value of the inventory line
 DecInvKey            := "NumpadSub" ; for decreasing the value of the inventory line
@@ -86,7 +86,7 @@ CheckForUpdatesKey   := "F24" ; Checks on startup by default, see DoCheckForUpda
 WindowScale          := 1.0       ; Change this to reflect your Windows display scale (e.g. set it to 3 if you have UI scale set to 300%)
 InvLocation          := 3         ; by default, this is the location of the inventory in the menu
 AutoSnackLocation    := 2         ; by default, this is the snack autosnack will select
-ManualInventoryLocation :=  false ; if true, use manual calibration of the inventory line in the interactive menu. IsCPHActive and IsVIPActive flags will be ignored.  
+ManualInventoryLocation :=  false ; if true, use manual calibration of the inventory line in the interactive menu. IsCPHActive and IsVIPActive flags will be ignored.
 DoConfirmKill        := true      ; If true the KillGame action will ask for confirmation before killing the process
 DoConfirmDisconnect  := true      ; If true the ForceDisconnect action will ask for confirmation before suspending the process
 IntDisconnectDelay   := 10        ; Amount of seconds to freeze the process for, 10 works fine
@@ -204,7 +204,7 @@ SetWorkingDir A_ScriptDir
 #IfWinActive ahk_class grcWindow
 
 ; Hotkey/Function mapping
-Hotkey, %IncInvKey%, IncrementInventoryLocation 
+Hotkey, %IncInvKey%, IncrementInventoryLocation
 Hotkey, %DecInvKey%, DecrementInventoryLocation
 Hotkey, %IncSnackKey%, IncrementSnackLocation
 Hotkey, %DecSnackKey%, DecrementSnackLocation
@@ -273,29 +273,29 @@ turnCapslockOff() {
 openInteractionMenu(isVIPActive, isCPHActive, goingDown) {
   global IntMenuDelay
   global ManualInventoryLocation
-  global InvLocation  
+  global InvLocation
   turnCapslockOff()
   Send {%IGB_Interaction%}
   sleep, IntMenuDelay
-  
+
   if goingDown {
     TimesDown := 0
     if (ManualInventoryLocation = 1) {
-      TimesDown := InvLocation - 1 
+      TimesDown := InvLocation - 1
     }
     else {
       if (isCPHActive = 1) {
         TimesDown := 2
-      } 
+      }
       else if (isVIPActive = 1) {
         TimesDown := 1
       }
-    } 
+    }
     Loop %TimesDown% {
       Send {%IGB_Down%}
     }
   }
-}     
+}
 
 openSnackMenu() {
   global ManualInventoryLocation
@@ -405,12 +405,12 @@ dialNumber(number, doOpenPhone = false) {
 
     if (deltay > 0)
       Send {%IGB_Down% %deltay%}
-    
+
     if (deltax < 0) {
       deltax := Abs(deltax)
       Send {%IGB_Left% %deltax%}
     }
-    
+
     if (deltay < 0) {
       deltay := Abs(deltay)
       Send {%IGB_Up% %deltay%}
@@ -660,31 +660,26 @@ ToggleCPH:
   bringGameIntoFocus()
   return
 
+; Helicopter autopilot (hold throttle and forward)
 AutoHeli:
-{
-	SetKeyDelay, -1
-	if( autoHeliToggle )
-	{
+  SetKeyDelay, -1
+  if (autoHeliToggle) {
     SoundPlay, %A_WinDir%\Media\Windows Battery Critical.wav
-		Send, {Blind}{w DownTemp}
-		Send, {Blind}{Numpad8 DownTemp}
-	}
-	else
-	{
+    Send, {Blind}{w DownTemp}
+    Send, {Blind}{Numpad8 DownTemp}
+  } else {
     SoundPlay, %A_WinDir%\Media\Windows Balloon.wav
-		SetTimer, AutoHeli, OFF
-		Send, {Blind}{w UP}
-		Send, {Blind}{Numpad8 UP}
-	}
-return
-}
+    SetTimer, AutoHeli, OFF
+    Send, {Blind}{w UP}
+    Send, {Blind}{Numpad8 UP}
+  }
+  return
 
+; Toggle helicopter autopilot
 ToggleAutoHeli:
-{
-	autoHeliToggle := ( autoHeliToggle ? 0 : 1 )
-	SetTimer, AutoHeli, 40
-return
-}
+  autoHeliToggle := ( autoHeliToggle ? 0 : 1 )
+  SetTimer, AutoHeli, 40
+  return
 
 IncrementInventoryLocation:
   InvLocation := InvLocation + 1
@@ -718,7 +713,7 @@ DecrementSnackLocation:
   if (AutoSnackLocation < 1) {
   AutoSnackLocation := 1
   }
-  
+
   SplashTextOn 350 * WindowScale, 20 * WindowScale, Decrease AutoSnack Line, The Snack Line is now %AutoSnackLocation%
   Sleep 2000
   SplashTextOff
@@ -803,7 +798,7 @@ RandomHeist:
 
 ; Calls in free CEO buzzard (if you are CEO)
 CEOBuzzard:
-  openInteractionMenu(false, false, false) 
+  openInteractionMenu(false, false, false)
   Send {%IGB_Enter%}{%IGB_Up% 2}{%IGB_Enter%}{%IGB_Down% 4}{%IGB_Enter%}
   return
 
