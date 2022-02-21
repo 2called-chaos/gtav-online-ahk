@@ -280,7 +280,7 @@ openInteractionMenu(isVIPActive, isCPHActive, goingDown) {
     TimesDown := 0
     if (ManualInventoryLocation = 1) {
       TimesDown := InvLocation - 1 
-      }
+    }
     else {
       if (isCPHActive = 1) {
         TimesDown := 2
