@@ -133,6 +133,9 @@ global IGB_Enter := "enter"
 ; the following refer to movement (used for AFK)
 global IGB_MoveLeft := "a"
 global IGB_MoveRight := "d"
+; aircraft/helicopter
+global IGB_ThrottleUp := "w"
+global IGB_PitchForward := "Numpad8"
 
 
 ; Phone numbers for DialDialog GUI dialog (you can change the order if you want or hide entries by commenting them out)
@@ -222,7 +225,7 @@ Hotkey, %ToggleCPHKey%, ToggleCPH
 Hotkey, %ToggleAFKKey%, ToggleAFK
 Hotkey, %ToggleClickerKey%, ToggleClicker
 Hotkey, %ToggleRadarKey%, ToggleRadar
-HotKey, %ToggleAutoHeliKey% ToggleAutoHeli
+HotKey, %ToggleAutoHeliKey%, ToggleAutoHeli
 Hotkey, %KillGameKey%, KillGame
 Hotkey, %ForceDisconnectKey%, ForceDisconnect
 Hotkey, %RandomHeistKey%, RandomHeist
@@ -664,21 +667,24 @@ ToggleCPH:
 AutoHeli:
   SetKeyDelay, -1
   if (autoHeliToggle) {
-    SoundPlay, %A_WinDir%\Media\Windows Battery Critical.wav
-    Send, {Blind}{w DownTemp}
-    Send, {Blind}{Numpad8 DownTemp}
+    Send, {Blind}{%IGB_ThrottleUp% DownTemp}
+    Send, {Blind}{%IGB_PitchForward% DownTemp}
   } else {
-    SoundPlay, %A_WinDir%\Media\Windows Balloon.wav
     SetTimer, AutoHeli, OFF
-    Send, {Blind}{w UP}
-    Send, {Blind}{Numpad8 UP}
+    Send, {Blind}{%IGB_ThrottleUp% Up}
+    Send, {Blind}{%IGB_PitchForward% Up}
   }
   return
 
 ; Toggle helicopter autopilot
 ToggleAutoHeli:
   autoHeliToggle := ( autoHeliToggle ? 0 : 1 )
-  SetTimer, AutoHeli, 40
+  if(autoHeliToggle) {
+    SetTimer, AutoHeli, 50
+    SoundPlay, %A_WinDir%\Media\Windows Battery Critical.wav
+  } else {
+    SoundPlay, %A_WinDir%\Media\Windows Balloon.wav
+  }
   return
 
 IncrementInventoryLocation:
