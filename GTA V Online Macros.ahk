@@ -207,10 +207,6 @@ SetWorkingDir A_ScriptDir
 #IfWinActive ahk_class grcWindow
 
 ; Hotkey/Function mapping
-Hotkey, %IncInvKey%, IncrementInventoryLocation
-Hotkey, %DecInvKey%, DecrementInventoryLocation
-Hotkey, %IncSnackKey%, IncrementSnackLocation
-Hotkey, %DecSnackKey%, DecrementSnackLocation
 Hotkey, %CheckForUpdatesKey%, CheckForUpdates
 Hotkey, %SnackMenuKey%, SnackMenu
 Hotkey, %AutoHealthKey%, AutoHealth
@@ -240,6 +236,13 @@ Hotkey, %CallMerryweatherKey%, CallMerryweather
 Hotkey, %CallInsuranceKey%, CallInsurance
 Hotkey, %CallLesterKey%, CallLester
 Hotkey, %CallAssistantKey%, CallAssistant
+
+if(ManualInventoryLocation) {
+  Hotkey, %IncInvKey%, IncrementInventoryLocation
+  Hotkey, %DecInvKey%, DecrementInventoryLocation
+  Hotkey, %IncSnackKey%, IncrementSnackLocation
+  Hotkey, %DecSnackKey%, DecrementSnackLocation
+}
 
 ; Sets delay(ms) between keystrokes issued. Arguments are delay between keystrokes and press duration, respectively.
 ; They might be able to go lower but these values are pretty fast and work reliably.
