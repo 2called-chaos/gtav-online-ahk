@@ -17,8 +17,10 @@ Provides hotkeys for several useful features in GTA V:Online, see list further d
 ## Installation
 
   * Download the .ahk file
-  * Open it in a text editor (e.g. notepad++ with AutoIT syntax highlighting) and change the hotkeys ([key list](https://www.autohotkey.com/docs/KeyList.htm))
-  * Doubleclick your .ahk file (open with AHK) Note: On Windows 10 right click -> run as admin
+  * Open it in a text editor (e.g. notepad++ with AutoIT syntax highlighting)
+  * Consider creating a config.ahk and copy lines you want to change over there (so you can update, see Config further down)
+  * Change the hotkeys ([key list](https://www.autohotkey.com/docs/KeyList.htm)) and other options as you desire
+  * Doubleclick the .ahk file (open with AHK) Note: On Windows 10 right click -> run as admin might be necessary
 
 
 ## Installation (pssuspend.exe / pskill.exe)
@@ -33,26 +35,9 @@ You can copy them all but we only need pssuspend and pskill so go ahead and extr
 **NOTE:** Start the pssuspend.exe AND pskill.exe once by double clicking on it and accept the license agreement or it will silently fail.
 
 
-## Updates
-
-Since v1.2.0 the script includes a simple auto updater. By default it will check for a new version on GitHub every time you launch the script.
-If a new (or actually different) version is found it will prompt you to proceed or cancel.
-See the readme section about using config.ahk if you plan on changing settings as the update will replace the main script file!
-
-You can disable the automatic check and/or bind a manual check to a hotkey in the configuration (`DoCheckForUpdates` and `CheckForUpdatesKey`).
-Note that the update check hotkey still only works when GTA is active.
-
-
-## Will I get banned?
-
-I'm not aware of any bans issued by Rockstar following the usage of AHK-scripts. I personally use AHK-scripts within
-GTA:O since 2014 and did not get banned. This is also not the only AHK-script available, I'm sure many are using them.
-At the end it's your call but I'm 99% certain that it wont get you banned.
-
-
 ## Usage
 
-* On Windows 10 you have to start the AHK script as administrator (right click -> Run as administator)
+* On Windows 10 you might have to start the AHK script as administrator (right click -> Run as administator)
 * You should run the game in window(ed fullscreen) or some functions will alt-tab you and will not work properly
 * You will have to toggle VIP/CEO/MC mode manually since the interaction menu will be changed and most functions need to be aware of that.
 * Doesn't work well inside apartments, maybe in CEO mode while not being one (menu changes)
@@ -62,43 +47,6 @@ At the end it's your call but I'm 99% certain that it wont get you banned.
 * Needless to say, don't give inputs while a macro is running or it might do random shit
 * Sometimes you might find that the script doesn't appear to do anything. This might happen if you start
   the game after the AHK script. Reloading it (right click on systray icon -> reload script) fixes that usually.
-
-
-## Available macros
-
-* **SnackMenu** – Opens the snack menu
-* **AutoHealth** – Consumes 2 snacks (from position 2) and closes menu
-* **ArmorMenu** – Opens the armor menu
-* **AutoArmor** – Consumes one super heavy armor and closes menu
-* **RetrieveCar** – Retrieve your current active personal vehicle
-* **TogglePassive** – Toggle passive mode
-* **EquipScarf** – Equip scarf (heist outfit speed, see miscellaneous)
-* **CycleOutfit** – Cycle through your saved outfits
-* **ToggleVIP** – Toggle VIP(/CEO/MC) mode
-* **ToggleCPH** – Toggle CPH (Cayo Perico Heist Final) mode
-* **ToggleAFK** – Toggle AFK mode
-* **ToggleClicker** – Toggle auto clicker
-* **ToggleRadar** – Toggle extended radar
-* **CEOBuzzard** – Spawn a free CEO Buzzard
-* **RequestSparrow** – Call in your Sparrow (or whatever you last requested moon pool vehicle was)
-* **ReturnSparrow**: – Return your Sparrow to the Kosatka
-* **RandomHeist** – Join a random heist (on-call) solo aka don't invite friends in session
-* **ForceDisconnect** – Force disconnect the game by freezing the process for 10 seconds (requires pssuspend.exe)
-* **KillGame** – Kill the game process immediately (requires pskill.exe)
-* **ChatSnippets** – Select a sentence from a configurable list which will get typed out in the game (chat should already be open)
-* **DialDialog** – Select a number from a list and call it automatically (add items, change order or remove entries in config)
-* **CheckForUpdates** – Manually check for updates
-
-The following calls can be directly bound to a hotkey (adding more is trivial):
-
-* **CallAssistant**
-* **CallInsurance**
-* **CallLester**
-* **CallMechanic**
-* **CallMerryweather**
-* **CallPegasus**
-
-You can reach more (useful or useless contacts) by binding `DialDialog`
 
 
 ## Config
@@ -147,7 +95,71 @@ ExampleMacro:
 ::lester::
   goto CallLester
   return
+
+; handy for when you modifying or adding stuff
+::rel::
+  SplashTextOn 250, 20, Reloading, Reloading script...
+  Sleep 1000
+  Reload
+  return
 ```
+
+
+## Updates
+
+Since v1.2.0 the script includes a simple auto updater. By default it will check for a new version on GitHub every time you launch the script.
+If a new (or actually different) version is found it will prompt you to proceed or cancel.
+See the readme section about using config.ahk if you plan on changing settings as the update will replace the main script file!
+
+You can disable the automatic check and/or bind a manual check to a hotkey in the configuration (`DoCheckForUpdates` and `CheckForUpdatesKey`).
+Note that the update check hotkey still only works when GTA is active.
+
+
+## Will I get banned?
+
+I'm not aware of any bans issued by Rockstar following the usage of AHK-scripts. I personally use AHK-scripts within
+GTA:O since 2014 and did not get banned. This is also not the only AHK-script available, I'm sure many are using them.
+At the end it's your call but I'm 99% certain that it wont get you banned.
+
+
+## Available macros
+
+I might forget to update so just check available keybinds :)
+
+* **SnackMenu** – Opens the snack menu
+* **AutoHealth** – Consumes 2 snacks (from position 2) and closes menu
+* **ArmorMenu** – Opens the armor menu
+* **AutoArmor** – Consumes one super heavy armor and closes menu
+* **RetrieveCar** – Retrieve your current active personal vehicle
+* **TogglePassive** – Toggle passive mode
+* **EquipScarf** – Equip scarf (heist outfit speed, see miscellaneous)
+* **CycleOutfit** – Cycle through your saved outfits
+* **ToggleVIP** – Toggle VIP(/CEO/MC) mode
+* **ToggleCPH** – Toggle CPH (Cayo Perico Heist Final) mode
+* **ToggleAFK** – Toggle AFK mode
+* **ToggleClicker** – Toggle auto clicker
+* **ToggleRadar** – Toggle extended radar
+* **ToggleAutoHeli** – Keeps throttle and pitch forward pressed, poor mans autopilot
+* **CEOBuzzard** – Spawn a free CEO Buzzard
+* **RequestSparrow** – Call in your Sparrow (or whatever you last requested moon pool vehicle was)
+* **ReturnSparrow**: – Return your Sparrow to the Kosatka
+* **RandomHeist** – Join a random heist (on-call) solo aka don't invite friends in session
+* **ForceDisconnect** – Force disconnect the game by freezing the process for 10 seconds (requires pssuspend.exe)
+* **KillGame** – Kill the game process immediately (requires pskill.exe)
+* **ChatSnippets** – Select a sentence from a configurable list which will get typed out in the game (chat should already be open)
+* **DialDialog** – Select a number from a list and call it automatically (add items, change order or remove entries in config)
+* **CheckForUpdates** – Manually check for updates
+
+The following calls can be directly bound to a hotkey (adding more is trivial):
+
+* **CallAssistant**
+* **CallInsurance**
+* **CallLester**
+* **CallMechanic**
+* **CallMerryweather**
+* **CallPegasus**
+
+You can reach more (useful or useless contacts) by binding `DialDialog`
 
 
 ## Miscellaneous
@@ -197,6 +209,7 @@ I use it for example for the Pacific finale and equip the scarf after leaving th
   4. Push to the branch (`git push origin my-new-feature`)
   5. Create new Pull Request
 
+  Please use spaces for indentation and try to mimic the style off existing code :)
 
 ## Legal
 
