@@ -57,10 +57,10 @@ CycleOutfitKey       := "NumpadMult" ; Equip next/cycle through saved outfits.
 ToggleVIPKey         := "NumpadSub" ; Toggle VIP mode (required when VIP/CEO/MC).  Won't have effect if using ManualInventoryLocation option.
 ToggleCPHKey         := "^NumpadSub" ; Toggle Cayo Perico Heist Final mode (extra menu entry), also see DoToggleCPHWithVIP.  Won't have effect if using ManualInventoryLocation option.  
 ToggleAFKKey         := "+NumpadSub" ; Toggle AFK mode
-IncInvKey						 := "NumpadAdd" ; for increasing the value of the inventory line
-DecInvKey 			 		 := "NumpadSub" ; for decreasing the value of the inventory line
-IncSnackKey 	  	 	 := "^NumpadAdd" ; for increasing the line for the snack selected by autosnacking
-DecSnackKey 		 		 := "^NumpadSub" ; for decreasing the line for the snack selected by autosnacking
+IncInvKey            := "NumpadAdd" ; for increasing the value of the inventory line
+DecInvKey            := "NumpadSub" ; for decreasing the value of the inventory line
+IncSnackKey          := "^NumpadAdd" ; for increasing the line for the snack selected by autosnacking
+DecSnackKey          := "^NumpadSub" ; for decreasing the line for the snack selected by autosnacking
 ToggleClickerKey     := "F24" ; Toggle Clicker (XButton2 = Mouse5)
 KillGameKey          := "+F24" ; Kill game process, requires pskill.exe
 ForceDisconnectKey   := "F24" ; Force disconnect by suspending process for 10s, requires pssuspend.exe
@@ -83,8 +83,8 @@ CheckForUpdatesKey   := "F24" ; Checks on startup by default, see DoCheckForUpda
 
 ; Options (should be fine out of the box)
 WindowScale          := 1.0       ; Change this to reflect your Windows display scale (e.g. set it to 3 if you have UI scale set to 300%)
-InvLocation 				 := 3         ; by default, this is the location of the inventory in the menu
-AutoSnackLocation 	 := 2					; by default, this is the snack autosnack will select
+InvLocation          := 3         ; by default, this is the location of the inventory in the menu
+AutoSnackLocation    := 2         ; by default, this is the snack autosnack will select
 ManualInventoryLocation :=  false ; if true, use manual calibration of the inventory line in the interactive menu. IsCPHActive and IsVIPActive flags will be ignored.  
 DoConfirmKill        := true      ; If true the KillGame action will ask for confirmation before killing the process
 DoConfirmDisconnect  := true      ; If true the ForceDisconnect action will ask for confirmation before suspending the process
@@ -270,49 +270,49 @@ turnCapslockOff() {
 
 openInteractionMenu(isVIPActive, isCPHActive, goingDown) {
   global IntMenuDelay
-	global ManualInventoryLocation
-	global InvLocation	
+  global ManualInventoryLocation
+  global InvLocation  
   turnCapslockOff()
   Send {%IGB_Interaction%}
   sleep, IntMenuDelay
   
-	if goingDown {
-		TimesDown := 0
-		if (ManualInventoryLocation = 1) {
-			TimesDown := InvLocation - 1 
-			}
-		else {
-			if (isCPHActive = 1) {
-				TimesDown := 2
-			} 
-			else if (isVIPActive = 1) {
-				TimesDown := 1
-			}
-		}	
-		Loop %TimesDown% {
-			Send {%IGB_Down%}
-		}
-	}
-}			
+  if goingDown {
+    TimesDown := 0
+    if (ManualInventoryLocation = 1) {
+      TimesDown := InvLocation - 1 
+      }
+    else {
+      if (isCPHActive = 1) {
+        TimesDown := 2
+      } 
+      else if (isVIPActive = 1) {
+        TimesDown := 1
+      }
+    } 
+    Loop %TimesDown% {
+      Send {%IGB_Down%}
+    }
+  }
+}     
 
 openSnackMenu() {
   global ManualInventoryLocation
-	if !ManualInventoryLocation
-		Send {%IGB_Down%}{%IGB_Down%}
+  if !ManualInventoryLocation
+    Send {%IGB_Down%}{%IGB_Down%}
   Send {%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}
 }
 
 openArmorMenu() {
   global ManualInventoryLocation
-	if !ManualInventoryLocation
-		Send {%IGB_Down%}{%IGB_Down%}
+  if !ManualInventoryLocation
+    Send {%IGB_Down%}{%IGB_Down%}
   Send {%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}
 }
 
 openOutfitMenu() {
   global ManualInventoryLocation
-	if !ManualInventoryLocation
-		Send {%IGB_Down%}{%IGB_Down%}
+  if !ManualInventoryLocation
+    Send {%IGB_Down%}{%IGB_Down%}
   Send {%IGB_Down%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
 }
 
@@ -669,7 +669,7 @@ IncrementInventoryLocation:
 DecrementInventoryLocation:
   InvLocation := InvLocation - 1
   if (InvLocation < 1) {
-		InvLocation := 1
+    InvLocation := 1
   }
   SplashTextOn 350 * WindowScale, 20 * WindowScale, Decrease Inventory Line, The Inventory Line is now %InvLocation%
   Sleep 2000
@@ -688,7 +688,7 @@ IncrementSnackLocation:
 DecrementSnackLocation:
   AutoSnackLocation := AutoSnackLocation - 1
   if (AutoSnackLocation < 1) {
-	AutoSnackLocation := 1
+  AutoSnackLocation := 1
   }
   
   SplashTextOn 350 * WindowScale, 20 * WindowScale, Decrease AutoSnack Line, The Snack Line is now %AutoSnackLocation%
@@ -707,12 +707,12 @@ SnackMenu:
 AutoHealth:
   openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
   openSnackMenu()
-	if ManualInventoryLocation
-		TimesDown := AutoSnackLocation - 1
-	else
-		TimesDown := 1
+  if ManualInventoryLocation
+    TimesDown := AutoSnackLocation - 1
+  else
+    TimesDown := 1
   Loop %TimesDown% {
-		Send {%IGB_Down%}
+    Send {%IGB_Down%}
   }
   Send {%IGB_Enter%}{%IGB_Enter%}{%IGB_Interaction%}
   return
@@ -733,8 +733,8 @@ AutoArmor:
 ; Equips scarf to allow faster running with heist armor (see readme/misc)
 EquipScarf:
   openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
-	if !ManualInventoryLocation
-		Send {%IGB_Down%}{%IGB_Down%}
+  if !ManualInventoryLocation
+    Send {%IGB_Down%}{%IGB_Down%}
   ; Opens scarf menu
   Send {%IGB_Down%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Enter%}
   ; equip scarf and exit menu. This line can be changed to pick different scarfs.
@@ -757,8 +757,8 @@ TogglePassive:
 ; Retrieve your currently active vehicle
 RetrieveCar:
   openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
-	if !ManualInventoryLocation
-		Send {%IGB_Down%}{%IGB_Down%}
+  if !ManualInventoryLocation
+    Send {%IGB_Down%}{%IGB_Down%}
   Send {%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Enter%}{%IGB_Interaction%}
   return
 
@@ -782,16 +782,16 @@ CEOBuzzard:
 ; Call in your Sparrow (or whatever you last requested moon pool vehicle was)
 RequestSparrow:
   openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
-	if !ManualInventoryLocation
-		Send {%IGB_Down%}{%IGB_Down%}
+  if !ManualInventoryLocation
+    Send {%IGB_Down%}{%IGB_Down%}
   Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Up%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Enter%}
   return
 
 ; Return your Sparrow to the Kosatka
 ReturnSparrow:
   openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
-	if !ManualInventoryLocation
-		Send {%IGB_Down%}{%IGB_Down%}
+  if !ManualInventoryLocation
+    Send {%IGB_Down%}{%IGB_Down%}
   Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Up%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Up%}{%IGB_Up%}{%IGB_Enter%}
   return
 
