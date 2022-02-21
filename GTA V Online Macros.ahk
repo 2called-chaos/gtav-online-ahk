@@ -22,7 +22,8 @@
 ;
 ; # Hotkeys / Binding:
 ;
-; To change a hotkey for a macro change the configuration section at the top of the file.
+; To change a hotkey for a macro change the configuration section at the top of the file
+; or even better copy the line to your config.ahk (see Readme) and change it there.
 ; A list of keynames for the non-alphanumeric can be found in the autohotkey help under
 ; the heading "Basic Usage and Syntax" with the name "Key List".
 ; They can also be found at https://www.autohotkey.com/docs/KeyList.htm
@@ -45,31 +46,29 @@
 ;   https://www.autohotkey.com/docs/KeyList.htm
 ; WARNING: If you don't want to use a certain binding use "F24"
 ;          or any other valid key or it will break!
+; Consider using a config.ahk!
 SnackMenuKey         := "+#" ; Open Snack menu (+ = shift, rtfm).
 AutoHealthKey        := "#" ; Automatic snacking. Eats 2 snacks from second snack slot.
 ArmorMenuKey         := "+F1" ; Open Armor menu.
 AutoArmorKey         := "F1" ; Automatic armor equip (uses super heavy armor only).
-RetrieveCarKey       := "F2" ; Request Personal Vehicle.
-TogglePassiveKey     := "F3" ; Toggle passive mode.
-EquipScarfKey        := "NumpadDot" ; Equip first scarf (heist outfit glitch, see readme/misc).
+RetrieveCarKey       := "F2" ; Request currently active Personal Vehicle.
 ToggleRadarKey       := "+F2" ; Toggle between extended and standar radar.
-CycleOutfitKey       := "NumpadMult" ; Equip next/cycle through saved outfits.
-ToggleVIPKey         := "NumpadSub" ; Toggle VIP mode (required when VIP/CEO/MC).  Won't have effect if using ManualInventoryLocation option.
-ToggleCPHKey         := "^NumpadSub" ; Toggle Cayo Perico Heist Final mode (extra menu entry), also see DoToggleCPHWithVIP.  Won't have effect if using ManualInventoryLocation option.
-ToggleAFKKey         := "+NumpadSub" ; Toggle AFK mode
-IncInvKey            := "NumpadAdd" ; for increasing the value of the inventory line
-DecInvKey            := "NumpadSub" ; for decreasing the value of the inventory line
-IncSnackKey          := "^NumpadAdd" ; for increasing the line for the snack selected by autosnacking
-DecSnackKey          := "^NumpadSub" ; for decreasing the line for the snack selected by autosnacking
+CEOBuzzardKey        := "F3" ; Spawn free CEO buzzard
+RequestSparrowKey    := "+F3" ; Call in your Sparrow (or whatever you last requested moon pool vehicle was)
+ReturnSparrowKey     := "^F3" ; Return your Sparrow to the Kosatka
+ForceDisconnectKey   := "F12" ; Force disconnect by suspending process for 10s, requires pssuspend.exe
+KillGameKey          := "+F12" ; Kill game process, requires pskill.exe
+ToggleVIPKey         := "NumpadMult" ; Toggle VIP mode (required when VIP/CEO/MC).  Won't have effect if using ManualInventoryLocation option.
+ToggleCPHKey         := "^NumpadMult" ; Toggle Cayo Perico Heist Final mode (extra menu entry), also see DoToggleCPHWithVIP.  Won't have effect if using ManualInventoryLocation option.
+ToggleAFKKey         := "+NumpadMult" ; Toggle AFK mode
+
+TogglePassiveKey     := "F24" ; Toggle passive mode.
 ToggleClickerKey     := "F24" ; Toggle Clicker (XButton2 = Mouse5)
-KillGameKey          := "+F24" ; Kill game process, requires pskill.exe
-ForceDisconnectKey   := "F24" ; Force disconnect by suspending process for 10s, requires pssuspend.exe
-ChatSnippetsKey      := "F11" ; Gives you a few text snippets to put in chat (chat must be already open)
-RandomHeistKey       := "F7" ; Chooses on-call random heist from phone options
-CEOBuzzardKey        := "F24" ; Spawn free CEO buzzard
-RequestSparrowKey    := "F24" ; Call in your Sparrow (or whatever you last requested moon pool vehicle was)
-ReturnSparrowKey     := "F24" ; Return your Sparrow to the Kosatka
-ToggleAutoHeliKey    := "+XButton1" ; keeps W and 8 pressed,First take heli to sufficient height and then use this as auto Pilot
+ToggleAutoHeliKey    := "F24" ; Keeps throttle and pitch forward pressed, First take heli to sufficient height and then use this as autopilot
+ChatSnippetsKey      := "F24" ; Gives you a few text snippets to put in chat (chat must be already open)
+CycleOutfitKey       := "F24" ; Equip next/cycle through saved outfits.
+RandomHeistKey       := "F24" ; Chooses on-call random heist from phone options
+EquipScarfKey        := "F24" ; Equip first scarf (heist outfit glitch, see readme/misc).
 
 DialDialogKey        := "+F5" ; Call GUI with a list of almost all numbers
 CallMechanicKey      := "F5" ; Call Mechanic
@@ -82,17 +81,26 @@ CallAssistantKey     := "^F6" ; Call Assistant
 CheckForUpdatesKey   := "F24" ; Checks on startup by default, see DoCheckForUpdates option
 
 
+; ManualInventoryLocation (manual inventory line calibration)
+ManualInventoryLocation := false        ; if true, use manual calibration of the inventory line in the interactive menu. IsCPHActive and IsVIPActive flags will be ignored.
+InvLocation             := 3            ; by default, this is the location of the inventory in the menu
+AutoSnackLocation       := 2            ; by default, this is the snack autosnack will select
+; these keys will not be bound if ManualInventoryLocation is false
+IncInvKey               := "NumpadAdd"  ; for increasing the value of the inventory line
+DecInvKey               := "NumpadSub"  ; for decreasing the value of the inventory line
+IncSnackKey             := "^NumpadAdd" ; for increasing the line for the snack selected by autosnacking
+DecSnackKey             := "^NumpadSub" ; for decreasing the line for the snack selected by autosnacking
+
+
 ; Options (should be fine out of the box)
 WindowScale          := 1.0       ; Change this to reflect your Windows display scale (e.g. set it to 3 if you have UI scale set to 300%)
-InvLocation          := 3         ; by default, this is the location of the inventory in the menu
-AutoSnackLocation    := 2         ; by default, this is the snack autosnack will select
-ManualInventoryLocation :=  false ; if true, use manual calibration of the inventory line in the interactive menu. IsCPHActive and IsVIPActive flags will be ignored.
 DoConfirmKill        := true      ; If true the KillGame action will ask for confirmation before killing the process
 DoConfirmDisconnect  := true      ; If true the ForceDisconnect action will ask for confirmation before suspending the process
 IntDisconnectDelay   := 10        ; Amount of seconds to freeze the process for, 10 works fine
 DoToggleCPHWithVIP   := false     ; If true ToggleVIP will become a 3-way toggle (off/on/CayoPericoHeistFinal)
 DisableCapsOnAction  := true      ; Disable caps lock before executing macros, some macros might fail if caps lock is on
 DoCheckForUpdates    := true      ; Check for script updates on startup (you can manually bind this instead or additionally)
+
 
 ; Internal variables (probably no need to edit)
 IsVIPActivated       := false ; Initial status of CEO/VIP mode (after (re)loading script)
