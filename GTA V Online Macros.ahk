@@ -83,7 +83,7 @@ CheckForUpdatesKey   := "F24" ; Checks on startup by default, see DoCheckForUpda
 
 ; ManualInventoryLocation (manual inventory line calibration)
 ManualInventoryLocation := false        ; if true, use manual calibration of the inventory line in the interactive menu. IsCPHActive and IsVIPActive flags will be ignored.
-InvLocation             := 3            ; by default, this is the location of the inventory in the menu
+InvLocation             := 4            ; by default, this is the location of the inventory in the menu
 AutoSnackLocation       := 2            ; by default, this is the snack autosnack will select
 ; these keys will not be bound if ManualInventoryLocation is false
 IncInvKey               := "NumpadAdd"  ; for increasing the value of the inventory line
@@ -301,9 +301,9 @@ openInteractionMenu(isVIPActive, isCPHActive, goingDown) {
       if (isCPHActive = 1) {
         TimesDown := 2
       }
-      else if (isVIPActive = 1) {
-        TimesDown := 1
-      }
+      ; else if (isVIPActive = 1) {
+      ;   TimesDown := 1
+      ; }
     }
     Loop %TimesDown% {
       Send {%IGB_Down%}
@@ -329,7 +329,7 @@ openOutfitMenu() {
   global ManualInventoryLocation
   if !ManualInventoryLocation
     Send {%IGB_Down%}{%IGB_Down%}
-  Send {%IGB_Down%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
+  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
 }
 
 openPhone() {
@@ -598,7 +598,7 @@ ToggleRadar:
   sleep, IntPhoneMenuDelay2
 
   ; Not using IGB_ variables on purpose as pause menu has static bindings
-  Send {Right}{Right}{Right}{Right}
+  Send {Right}{Right}{Right}{Right}{Right}
   Sleep IntPhoneMenuDelay2 * 2
   Send {Enter}
   Sleep IntPhoneMenuDelay2
@@ -767,7 +767,7 @@ ArmorMenu:
 AutoArmor:
   openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
   openArmorMenu()
-  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Interaction%}
+  Send {%IGB_Down% 4}{%IGB_Enter%}{%IGB_Interaction%}
   return
 
 ; Equips scarf to allow faster running with heist armor (see readme/misc)
@@ -776,9 +776,9 @@ EquipScarf:
   if !ManualInventoryLocation
     Send {%IGB_Down%}{%IGB_Down%}
   ; Opens scarf menu
-  Send {%IGB_Down%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Enter%}
+  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Enter%}
   ; equip scarf and exit menu. This line can be changed to pick different scarfs.
-  Send {%IGB_Up%}{%IGB_Up%}{%IGB_Up%}{%IGB_Up%}{%IGB_Right%}{%IGB_Interaction%}
+  Send {%IGB_Up% 4}{%IGB_Right%}{%IGB_Interaction%}
   return
 
 ; Cycle between your saved outfits
@@ -799,7 +799,7 @@ RetrieveCar:
   openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
   if !ManualInventoryLocation
     Send {%IGB_Down%}{%IGB_Down%}
-  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Enter%}{%IGB_Interaction%}
+  Send {%IGB_Down% 3}{%IGB_Enter%}{%IGB_Enter%}{%IGB_Interaction%}
   return
 
 ; Chooses on-call random heist from phone options
@@ -824,7 +824,7 @@ RequestSparrow:
   openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
   if !ManualInventoryLocation
     Send {%IGB_Down%}{%IGB_Down%}
-  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Up%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Enter%}
+  Send {%IGB_Down% 4}{%IGB_Enter%}{%IGB_Up%}{%IGB_Up%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Enter%}
   return
 
 ; Return your Sparrow to the Kosatka
@@ -832,7 +832,7 @@ ReturnSparrow:
   openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
   if !ManualInventoryLocation
     Send {%IGB_Down%}{%IGB_Down%}
-  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Up%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Up%}{%IGB_Up%}{%IGB_Enter%}
+  Send {%IGB_Down% 4}{%IGB_Enter%}{%IGB_Up%}{%IGB_Up%}{%IGB_Enter%}{%IGB_Down% 3}{%IGB_Enter%}{%IGB_Up%}{%IGB_Up%}{%IGB_Enter%}
   return
 
 ; Show a list of chat snippets to type out (chat must be opened)
