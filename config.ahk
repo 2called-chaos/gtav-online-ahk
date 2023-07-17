@@ -1,6 +1,6 @@
-SnackMenuKey         := "F24" ; Open Snack menu (+ = shift, rtfm).
+SnackMenuKey         := "1" ; Open Snack menu (+ = shift, rtfm).
 AutoHealthKey        := "F24" ; Automatic snacking. Eats 2 snacks from second snack slot.
-ArmorMenuKey         := "F24" ; Open Armor menu.
+ArmorMenuKey         := "2" ; Open Armor menu.
 AutoArmorKey         := "F24" ; Automatic armor equip (uses super heavy armor only).
 RetrieveCarKey       := "F24" ; Request currently active Personal Vehicle.
 ToggleRadarKey       := "F24" ; Toggle between extended and standar radar.

@@ -314,15 +314,15 @@ openInteractionMenu(isVIPActive, isCPHActive, goingDown) {
 openSnackMenu() {
   global ManualInventoryLocation
   if !ManualInventoryLocation
-    Send {%IGB_Down%}{%IGB_Down%}
-  Send {%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}
+    Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
+  Send {%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}
 }
 
 openArmorMenu() {
   global ManualInventoryLocation
   if !ManualInventoryLocation
-    Send {%IGB_Down%}{%IGB_Down%}
-  Send {%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}
+    Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
+  Send {%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}
 }
 
 openOutfitMenu() {
