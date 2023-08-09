@@ -8,6 +8,9 @@ Provides hotkeys for several useful features in GTA V:Online, see list further d
           or just send them in!
 
 
+**GTAO 1.67 NOTE**: VIP/CEO mode is apparently no longer needed. Cayo mode possibly broken, I cannot currently test. Thanks to @vCybah for providing 1.67 fixes
+
+
 ## Requirements
 
   * [AutoHotkey](https://www.autohotkey.com/)
