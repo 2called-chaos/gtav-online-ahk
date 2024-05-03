@@ -120,7 +120,7 @@ ArrayChatSnippets.push("You want some cool AHK macros? github.com/2called-chaos/
 ; Delays (you normally don't want to change these, you can try to play with these values if you have a slow/fast PC)
 IntFocusDelay        := 100  ; delay (in ms) after focussing game when AHK-GUI took focus.
 IntMenuDelay         := 120  ; delay (in ms) after opening interaction menu.
-IntPhoneMenuDelay    := 1850 ; delay (in ms) after opening phone menu.
+IntPhoneMenuDelay    := 750 ; delay (in ms) after opening phone menu.
 IntPhoneMenuDelay2   := 250  ; delay (in ms) after selecting phone menu entries.
 IntPhoneScrollDelay  := 75   ; delay (in ms) between scrolls in the phone menu.
 IntKeySendDelay      := 25   ; delay (in ms) delay between send key commands.
@@ -314,21 +314,21 @@ openInteractionMenu(isVIPActive, isCPHActive, goingDown) {
 openSnackMenu() {
   global ManualInventoryLocation
   if !ManualInventoryLocation
-    Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
-  Send {%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}
+    Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
+  Send {%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}
 }
 
 openArmorMenu() {
   global ManualInventoryLocation
   if !ManualInventoryLocation
-    Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
-  Send {%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}
+    Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
+  Send {%IGB_Enter%}{%IGB_Down%}{%IGB_Enter%}
 }
 
 openOutfitMenu() {
   global ManualInventoryLocation
   if !ManualInventoryLocation
-    Send {%IGB_Down%}{%IGB_Down%}
+    Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
   Send {%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
 }
 
@@ -774,9 +774,9 @@ AutoArmor:
 EquipScarf:
   openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
   if !ManualInventoryLocation
-    Send {%IGB_Down%}{%IGB_Down%}
+    Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
   ; Opens scarf menu
-  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Enter%}
+  Send {%IGB_Down%}{%IGB_Enter%}
   ; equip scarf and exit menu. This line can be changed to pick different scarfs.
   Send {%IGB_Up% 4}{%IGB_Right%}{%IGB_Interaction%}
   return
@@ -799,7 +799,7 @@ RetrieveCar:
   openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
   if !ManualInventoryLocation
     Send {%IGB_Down%}{%IGB_Down%}
-  Send {%IGB_Down% 3}{%IGB_Enter%}{%IGB_Enter%}{%IGB_Interaction%}
+  Send {%IGB_Enter%}{%IGB_Enter%}{%IGB_Interaction%}
   return
 
 ; Chooses on-call random heist from phone options
@@ -823,16 +823,16 @@ CEOBuzzard:
 RequestSparrow:
   openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
   if !ManualInventoryLocation
-    Send {%IGB_Down%}{%IGB_Down%}
-  Send {%IGB_Down% 4}{%IGB_Enter%}{%IGB_Up%}{%IGB_Up%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Enter%}
+    Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
+  Send {%IGB_Enter%}{%IGB_Up%}{%IGB_Up%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Enter%}
   return
 
 ; Return your Sparrow to the Kosatka
 ReturnSparrow:
   openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
   if !ManualInventoryLocation
-    Send {%IGB_Down%}{%IGB_Down%}
-  Send {%IGB_Down% 4}{%IGB_Enter%}{%IGB_Up%}{%IGB_Up%}{%IGB_Enter%}{%IGB_Down% 3}{%IGB_Enter%}{%IGB_Up%}{%IGB_Up%}{%IGB_Enter%}
+    Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
+  Send {%IGB_Enter%}{%IGB_Up%}{%IGB_Up%}{%IGB_Enter%}{%IGB_Down% 3}{%IGB_Enter%}{%IGB_Up%}{%IGB_Up%}{%IGB_Enter%}
   return
 
 ; Show a list of chat snippets to type out (chat must be opened)
