@@ -1,4 +1,4 @@
-; v1.3.1
+; v1.4.0
 ; ^ don't remove or alter this line (autoupdate)
 #MaxThreadsPerHotkey 2
 
@@ -71,10 +71,15 @@ ResignOrDisbandKey   := "F10" ; Resigns your CEO position or Disbands your MC Cl
 TogglePassiveKey     := "F24" ; Toggle passive mode.
 ToggleClickerKey     := "F24" ; Toggle Clicker (XButton2 = Mouse5).
 ToggleAutoHeliKey    := "F24" ; Keeps throttle and pitch forward pressed, First take heli to sufficient height and then use this as autopilot.
+ToggleAutoPlaneKey   := "F24" ; Keeps throttle at max for plane autopilot.
 ChatSnippetsKey      := "F24" ; Gives you a few text snippets to put in chat (chat must be already open).
 CycleOutfitKey       := "F24" ; Equip next/cycle through saved outfits.
 RandomHeistKey       := "F24" ; Chooses on-call random heist from phone options.
 EquipScarfKey        := "F24" ; Equip first scarf (heist outfit glitch, see readme/misc).
+
+NewInviteSessionKey  := "F11" ; Join a New Invite Only Session.
+NewCrewSessionKey    := "+F11" ; Join a New Crew Only Session.
+NewFriendSessionKey  := "^F11" ; Join a New Friend Only Session.
 
 DialDialogKey        := "+F5" ; Call GUI with a list of almost all numbers.
 CallMechanicKey      := "F5" ; Call Mechanic.
@@ -82,6 +87,7 @@ CallPegasusKey       := "F24" ; Call Pegasus.
 CallMerryweatherKey  := "F24" ; Call Merryweather.
 CallInsuranceKey     := "F6" ; Call Insurance.
 CallLesterKey        := "+F6" ; Call Lester.
+RemoveWantedLevelKey := "F24" ; Call Lester and have him remove wanted level.
 CallAssistantKey     := "^F6" ; Call Assistant.
 
 CheckForUpdatesKey   := "F24" ; Checks on startup by default, see DoCheckForUpdates option.
@@ -149,8 +155,8 @@ global IGB_MoveLeft := "a"
 global IGB_MoveRight := "d"
 ; aircraft/helicopter
 global IGB_ThrottleUp := "w"
-global IGB_PitchForward := "Numpad8"
-global IGB_PitchBack := "Numpad2"
+global IGB_PitchForward := "i"
+global IGB_PitchBack := "k"
 
 
 ; Phone numbers for DialDialog GUI dialog (you can change the order if you want or hide entries by commenting them out)
@@ -241,6 +247,7 @@ Hotkey, %ResignOrDisbandKey%, ResignOrDisband
 Hotkey, %ToggleClickerKey%, ToggleClicker
 Hotkey, %ToggleRadarKey%, ToggleRadar
 HotKey, %ToggleAutoHeliKey%, ToggleAutoHeli
+Hotkey, %ToggleAutoPlaneKey%, ToggleAutoPlane
 Hotkey, %KillGameKey%, KillGame
 Hotkey, %ForceDisconnectKey%, ForceDisconnect
 Hotkey, %RandomHeistKey%, RandomHeist
@@ -249,12 +256,16 @@ Hotkey, %CEOBuzzardKey%, CEOBuzzard
 Hotkey, %RequestSparrowKey%, RequestSparrow
 Hotkey, %ReturnSparrowKey%, ReturnSparrow
 Hotkey, %RequestKosatkaKey%, RequestKosatka
+Hotkey, %NewInviteSessionKey%, NewInviteSession
+Hotkey, %NewCrewSessionKey%, NewCrewSession
+Hotkey, %NewFriendSessionKey%, NewFriendSession
 Hotkey, %DialDialogKey%, DialDialog
 Hotkey, %CallMechanicKey%, CallMechanic
 Hotkey, %CallPegasusKey%, CallPegasus
 Hotkey, %CallMerryweatherKey%, CallMerryweather
 Hotkey, %CallInsuranceKey%, CallInsurance
 Hotkey, %CallLesterKey%, CallLester
+Hotkey, %RemoveWantedLevelKey%, RemoveWantedLevel
 Hotkey, %CallAssistantKey%, CallAssistant
 
 if(ManualInventoryLocation) {
@@ -731,6 +742,27 @@ ToggleAutoHeli:
   }
   return
 
+; Plane autopilot (hold throttle)
+AutoPlane:
+  SetKeyDelay, -1
+  if (autoPlaneToggle) {
+    Send, {Blind}{%IGB_ThrottleUp% DownTemp}
+  } else {
+    SetTimer, AutoPlane, OFF
+    Send, {Blind}{%IGB_ThrottleUp% Up}
+  }
+  return
+
+ToggleAutoPlane:
+  autoPlaneToggle := ( autoPlaneToggle ? 0 : 1 )
+  if (autoPlaneToggle) {
+    SetTimer, AutoPlane, 50
+    SoundPlay, %A_WinDir%\Media\Windows Battery Critical.wav
+  } else {
+    SoundPlay, %A_WinDir%\Media\Windows Balloon.wav
+  }
+  return
+
 IncrementInventoryLocation:
   InvLocation := InvLocation + 1
   SplashTextOn 350 * WindowScale, 20 * WindowScale, Increase Inventory Line, The Inventory Line is now %InvLocation%
@@ -840,7 +872,7 @@ ReturnCar:
   openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
   if !ManualInventoryLocation
     Send {%IGB_Down%}{%IGB_Down%}
-  Send {%IGB_Enter%}{%IGB_Up% 2}{%IGB_Enter%}
+  Send {%IGB_Enter%}{%IGB_Up% 2}{%IGB_Enter%}{%IGB_Interaction%}
   return
 
 ; Chooses on-call random heist from phone options
@@ -882,6 +914,84 @@ RequestKosatka:
   if !ManualInventoryLocation
     Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
   Send {%IGB_Enter%}{%IGB_Up%}{%IGB_Up%}{%IGB_Enter%}{%IGB_Enter%}
+  return
+
+; Join a New Invite Only Session
+NewInviteSession:
+  ; Open settings
+  turnCapslockOff()
+  SoundPlay, %A_WinDir%\Media\Windows Battery Critical.wav
+  Send {%IGB_Pause%}
+
+  ; Necessary delay to allow settings to open properly
+  sleep, IntPhoneMenuDelay2
+
+  ; Not using IGB_ variables on purpose as pause menu has static bindings
+  Send {Right}
+  Sleep IntPhoneMenuDelay2 * 2
+  Send {Enter} ; Online Menu
+  Sleep IntPhoneMenuDelay2
+  Send {Up}{Up}{Up}{Up}
+  Sleep IntPhoneMenuDelay2
+  Send {Enter} ; New Session Menu
+  Sleep IntPhoneMenuDelay2
+  Send {Down}
+  Sleep IntPhoneMenuDelay2
+  Send {Enter} ; New Invite Only Session
+  Sleep IntPhoneMenuDelay2
+  Send {Enter} ; Confirm Session Change
+  return
+
+; Join a New Crew Only Session
+NewCrewSession:
+  ; Open settings
+  turnCapslockOff()
+  SoundPlay, %A_WinDir%\Media\Windows Battery Critical.wav
+  Send {%IGB_Pause%}
+
+  ; Necessary delay to allow settings to open properly
+  sleep, IntPhoneMenuDelay2
+
+  ; Not using IGB_ variables on purpose as pause menu has static bindings
+  Send {Right}
+  Sleep IntPhoneMenuDelay2 * 2
+  Send {Enter} ; Online Menu
+  Sleep IntPhoneMenuDelay2
+  Send {Up}{Up}{Up}{Up}
+  Sleep IntPhoneMenuDelay2
+  Send {Enter} ; New Session Menu
+  Sleep IntPhoneMenuDelay2
+  Send {Up}{Up}
+  Sleep IntPhoneMenuDelay2
+  Send {Enter} ; New Crew Only Session
+  Sleep IntPhoneMenuDelay2
+  Send {Enter} ; Confirm Session Change
+  return
+
+; Join a New Friend Only Session
+NewFriendSession:
+  ; Open settings
+  turnCapslockOff()
+  SoundPlay, %A_WinDir%\Media\Windows Battery Critical.wav
+  Send {%IGB_Pause%}
+
+  ; Necessary delay to allow settings to open properly
+  sleep, IntPhoneMenuDelay2
+
+  ; Not using IGB_ variables on purpose as pause menu has static bindings
+  Send {Right}
+  Sleep IntPhoneMenuDelay2 * 2
+  Send {Enter} ; Online Menu
+  Sleep IntPhoneMenuDelay2
+  Send {Up}{Up}{Up}{Up}
+  Sleep IntPhoneMenuDelay2
+  Send {Enter} ; New Session Menu
+  Sleep IntPhoneMenuDelay2
+  Send {Up}
+  Sleep IntPhoneMenuDelay2
+  Send {Enter} ; New Friend Only Session
+  Sleep IntPhoneMenuDelay2
+  Send {Enter} ; Confirm Session Change
   return
 
 ; Show a list of chat snippets to type out (chat must be opened)
@@ -985,6 +1095,13 @@ CallInsurance:
 CallLester:
   ;makeCall(12, true)
   dialNumber("346-555-0102", true)
+  return
+
+RemoveWantedLevel:
+  ;makeCall(12, true)
+  dialNumber("346-555-0102", true)
+  sleep 8000
+  Send {%IGB_Down%}{%IGB_Enter%}{%IGB_Interaction%}
   return
 
 CallAssistant:
