@@ -1,4 +1,4 @@
-; v1.4.0
+; v1.3.1
 ; ^ don't remove or alter this line (autoupdate)
 #MaxThreadsPerHotkey 2
 
@@ -745,18 +745,29 @@ ToggleAutoHeli:
 ; Plane autopilot (hold throttle)
 AutoPlane:
   SetKeyDelay, -1
-  if (autoPlaneToggle) {
+  if (autoHeliToggle) {
     Send, {Blind}{%IGB_ThrottleUp% DownTemp}
   } else {
     SetTimer, AutoPlane, OFF
+    SetTimer, AutoPlaneElevator, OFF
     Send, {Blind}{%IGB_ThrottleUp% Up}
   }
   return
 
+; Plane Elevator Timer (Velum airplane constantly loses altitude with "neutral" elevator)
+AutoPlaneElevator:
+  SetKeyDelay, -1
+  if (autoHeliToggle) {
+    Send {%IGB_PitchBack%}
+  }
+  return
+
+
 ToggleAutoPlane:
-  autoPlaneToggle := ( autoPlaneToggle ? 0 : 1 )
-  if (autoPlaneToggle) {
+  autoHeliToggle := ( autoHeliToggle ? 0 : 1 )
+  if (autoHeliToggle) {
     SetTimer, AutoPlane, 50
+    SetTimer, AutoPlaneElevator, 5000
     SoundPlay, %A_WinDir%\Media\Windows Battery Critical.wav
   } else {
     SoundPlay, %A_WinDir%\Media\Windows Balloon.wav
@@ -1100,7 +1111,7 @@ CallLester:
 RemoveWantedLevel:
   ;makeCall(12, true)
   dialNumber("346-555-0102", true)
-  sleep 8000
+  sleep 10000
   Send {%IGB_Down%}{%IGB_Enter%}{%IGB_Interaction%}
   return
 
