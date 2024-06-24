@@ -155,8 +155,8 @@ global IGB_MoveLeft := "a"
 global IGB_MoveRight := "d"
 ; aircraft/helicopter
 global IGB_ThrottleUp := "w"
-global IGB_PitchForward := "i"
-global IGB_PitchBack := "k"
+global IGB_PitchForward := "Numpad8"
+global IGB_PitchBack := "Numpad5"
 
 
 ; Phone numbers for DialDialog GUI dialog (you can change the order if you want or hide entries by commenting them out)
