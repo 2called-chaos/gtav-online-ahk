@@ -3,11 +3,6 @@
 Provides hotkeys for several useful features in GTA V:Online, see list further down.
 
 
-**NOTE**: I tested this on my SC installation and with my account. If something doesn't work, ask (open issue)!
-          I evidently do heists most of the time so if you have ideas for useful CEO macros, let me know
-          or just send them in!
-
-
 **GTAO 1.67 NOTE**: VIP/CEO mode is apparently no longer needed. Cayo mode possibly broken, I cannot currently test. Thanks to @vCybah for providing 1.67 fixes
 
 
@@ -23,6 +18,7 @@ Provides hotkeys for several useful features in GTA V:Online, see list further d
   * Open it in a text editor (e.g. notepad++ with AutoIT syntax highlighting)
   * Consider creating a config.ahk and copy lines you want to change over there (so you can update, see Config further down)
   * Change the hotkeys ([key list](https://www.autohotkey.com/docs/KeyList.htm)) and other options as you desire
+  * Start GTA V
   * Doubleclick the .ahk file (open with AHK) Note: On Windows 10 right click -> run as admin might be necessary
 
 
@@ -40,6 +36,7 @@ You can copy them all but we only need pssuspend and pskill so go ahead and extr
 
 ## Usage
 
+* Start GTA V before starting this script
 * On Windows 10 you might have to start the AHK script as administrator (right click -> Run as administator)
 * You should run the game in window(ed fullscreen) or some functions will alt-tab you and will not work properly
 * You will have to toggle VIP/CEO/MC mode manually since the interaction menu will be changed and most functions need to be aware of that.
@@ -134,21 +131,30 @@ I might forget to update so just check available keybinds :)
 * **ArmorMenu** – Opens the armor menu
 * **AutoArmor** – Consumes one super heavy armor and closes menu
 * **RetrieveCar** – Retrieve your current active personal vehicle
+* **ReturnCar** - Return the currently active personal vehicle
 * **TogglePassive** – Toggle passive mode
 * **EquipScarf** – Equip scarf (heist outfit speed, see miscellaneous)
 * **CycleOutfit** – Cycle through your saved outfits
 * **ToggleVIP** – Toggle VIP(/CEO/MC) mode
 * **ToggleCPH** – Toggle CPH (Cayo Perico Heist Final) mode
 * **ToggleAFK** – Toggle AFK mode
+* **TurnOnCEO** - Makes you CEO of an Organization and toggles VIP mode
+* **TurnOnPres** - Makes you President of a MC Club and toggles VIP mode
+* **ResignOrDisband** - Resigns your CEO position or Disbands your MC Club and toggles VIP mode
 * **ToggleClicker** – Toggle auto clicker
 * **ToggleRadar** – Toggle extended radar
 * **ToggleAutoHeli** – Keeps throttle and pitch forward pressed, poor mans autopilot
+* **ToggleAutoPlane** - Keeps throttle at max for plane autopilot
 * **CEOBuzzard** – Spawn a free CEO Buzzard
 * **RequestSparrow** – Call in your Sparrow (or whatever you last requested moon pool vehicle was)
-* **ReturnSparrow**: – Return your Sparrow to the Kosatka
+* **ReturnSparrow** – Return your Sparrow to the Kosatka
+* **RequestKosatka** - Call in your Kosatka Submarine
 * **RandomHeist** – Join a random heist (on-call) solo aka don't invite friends in session
 * **ForceDisconnect** – Force disconnect the game by freezing the process for 10 seconds (requires pssuspend.exe)
 * **KillGame** – Kill the game process immediately (requires pskill.exe)
+* **NewInviteSession** - Join a New Invite Only Session
+* **NewCrewSession** - Join a New Crew Only Session
+* **NewFriendSession** - Join a New Friend Only Session
 * **ChatSnippets** – Select a sentence from a configurable list which will get typed out in the game (chat should already be open)
 * **DialDialog** – Select a number from a list and call it automatically (add items, change order or remove entries in config)
 * **CheckForUpdates** – Manually check for updates
@@ -158,6 +164,7 @@ The following calls can be directly bound to a hotkey (adding more is trivial):
 * **CallAssistant**
 * **CallInsurance**
 * **CallLester**
+* **RemoveWantedLevel** - Calls Lester and has him remove wanted level
 * **CallMechanic**
 * **CallMerryweather**
 * **CallPegasus**

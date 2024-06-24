@@ -3,7 +3,7 @@
 #MaxThreadsPerHotkey 2
 
 ;
-; GTA V Online AHK-Macros v1.3.0 by 2called-chaos
+; GTA V Online AHK-Macros v1.4.0 by 2called-chaos/mannly01
 ; based on/inspired by GTA V Useful Macros v4.21 by twentyafterfour
 ;
 ; # Description
@@ -52,61 +52,73 @@ AutoHealthKey        := "#" ; Automatic snacking. Eats 2 snacks from second snac
 ArmorMenuKey         := "+F1" ; Open Armor menu.
 AutoArmorKey         := "F1" ; Automatic armor equip (uses super heavy armor only).
 RetrieveCarKey       := "F2" ; Request currently active Personal Vehicle.
+ReturnCarKey         := "^F2" ; Return the currently active Personal Vehicle.
 ToggleRadarKey       := "+F2" ; Toggle between extended and standar radar.
-CEOBuzzardKey        := "F3" ; Spawn free CEO buzzard
-RequestSparrowKey    := "+F3" ; Call in your Sparrow (or whatever you last requested moon pool vehicle was)
-ReturnSparrowKey     := "^F3" ; Return your Sparrow to the Kosatka
-ForceDisconnectKey   := "F12" ; Force disconnect by suspending process for 10s, requires pssuspend.exe
-KillGameKey          := "+F12" ; Kill game process, requires pskill.exe
+CEOBuzzardKey        := "F3" ; Spawn free CEO buzzard.
+RequestSparrowKey    := "+F3" ; Call in your Sparrow (or whatever you last requested moon pool vehicle was).
+ReturnSparrowKey     := "^F3" ; Return your Sparrow to the Kosatka.
+RequestKosatkaKey    := "F24" ; Call in your Kosatka Submarine.
+ForceDisconnectKey   := "F12" ; Force disconnect by suspending process for 10s, requires pssuspend.exe.
+KillGameKey          := "+F12" ; Kill game process, requires pskill.exe.
 ToggleVIPKey         := "NumpadMult" ; Toggle VIP mode (required when VIP/CEO/MC).  Won't have effect if using ManualInventoryLocation option.
 ToggleCPHKey         := "^NumpadMult" ; Toggle Cayo Perico Heist Final mode (extra menu entry), also see DoToggleCPHWithVIP.  Won't have effect if using ManualInventoryLocation option.
-ToggleAFKKey         := "+NumpadMult" ; Toggle AFK mode
+ToggleAFKKey         := "+NumpadMult" ; Toggle AFK mode.
+
+TurnOnCEOKey         := "+F10" ; Makes you CEO of an Organization and toggles VIP mode.
+TurnOnPresKey        := "^F10" ; Makes you President of a MC Club and toggles VIP mode.
+ResignOrDisbandKey   := "F10" ; Resigns your CEO position or Disbands your MC Club and toggles VIP mode.
 
 TogglePassiveKey     := "F24" ; Toggle passive mode.
-ToggleClickerKey     := "F24" ; Toggle Clicker (XButton2 = Mouse5)
-ToggleAutoHeliKey    := "F24" ; Keeps throttle and pitch forward pressed, First take heli to sufficient height and then use this as autopilot
-ChatSnippetsKey      := "F24" ; Gives you a few text snippets to put in chat (chat must be already open)
+ToggleClickerKey     := "F24" ; Toggle Clicker (XButton2 = Mouse5).
+ToggleAutoHeliKey    := "F24" ; Keeps throttle and pitch forward pressed, First take heli to sufficient height and then use this as autopilot.
+ToggleAutoPlaneKey   := "F24" ; Keeps throttle at max for plane autopilot.
+ChatSnippetsKey      := "F24" ; Gives you a few text snippets to put in chat (chat must be already open).
 CycleOutfitKey       := "F24" ; Equip next/cycle through saved outfits.
-RandomHeistKey       := "F24" ; Chooses on-call random heist from phone options
+RandomHeistKey       := "F24" ; Chooses on-call random heist from phone options.
 EquipScarfKey        := "F24" ; Equip first scarf (heist outfit glitch, see readme/misc).
 
-DialDialogKey        := "+F5" ; Call GUI with a list of almost all numbers
-CallMechanicKey      := "F5" ; Call Mechanic
-CallPegasusKey       := "F24" ; Call Pegasus
-CallMerryweatherKey  := "F24" ; Call Merryweather
-CallInsuranceKey     := "F6" ; Call Insurance
-CallLesterKey        := "+F6" ; Call Lester
-CallAssistantKey     := "^F6" ; Call Assistant
+NewInviteSessionKey  := "F11" ; Join a New Invite Only Session.
+NewCrewSessionKey    := "+F11" ; Join a New Crew Only Session.
+NewFriendSessionKey  := "^F11" ; Join a New Friend Only Session.
 
-CheckForUpdatesKey   := "F24" ; Checks on startup by default, see DoCheckForUpdates option
+DialDialogKey        := "+F5" ; Call GUI with a list of almost all numbers.
+CallMechanicKey      := "F5" ; Call Mechanic.
+CallPegasusKey       := "F24" ; Call Pegasus.
+CallMerryweatherKey  := "F24" ; Call Merryweather.
+CallInsuranceKey     := "F6" ; Call Insurance.
+CallLesterKey        := "+F6" ; Call Lester.
+RemoveWantedLevelKey := "F24" ; Call Lester and have him remove wanted level.
+CallAssistantKey     := "^F6" ; Call Assistant.
+
+CheckForUpdatesKey   := "F24" ; Checks on startup by default, see DoCheckForUpdates option.
 
 
 ; ManualInventoryLocation (manual inventory line calibration)
 ManualInventoryLocation := false        ; if true, use manual calibration of the inventory line in the interactive menu. IsCPHActive and IsVIPActive flags will be ignored.
-InvLocation             := 4            ; by default, this is the location of the inventory in the menu
-AutoSnackLocation       := 2            ; by default, this is the snack autosnack will select
-; these keys will not be bound if ManualInventoryLocation is false
-IncInvKey               := "NumpadAdd"  ; for increasing the value of the inventory line
-DecInvKey               := "NumpadSub"  ; for decreasing the value of the inventory line
-IncSnackKey             := "^NumpadAdd" ; for increasing the line for the snack selected by autosnacking
-DecSnackKey             := "^NumpadSub" ; for decreasing the line for the snack selected by autosnacking
+InvLocation             := 4            ; by default, this is the location of the inventory in the menu.
+AutoSnackLocation       := 2            ; by default, this is the snack autosnack will select.
+; these keys will not be bound if ManualInventoryLocation is false.
+IncInvKey               := "NumpadAdd"  ; for increasing the value of the inventory line.
+DecInvKey               := "NumpadSub"  ; for decreasing the value of the inventory line.
+IncSnackKey             := "^NumpadAdd" ; for increasing the line for the snack selected by autosnacking.
+DecSnackKey             := "^NumpadSub" ; for decreasing the line for the snack selected by autosnacking.
 
 
 ; Options (should be fine out of the box)
-WindowScale          := 1.0       ; Change this to reflect your Windows display scale (e.g. set it to 3 if you have UI scale set to 300%)
-DoConfirmKill        := true      ; If true the KillGame action will ask for confirmation before killing the process
-DoConfirmDisconnect  := true      ; If true the ForceDisconnect action will ask for confirmation before suspending the process
-IntDisconnectDelay   := 10        ; Amount of seconds to freeze the process for, 10 works fine
-DoToggleCPHWithVIP   := false     ; If true ToggleVIP will become a 3-way toggle (off/on/CayoPericoHeistFinal)
-DisableCapsOnAction  := true      ; Disable caps lock before executing macros, some macros might fail if caps lock is on
-DoCheckForUpdates    := true      ; Check for script updates on startup (you can manually bind this instead or additionally)
+WindowScale          := 1.0       ; Change this to reflect your Windows display scale (e.g. set it to 3 if you have UI scale set to 300%).
+DoConfirmKill        := true      ; If true the KillGame action will ask for confirmation before killing the process.
+DoConfirmDisconnect  := true      ; If true the ForceDisconnect action will ask for confirmation before suspending the process.
+IntDisconnectDelay   := 10        ; Amount of seconds to freeze the process for, 10 works fine.
+DoToggleCPHWithVIP   := false     ; If true ToggleVIP will become a 3-way toggle (off/on/CayoPericoHeistFinal).
+DisableCapsOnAction  := true      ; Disable caps lock before executing macros, some macros might fail if caps lock is on.
+DoCheckForUpdates    := true      ; Check for script updates on startup (you can manually bind this instead or additionally).
 
 
 ; Internal variables (probably no need to edit)
-IsVIPActivated       := false ; Initial status of CEO/VIP mode (after (re)loading script)
-IsAFKActivated       := false ; Initial status of AFK mode (should always be false)
-IsCPHActivated       := false ; Initial status of CPH mode (should always be false)
-IsClickerActivated   := false ; Initial status of Clicker (should always be false)
+IsVIPActivated       := false ; Initial status of CEO/VIP mode (after (re)loading script).
+IsAFKActivated       := false ; Initial status of AFK mode (should always be false).
+IsCPHActivated       := false ; Initial status of CPH mode (should always be false).
+IsClickerActivated   := false ; Initial status of Clicker (should always be false).
 
 
 ; Chat snippets (you can add more, comment them out or remove them, the pushs that is)
@@ -143,7 +155,8 @@ global IGB_MoveLeft := "a"
 global IGB_MoveRight := "d"
 ; aircraft/helicopter
 global IGB_ThrottleUp := "w"
-global IGB_PitchForward := "Numpad8"
+global IGB_PitchForward := "i"
+global IGB_PitchBack := "k"
 
 
 ; Phone numbers for DialDialog GUI dialog (you can change the order if you want or hide entries by commenting them out)
@@ -222,14 +235,19 @@ Hotkey, %ArmorMenuKey%, ArmorMenu
 Hotkey, %AutoArmorKey%, AutoArmor
 Hotkey, %TogglePassiveKey%, TogglePassive
 Hotkey, %RetrieveCarKey%, RetrieveCar
+Hotkey, %ReturnCarKey%, ReturnCar
 Hotkey, %EquipScarfKey%, EquipScarf
 Hotkey, %CycleOutfitKey%, CycleOutfit
 Hotkey, %ToggleVIPKey%, ToggleVIP
 Hotkey, %ToggleCPHKey%, ToggleCPH
 Hotkey, %ToggleAFKKey%, ToggleAFK
+Hotkey, %TurnOnCEOKey%, TurnOnCEO
+Hotkey, %TurnOnPresKey%, TurnOnPres
+Hotkey, %ResignOrDisbandKey%, ResignOrDisband
 Hotkey, %ToggleClickerKey%, ToggleClicker
 Hotkey, %ToggleRadarKey%, ToggleRadar
 HotKey, %ToggleAutoHeliKey%, ToggleAutoHeli
+Hotkey, %ToggleAutoPlaneKey%, ToggleAutoPlane
 Hotkey, %KillGameKey%, KillGame
 Hotkey, %ForceDisconnectKey%, ForceDisconnect
 Hotkey, %RandomHeistKey%, RandomHeist
@@ -237,12 +255,17 @@ Hotkey, %ChatSnippetsKey%, ChatSnippets
 Hotkey, %CEOBuzzardKey%, CEOBuzzard
 Hotkey, %RequestSparrowKey%, RequestSparrow
 Hotkey, %ReturnSparrowKey%, ReturnSparrow
+Hotkey, %RequestKosatkaKey%, RequestKosatka
+Hotkey, %NewInviteSessionKey%, NewInviteSession
+Hotkey, %NewCrewSessionKey%, NewCrewSession
+Hotkey, %NewFriendSessionKey%, NewFriendSession
 Hotkey, %DialDialogKey%, DialDialog
 Hotkey, %CallMechanicKey%, CallMechanic
 Hotkey, %CallPegasusKey%, CallPegasus
 Hotkey, %CallMerryweatherKey%, CallMerryweather
 Hotkey, %CallInsuranceKey%, CallInsurance
 Hotkey, %CallLesterKey%, CallLester
+Hotkey, %RemoveWantedLevelKey%, RemoveWantedLevel
 Hotkey, %CallAssistantKey%, CallAssistant
 
 if(ManualInventoryLocation) {
@@ -674,6 +697,27 @@ ToggleCPH:
   bringGameIntoFocus()
   return
 
+; Makes you CEO of an Organization and toggles VIP mode.
+TurnOnCEO:
+  openInteractionMenu(false, false, false)
+  Send {%IGB_Down%}{%IGB_Enter%}{%IGB_Enter%}{%IGB_Enter%}
+  IsVIPActivated := true
+  return
+
+; Makes you President of a MC Club and toggles VIP mode.
+TurnOnPres:
+  openInteractionMenu(false, false, false)
+  Send {%IGB_Down%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Enter%}
+  IsVIPActivated := true
+  return
+
+; Resigns your CEO position or Disbands your MC Club and toggles VIP mode.
+ResignOrDisband:
+  openInteractionMenu(false, false, false)
+  Send {%IGB_Enter%}{%IGB_Up%}{%IGB_Enter%}
+  IsVIPActivated := false
+  return
+
 ; Helicopter autopilot (hold throttle and forward)
 AutoHeli:
   SetKeyDelay, -1
@@ -692,6 +736,38 @@ ToggleAutoHeli:
   autoHeliToggle := ( autoHeliToggle ? 0 : 1 )
   if(autoHeliToggle) {
     SetTimer, AutoHeli, 50
+    SoundPlay, %A_WinDir%\Media\Windows Battery Critical.wav
+  } else {
+    SoundPlay, %A_WinDir%\Media\Windows Balloon.wav
+  }
+  return
+
+; Plane autopilot (hold throttle)
+AutoPlane:
+  SetKeyDelay, -1
+  if (autoHeliToggle) {
+    Send, {Blind}{%IGB_ThrottleUp% DownTemp}
+  } else {
+    SetTimer, AutoPlane, OFF
+    SetTimer, AutoPlaneElevator, OFF
+    Send, {Blind}{%IGB_ThrottleUp% Up}
+  }
+  return
+
+; Plane Elevator Timer (Velum airplane constantly loses altitude with "neutral" elevator)
+AutoPlaneElevator:
+  SetKeyDelay, -1
+  if (autoHeliToggle) {
+    Send {%IGB_PitchBack%}
+  }
+  return
+
+
+ToggleAutoPlane:
+  autoHeliToggle := ( autoHeliToggle ? 0 : 1 )
+  if (autoHeliToggle) {
+    SetTimer, AutoPlane, 50
+    SetTimer, AutoPlaneElevator, 5000
     SoundPlay, %A_WinDir%\Media\Windows Battery Critical.wav
   } else {
     SoundPlay, %A_WinDir%\Media\Windows Balloon.wav
@@ -802,6 +878,14 @@ RetrieveCar:
   Send {%IGB_Enter%}{%IGB_Enter%}{%IGB_Interaction%}
   return
 
+; Return your currently active vehicle
+ReturnCar:
+  openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
+  if !ManualInventoryLocation
+    Send {%IGB_Down%}{%IGB_Down%}
+  Send {%IGB_Enter%}{%IGB_Up% 2}{%IGB_Enter%}{%IGB_Interaction%}
+  return
+
 ; Chooses on-call random heist from phone options
 RandomHeist:
   turnCapslockOff()
@@ -833,6 +917,92 @@ ReturnSparrow:
   if !ManualInventoryLocation
     Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
   Send {%IGB_Enter%}{%IGB_Up%}{%IGB_Up%}{%IGB_Enter%}{%IGB_Down% 3}{%IGB_Enter%}{%IGB_Up%}{%IGB_Up%}{%IGB_Enter%}
+  return
+
+; Call in your Kosatka Submarine
+RequestKosatka:
+  openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
+  if !ManualInventoryLocation
+    Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
+  Send {%IGB_Enter%}{%IGB_Up%}{%IGB_Up%}{%IGB_Enter%}{%IGB_Enter%}
+  return
+
+; Join a New Invite Only Session
+NewInviteSession:
+  ; Open settings
+  turnCapslockOff()
+  SoundPlay, %A_WinDir%\Media\Windows Battery Critical.wav
+  Send {%IGB_Pause%}
+
+  ; Necessary delay to allow settings to open properly
+  sleep, IntPhoneMenuDelay2
+
+  ; Not using IGB_ variables on purpose as pause menu has static bindings
+  Send {Right}
+  Sleep IntPhoneMenuDelay2 * 2
+  Send {Enter} ; Online Menu
+  Sleep IntPhoneMenuDelay2
+  Send {Up}{Up}{Up}{Up}
+  Sleep IntPhoneMenuDelay2
+  Send {Enter} ; New Session Menu
+  Sleep IntPhoneMenuDelay2
+  Send {Down}
+  Sleep IntPhoneMenuDelay2
+  Send {Enter} ; New Invite Only Session
+  Sleep IntPhoneMenuDelay2
+  Send {Enter} ; Confirm Session Change
+  return
+
+; Join a New Crew Only Session
+NewCrewSession:
+  ; Open settings
+  turnCapslockOff()
+  SoundPlay, %A_WinDir%\Media\Windows Battery Critical.wav
+  Send {%IGB_Pause%}
+
+  ; Necessary delay to allow settings to open properly
+  sleep, IntPhoneMenuDelay2
+
+  ; Not using IGB_ variables on purpose as pause menu has static bindings
+  Send {Right}
+  Sleep IntPhoneMenuDelay2 * 2
+  Send {Enter} ; Online Menu
+  Sleep IntPhoneMenuDelay2
+  Send {Up}{Up}{Up}{Up}
+  Sleep IntPhoneMenuDelay2
+  Send {Enter} ; New Session Menu
+  Sleep IntPhoneMenuDelay2
+  Send {Up}{Up}
+  Sleep IntPhoneMenuDelay2
+  Send {Enter} ; New Crew Only Session
+  Sleep IntPhoneMenuDelay2
+  Send {Enter} ; Confirm Session Change
+  return
+
+; Join a New Friend Only Session
+NewFriendSession:
+  ; Open settings
+  turnCapslockOff()
+  SoundPlay, %A_WinDir%\Media\Windows Battery Critical.wav
+  Send {%IGB_Pause%}
+
+  ; Necessary delay to allow settings to open properly
+  sleep, IntPhoneMenuDelay2
+
+  ; Not using IGB_ variables on purpose as pause menu has static bindings
+  Send {Right}
+  Sleep IntPhoneMenuDelay2 * 2
+  Send {Enter} ; Online Menu
+  Sleep IntPhoneMenuDelay2
+  Send {Up}{Up}{Up}{Up}
+  Sleep IntPhoneMenuDelay2
+  Send {Enter} ; New Session Menu
+  Sleep IntPhoneMenuDelay2
+  Send {Up}
+  Sleep IntPhoneMenuDelay2
+  Send {Enter} ; New Friend Only Session
+  Sleep IntPhoneMenuDelay2
+  Send {Enter} ; Confirm Session Change
   return
 
 ; Show a list of chat snippets to type out (chat must be opened)
@@ -936,6 +1106,13 @@ CallInsurance:
 CallLester:
   ;makeCall(12, true)
   dialNumber("346-555-0102", true)
+  return
+
+RemoveWantedLevel:
+  ;makeCall(12, true)
+  dialNumber("346-555-0102", true)
+  sleep 10000
+  Send {%IGB_Down%}{%IGB_Enter%}{%IGB_Interaction%}
   return
 
 CallAssistant:
