@@ -1,42 +1,32 @@
-; v1.3.1
+; v2.0.0
 ; ^ don't remove or alter this line (autoupdate)
 #MaxThreadsPerHotkey 2
 
-;
-; GTA V Online AHK-Macros v1.4.0 by 2called-chaos/mannly01
+; GTA V Online AHK-Macros v2.0.0 by mannly01
 ; based on/inspired by GTA V Useful Macros v4.21 by twentyafterfour
+; based on/inspired by GTA V Online Macros v1.3.1 by 2called-chaos
+; https://github.com/2called-chaos/gtav-online-ahk
 ;
 ; # Description
-;
-; Provides hotkeys for opening snack menu, equipping armor, entering passive mode and much more.
-;
+; Provides hotkeys for many parts of the Interaction and Settings menus.
 ;
 ; # General Notes
-;
-;   * Read the god damn readme, please! https://github.com/2called-chaos/gtav-online-ahk/blob/master/README.md
-;   * After cutscenes or just from time to time the interaction menu lags
-;     and the macro won't work. Periodically, especially after loading/cutscenes
-;     press m and backspace (aka open the menu once)
-;   * If you add something consider committing a pull request so we can all enjoy (VIP stuff for example)
-;
+; * Read the readme please! https://github.com/mannly01/gtav-online-ahk/blob/master/README.md.
+; * After cutscenes or just from time to time the interaction menu lags
+;   and the macro won't work. Periodically, especially after loading/cutscenes
+;   press m and backspace (aka open the menu once).
+; * This is a nearly complete re-write of 2called-chaos' script for GTA Online v1.69 (Bottom Dollar Bounties DLC).
+; * If you add something consider committing a pull request so we can all enjoy.
 ;
 ; # Hotkeys / Binding:
-;
-; To change a hotkey for a macro change the configuration section at the top of the file
-; or even better copy the line to your config.ahk (see Readme) and change it there.
+; Please use the included config.ahk (see Readme) tp change the key bindings.
 ; A list of keynames for the non-alphanumeric can be found in the autohotkey help under
 ; the heading "Basic Usage and Syntax" with the name "Key List".
 ; They can also be found at https://www.autohotkey.com/docs/KeyList.htm
 ;
-;
 ; # FAQ, Docs, Source, Bugs, etc.
-;
-; Read the wiki, propose features, fix and/or report bugs... it's all yours at
-;
-;     https://github.com/2called-chaos/gtav-online-ahk
-;
-
-
+; To propose features, fix and/or report bugs...
+;     https://github.com/2called-chaos/gtav-online-ahk/issues
 
 ; ==============================
 ; === CONFIGURATION GOES vvv ===
@@ -46,27 +36,30 @@
 ;   https://www.autohotkey.com/docs/KeyList.htm
 ; WARNING: If you don't want to use a certain binding use "F24"
 ;          or any other valid key or it will break!
-; Consider using a config.ahk!
-SnackMenuKey         := "+#" ; Open Snack menu (+ = shift, rtfm).
-AutoHealthKey        := "#" ; Automatic snacking. Eats 2 snacks from second snack slot.
-ArmorMenuKey         := "+F1" ; Open Armor menu.
-AutoArmorKey         := "F1" ; Automatic armor equip (uses super heavy armor only).
-RetrieveCarKey       := "F2" ; Request currently active Personal Vehicle.
-ReturnCarKey         := "^F2" ; Return the currently active Personal Vehicle.
-ToggleRadarKey       := "+F2" ; Toggle between extended and standar radar.
-CEOBuzzardKey        := "F3" ; Spawn free CEO buzzard.
-RequestSparrowKey    := "+F3" ; Call in your Sparrow (or whatever you last requested moon pool vehicle was).
-ReturnSparrowKey     := "^F3" ; Return your Sparrow to the Kosatka.
+;
+; USE config.ahk INSTEAD OF CHANGING THE KEYS BELOW!
+;
+SnackMenuKey         := "F24" ; Open Snack menu (+ = shift, rtfm).
+AutoHealthKey        := "F24" ; Automatic snacking. Eats 2 snacks from second snack slot.
+ArmorMenuKey         := "F24" ; Open Armor menu.
+AutoArmorKey         := "F24" ; Automatic armor equip (uses super heavy armor only).
+RetrieveCarKey       := "F24" ; Request currently active Personal Vehicle.
+ReturnCarKey         := "F24" ; Return the currently active Personal Vehicle.
+ToggleRadarKey       := "F24" ; Toggle between extended and standar radar.
+CEOBuzzardKey        := "F24" ; Spawn free CEO buzzard.
+RequestSparrowKey    := "F24" ; Call in your Sparrow (or whatever you last requested moon pool vehicle was).
+ReturnSparrowKey     := "F24" ; Return your Sparrow to the Kosatka.
 RequestKosatkaKey    := "F24" ; Call in your Kosatka Submarine.
-ForceDisconnectKey   := "F12" ; Force disconnect by suspending process for 10s, requires pssuspend.exe.
-KillGameKey          := "+F12" ; Kill game process, requires pskill.exe.
-ToggleVIPKey         := "NumpadMult" ; Toggle VIP mode (required when VIP/CEO/MC).  Won't have effect if using ManualInventoryLocation option.
-ToggleCPHKey         := "^NumpadMult" ; Toggle Cayo Perico Heist Final mode (extra menu entry), also see DoToggleCPHWithVIP.  Won't have effect if using ManualInventoryLocation option.
-ToggleAFKKey         := "+NumpadMult" ; Toggle AFK mode.
+ForceDisconnectKey   := "F24" ; Force disconnect by suspending process for 10s, requires pssuspend.exe.
+KillGameKey          := "F24" ; Kill game process, requires pskill.exe.
 
-TurnOnCEOKey         := "+F10" ; Makes you CEO of an Organization and toggles VIP mode.
-TurnOnPresKey        := "^F10" ; Makes you President of a MC Club and toggles VIP mode.
-ResignOrDisbandKey   := "F10" ; Resigns your CEO position or Disbands your MC Club and toggles VIP mode.
+ToggleInBuildingKey  := "F24" ; Toggle In Building mode.
+ToggleCPHKey         := "F24" ; Toggle Cayo Perico Heist mode.
+ToggleAFKKey         := "F24" ; Toggle AFK mode.
+
+TurnOnCEOKey         := "F24" ; Makes you CEO of an Organization and toggles VIP mode.
+TurnOnPresKey        := "F24" ; Makes you President of a MC Club and toggles VIP mode.
+ResignOrDisbandKey   := "F24" ; Resigns your CEO position or Disbands your MC Club and toggles VIP mode.
 
 TogglePassiveKey     := "F24" ; Toggle passive mode.
 ToggleClickerKey     := "F24" ; Toggle Clicker (XButton2 = Mouse5).
@@ -77,49 +70,42 @@ CycleOutfitKey       := "F24" ; Equip next/cycle through saved outfits.
 RandomHeistKey       := "F24" ; Chooses on-call random heist from phone options.
 EquipScarfKey        := "F24" ; Equip first scarf (heist outfit glitch, see readme/misc).
 
-NewInviteSessionKey  := "F11" ; Join a New Invite Only Session.
-NewCrewSessionKey    := "+F11" ; Join a New Crew Only Session.
-NewFriendSessionKey  := "^F11" ; Join a New Friend Only Session.
+NewPublicSessionKey  := "F24" ; Join a New Public Session
+NewInviteSessionKey  := "F24" ; Join a New Invite Only Session.
+NewCrewSessionKey    := "F24" ; Join a New Crew Only Session.
+NewFriendSessionKey  := "F24" ; Join a New Friend Only Session.
 
-DialDialogKey        := "+F5" ; Call GUI with a list of almost all numbers.
-CallMechanicKey      := "F5" ; Call Mechanic.
+DialDialogKey        := "F24" ; Call GUI with a list of almost all numbers.
+CallMechanicKey      := "F24" ; Call Mechanic.
 CallPegasusKey       := "F24" ; Call Pegasus.
 CallMerryweatherKey  := "F24" ; Call Merryweather.
-CallInsuranceKey     := "F6" ; Call Insurance.
-CallLesterKey        := "+F6" ; Call Lester.
+CallInsuranceKey     := "F24" ; Call Insurance.
+CallLesterKey        := "F24" ; Call Lester.
 RemoveWantedLevelKey := "F24" ; Call Lester and have him remove wanted level.
-CallAssistantKey     := "^F6" ; Call Assistant.
+CallAssistantKey     := "F24" ; Call Assistant.
+
+CreateManualSaveKey  := "F24" ; Use the outfit selection to create a manual save (doesn't change outfits).
 
 CheckForUpdatesKey   := "F24" ; Checks on startup by default, see DoCheckForUpdates option.
 
-
-; ManualInventoryLocation (manual inventory line calibration)
-ManualInventoryLocation := false        ; if true, use manual calibration of the inventory line in the interactive menu. IsCPHActive and IsVIPActive flags will be ignored.
-InvLocation             := 4            ; by default, this is the location of the inventory in the menu.
-AutoSnackLocation       := 2            ; by default, this is the snack autosnack will select.
-; these keys will not be bound if ManualInventoryLocation is false.
-IncInvKey               := "NumpadAdd"  ; for increasing the value of the inventory line.
-DecInvKey               := "NumpadSub"  ; for decreasing the value of the inventory line.
-IncSnackKey             := "^NumpadAdd" ; for increasing the line for the snack selected by autosnacking.
-DecSnackKey             := "^NumpadSub" ; for decreasing the line for the snack selected by autosnacking.
-
+AutoSnackLocation    := 2     ; by default this is the snack that autosnack will select.
+AutoArmorLocation    := 5     ; by default this is Super Heavy Armor, but can be changed.
 
 ; Options (should be fine out of the box)
-WindowScale          := 1.0       ; Change this to reflect your Windows display scale (e.g. set it to 3 if you have UI scale set to 300%).
-DoConfirmKill        := true      ; If true the KillGame action will ask for confirmation before killing the process.
-DoConfirmDisconnect  := true      ; If true the ForceDisconnect action will ask for confirmation before suspending the process.
-IntDisconnectDelay   := 10        ; Amount of seconds to freeze the process for, 10 works fine.
-DoToggleCPHWithVIP   := false     ; If true ToggleVIP will become a 3-way toggle (off/on/CayoPericoHeistFinal).
-DisableCapsOnAction  := true      ; Disable caps lock before executing macros, some macros might fail if caps lock is on.
-DoCheckForUpdates    := true      ; Check for script updates on startup (you can manually bind this instead or additionally).
-
+WindowScale          := 1.0   ; Change this to reflect your Windows display scale (e.g. set it to 3 if you have UI scale set to 300%).
+DoConfirmKill        := true  ; If true the KillGame action will ask for confirmation before killing the process.
+DoConfirmDisconnect  := true  ; If true the ForceDisconnect action will ask for confirmation before suspending the process.
+IntDisconnectDelay   := 10    ; Amount of seconds to freeze the process for, 10 works fine.
+DoToggleCPHWithVIP   := false ; If true ToggleVIP will become a 3-way toggle (off/on/CayoPericoHeistFinal).
+DisableCapsOnAction  := true  ; Disable caps lock before executing macros, some macros might fail if caps lock is on.
+DoCheckForUpdates    := true  ; Check for script updates on startup (you can manually bind this instead or additionally).
 
 ; Internal variables (probably no need to edit)
 IsVIPActivated       := false ; Initial status of CEO/VIP mode (after (re)loading script).
 IsAFKActivated       := false ; Initial status of AFK mode (should always be false).
 IsCPHActivated       := false ; Initial status of CPH mode (should always be false).
 IsClickerActivated   := false ; Initial status of Clicker (should always be false).
-
+IsInBuilding         := false ; Initial status of In Building mode (the Interaction Menu changes when the player is in a building)
 
 ; Chat snippets (you can add more, comment them out or remove them, the pushs that is)
 ArrayChatSnippets := []
@@ -127,7 +113,6 @@ ArrayChatSnippets.push("Player saved outfits please :)")
 ArrayChatSnippets.push("Yay, cheaters")
 ArrayChatSnippets.push("I take that explosive sniper of yours and insert it sideways...")
 ArrayChatSnippets.push("You want some cool AHK macros? github.com/2called-chaos/gtav-online-ahk")
-
 
 ; Delays (you normally don't want to change these, you can try to play with these values if you have a slow/fast PC)
 IntFocusDelay        := 100  ; delay (in ms) after focussing game when AHK-GUI took focus.
@@ -137,7 +122,6 @@ IntPhoneMenuDelay2   := 250  ; delay (in ms) after selecting phone menu entries.
 IntPhoneScrollDelay  := 75   ; delay (in ms) between scrolls in the phone menu.
 IntKeySendDelay      := 25   ; delay (in ms) delay between send key commands.
 IntKeyPressDuration  := 5    ; duration (in ms) each key press is held down.
-
 
 ; In case you changed your ingame bindings:
 global IGB_Interaction := "m"
@@ -153,11 +137,10 @@ global IGB_Enter := "enter"
 ; the following refer to movement (used for AFK)
 global IGB_MoveLeft := "a"
 global IGB_MoveRight := "d"
-; aircraft/helicopter
+; aircraft/helicopter (for autopilot)
 global IGB_ThrottleUp := "w"
 global IGB_PitchForward := "Numpad8"
 global IGB_PitchBack := "Numpad5"
-
 
 ; Phone numbers for DialDialog GUI dialog (you can change the order if you want or hide entries by commenting them out)
 ArrayPhonebook := []
@@ -200,26 +183,19 @@ ArrayPhonebook.push("328-555-0177  - Sapphire (Prostitute)")
 ;ArrayPhonebook.push("1-999-768822  - (useless) 'This number is no longer in service'")
 ;ArrayPhonebook.push("273-555-0155  - (useless) Truthseeker Helpline")
 
-
 ; Create a file (at the same location as this one) named "config.ahk"
 ; and overwrite settings without changing them here (easier to update).
 ; See Readme for more info.
 #Include *i config.ahk
-
 
 ; ==============================
 ; === CONFIGURATION GOES ^^^ ===
 ; ==============================
 
 
-
-
-
-
 ; ================================================
 ; === Are you sure you want to scroll further? ===
 ; ================================================
-
 
 #NoEnv
 SetWorkingDir A_ScriptDir
@@ -228,37 +204,49 @@ SetWorkingDir A_ScriptDir
 #IfWinActive ahk_class grcWindow
 
 ; Hotkey/Function mapping
-Hotkey, %CheckForUpdatesKey%, CheckForUpdates
 Hotkey, %SnackMenuKey%, SnackMenu
 Hotkey, %AutoHealthKey%, AutoHealth
 Hotkey, %ArmorMenuKey%, ArmorMenu
 Hotkey, %AutoArmorKey%, AutoArmor
-Hotkey, %TogglePassiveKey%, TogglePassive
+
 Hotkey, %RetrieveCarKey%, RetrieveCar
 Hotkey, %ReturnCarKey%, ReturnCar
-Hotkey, %EquipScarfKey%, EquipScarf
-Hotkey, %CycleOutfitKey%, CycleOutfit
-Hotkey, %ToggleVIPKey%, ToggleVIP
-Hotkey, %ToggleCPHKey%, ToggleCPH
-Hotkey, %ToggleAFKKey%, ToggleAFK
-Hotkey, %TurnOnCEOKey%, TurnOnCEO
-Hotkey, %TurnOnPresKey%, TurnOnPres
-Hotkey, %ResignOrDisbandKey%, ResignOrDisband
-Hotkey, %ToggleClickerKey%, ToggleClicker
-Hotkey, %ToggleRadarKey%, ToggleRadar
-HotKey, %ToggleAutoHeliKey%, ToggleAutoHeli
-Hotkey, %ToggleAutoPlaneKey%, ToggleAutoPlane
-Hotkey, %KillGameKey%, KillGame
-Hotkey, %ForceDisconnectKey%, ForceDisconnect
-Hotkey, %RandomHeistKey%, RandomHeist
-Hotkey, %ChatSnippetsKey%, ChatSnippets
 Hotkey, %CEOBuzzardKey%, CEOBuzzard
 Hotkey, %RequestSparrowKey%, RequestSparrow
 Hotkey, %ReturnSparrowKey%, ReturnSparrow
 Hotkey, %RequestKosatkaKey%, RequestKosatka
+
+Hotkey, %ForceDisconnectKey%, ForceDisconnect
+Hotkey, %KillGameKey%, KillGame
+
+Hotkey, %ToggleInBuildingKey%, ToggleInBuilding
+Hotkey, %ToggleCPHKey%, ToggleCPH
+Hotkey, %ToggleAFKKey%, ToggleAFK
+
+Hotkey, %TurnOnCEOKey%, TurnOnCEO
+Hotkey, %TurnOnPresKey%, TurnOnPres
+Hotkey, %ResignOrDisbandKey%, ResignOrDisband
+
+Hotkey, %TogglePassiveKey%, TogglePassive
+Hotkey, %ToggleRadarKey%, ToggleRadar
+Hotkey, %ToggleClickerKey%, ToggleClicker
+
+HotKey, %ToggleAutoHeliKey%, ToggleAutoHeli
+Hotkey, %ToggleAutoPlaneKey%, ToggleAutoPlane
+
+Hotkey, %ChatSnippetsKey%, ChatSnippets
+
+Hotkey, %CreateManualSaveKey%, CreateManualSave
+Hotkey, %CycleOutfitKey%, CycleOutfit
+Hotkey, %EquipScarfKey%, EquipScarf
+
+Hotkey, %NewPublicSessionKey%, NewPublicSession
 Hotkey, %NewInviteSessionKey%, NewInviteSession
 Hotkey, %NewCrewSessionKey%, NewCrewSession
 Hotkey, %NewFriendSessionKey%, NewFriendSession
+
+Hotkey, %RandomHeistKey%, RandomHeist
+
 Hotkey, %DialDialogKey%, DialDialog
 Hotkey, %CallMechanicKey%, CallMechanic
 Hotkey, %CallPegasusKey%, CallPegasus
@@ -268,12 +256,7 @@ Hotkey, %CallLesterKey%, CallLester
 Hotkey, %RemoveWantedLevelKey%, RemoveWantedLevel
 Hotkey, %CallAssistantKey%, CallAssistant
 
-if(ManualInventoryLocation) {
-  Hotkey, %IncInvKey%, IncrementInventoryLocation
-  Hotkey, %DecInvKey%, DecrementInventoryLocation
-  Hotkey, %IncSnackKey%, IncrementSnackLocation
-  Hotkey, %DecSnackKey%, DecrementSnackLocation
-}
+Hotkey, %CheckForUpdatesKey%, CheckForUpdates
 
 ; Sets delay(ms) between keystrokes issued. Arguments are delay between keystrokes and press duration, respectively.
 ; They might be able to go lower but these values are pretty fast and work reliably.
@@ -292,7 +275,6 @@ Return
 #Include *i custom.ahk
 
 
-
 ; =================
 ; === Functions ===
 ; =================
@@ -307,52 +289,66 @@ turnCapslockOff() {
   }
 }
 
-openInteractionMenu(isVIPActive, isCPHActive, goingDown) {
+openInteractionMenu() {
   global IntMenuDelay
-  global ManualInventoryLocation
-  global InvLocation
   turnCapslockOff()
   Send {%IGB_Interaction%}
   sleep, IntMenuDelay
-
-  if goingDown {
-    TimesDown := 0
-    if (ManualInventoryLocation = 1) {
-      TimesDown := InvLocation - 1
-    }
-    else {
-      if (isCPHActive = 1) {
-        TimesDown := 2
-      }
-      ; else if (isVIPActive = 1) {
-      ;   TimesDown := 1
-      ; }
-    }
-    Loop %TimesDown% {
-      Send {%IGB_Down%}
-    }
-  }
 }
 
-openSnackMenu() {
-  global ManualInventoryLocation
-  if !ManualInventoryLocation
-    Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
-  Send {%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}
+openManageVehicleMenu(IsInBuilding) {
+  openInteractionMenu()
+  if (IsCPHActivated)
+    Send {%IGB_Down%}
+  Send {%IGB_Down% 2}
+  if (IsInBuilding)
+    Send {%IGB_Down%}
+  Send {%IGB_Enter%}
 }
 
-openArmorMenu() {
-  global ManualInventoryLocation
-  if !ManualInventoryLocation
-    Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
-  Send {%IGB_Enter%}{%IGB_Down%}{%IGB_Enter%}
+openServiceVehicleMenu(IsInBuilding) {
+  openInteractionMenu()
+  if (IsCPHActivated)
+    Send {%IGB_Down%}
+  Send {%IGB_Down% 3}
+  if (IsInBuilding)
+    Send {%IGB_Down%}
+  Send {%IGB_Enter%}
 }
 
-openOutfitMenu() {
-  global ManualInventoryLocation
-  if !ManualInventoryLocation
-    Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
-  Send {%IGB_Down%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
+openHealthAmmoMenu(IsInBuilding) {
+  openInteractionMenu()
+  if (IsCPHActivated)
+    Send {%IGB_Down%}
+  Send {%IGB_Down% 4}
+  if (IsInBuilding)
+    Send {%IGB_Down%}
+  Send {%IGB_Enter%}
+}
+
+openSnackMenu(IsInBuilding) {
+  openHealthAmmoMenu(IsInBuilding)
+  Send {%IGB_Down% 2}{%IGB_Enter%}
+}
+
+openArmorMenu(IsInBuilding) {
+  openHealthAmmoMenu(IsInBuilding)
+  Send {%IGB_Down%}{%IGB_Enter%}
+}
+
+openAppearanceMenu(IsInBuilding) {
+  openInteractionMenu()
+  if (IsCPHActivated)
+    Send {%IGB_Down%}
+  Send {%IGB_Down% 5}
+  if (IsInBuilding)
+    Send {%IGB_Down%}
+  Send {%IGB_Enter%}
+}
+
+openAccessoriesMenu(IsInBuilding) {
+  openAppearanceMenu(IsInBuilding)
+  Send {%IGB_Down%}{%IGB_Enter%}
 }
 
 openPhone() {
@@ -499,12 +495,11 @@ bringGameIntoFocus(applyDelay = false) {
 }
 
 
-
 ; ==============
 ; === UPDATE ===
 ; ==============
 performUpdateCheck(silentSuccess = false) {
-  URLDownloadToFile,https://raw.githubusercontent.com/2called-chaos/gtav-online-ahk/master/GTA`%20V`%20Online`%20Macros.ahk,update.txt
+  URLDownloadToFile,https://raw.githubusercontent.com/mannly01/gtav-online-ahk/master/GTA`%20V`%20Online`%20Macros.ahk,update.txt
   if (errorlevel) {
     msgbox, 0, Error - GTA V Online AHK-Macros, Received error response from GitHub and update check was canceled.`nPlease retry later or check manually.`n`nHint: Set DoCheckForUpdates to false to disable automatic checking!
     FileDelete, update.txt
@@ -513,11 +508,13 @@ performUpdateCheck(silentSuccess = false) {
 
   FileReadLine, update, update.txt, 1
   FileReadLine, currentVersion, %A_ScriptName%, 1
-  if (update = currentVersion) {
+  update := StrReplace(update, "; v", "")
+  currentVersion := StrReplace(currentVersion, "; v", "")
+  if (VerCompare(update, currentVersion) = 0) {
     FileDelete, update.txt
     if (!silentSuccess)
-      msgbox, You are running the latest version!`n`n%update%`n`nIf something doesn't work please let me know!`n`nhttps://github.com/2called-chaos/gtav-online-ahk
-  } else if (InStr(update, "; v") = 1) {
+      msgbox, You are running the latest version!`n`n%update%`n`nIf something doesn't work please let me know!`n`nhttps://github.com/2called-chaos/gtav-online-ahk/issues/
+  } else if (VerCompare(update, currentVersion) = 1) {
     MsgBox, 4, Update available! - GTA V Online AHK-Macros, A new version of GTA V Online AHK-Macros has been released!`n`n%currentVersion% <-- your version`n%update% <-- available update`n`nWould you like to update?`n`nWarning: If you don't use config.ahk this might reset all your settings!
     IfMsgBox Yes
     {
@@ -531,6 +528,9 @@ performUpdateCheck(silentSuccess = false) {
       msgbox, This script will NOT be updated!`n`nHint: Set DoCheckForUpdates to false to disable automatic checking!
       FileDelete, update.txt
     }
+  } else if (VerCompare(update, currentVersion) = -1) {
+    msgbox, This script will NOT be updated!`n`n%currentVersion% <-- your version`n%update% <-- available update
+    FileDelete, update.txt
   } else {
     msgbox, 0, Error - GTA V Online AHK-Macros, Received invalid response from GitHub and update check was canceled.`nPlease retry later or check manually.`n`nHint: Set DoCheckForUpdates to false to disable automatic checking!
     FileDelete, update.txt
@@ -540,7 +540,6 @@ performUpdateCheck(silentSuccess = false) {
 CheckForUpdates:
   performUpdateCheck()
   return
-
 
 
 ; ===================
@@ -616,20 +615,18 @@ ToggleRadar:
   turnCapslockOff()
   SoundPlay, %A_WinDir%\Media\Windows Battery Critical.wav
   Send {%IGB_Pause%}
-
-  ; Necessary delay to allow settings to open properly
-  sleep, IntPhoneMenuDelay2
-
+  ; Necessary delay to allow pause menu to open properly
+  Sleep, IntPhoneMenuDelay2
   ; Not using IGB_ variables on purpose as pause menu has static bindings
-  Send {Right}{Right}{Right}{Right}{Right}
+  Send {Right 5}
   Sleep IntPhoneMenuDelay2 * 2
+  Send {Enter} ; Settings Menu
+  Sleep IntPhoneMenuDelay2
+  Send {Down 5}
+  Sleep IntPhoneMenuDelay2
   Send {Enter}
   Sleep IntPhoneMenuDelay2
-  Send {Down}{Down}{Down}{Down}{Down}
-  Sleep IntPhoneMenuDelay2
-  Send {Enter}
-  Sleep IntPhoneMenuDelay2
-  Send {Down}{Down}{Down}{Down}{Down}
+  Send {Down 5}
   Sleep IntPhoneMenuDelay2
   Send {Enter}
   Sleep IntPhoneMenuDelay2
@@ -659,31 +656,6 @@ ToggleClicker:
   }
   return
 
-; Toggle VIP mode (if VIP/CEO/MC all interaction menu entries are offset by one)
-ToggleVIP:
-  if (IsVIPActivated) {
-    if (DoToggleCPHWithVIP) {
-      if (IsCPHActivated) {
-        IsCPHActivated := false
-        IsVIPActivated := false
-        SplashTextOn 280 * WindowScale, 20 * WindowScale, VIP&CPH mode, VIP&&CPH mode has been DEACTIVATED
-      } else {
-        IsCPHActivated := true
-        SplashTextOn 350 * WindowScale, 20 * WindowScale, CPH mode, Cayo Perico Heist mode has been ACTIVATED
-      }
-    } else {
-      IsVIPActivated := false
-      SplashTextOn 250 * WindowScale, 20 * WindowScale, VIP mode, VIP mode has been DEACTIVATED
-    }
-  } else {
-    IsVIPActivated := true
-    SplashTextOn 250 * WindowScale, 20 * WindowScale, VIP mode, VIP mode has been ACTIVATED
-  }
-  Sleep 2000
-  SplashTextOff
-  bringGameIntoFocus()
-  return
-
 ; Toggle CPH mode (Cayo Perico Heist Final)
 ToggleCPH:
   IsCPHActivated := !IsCPHActivated
@@ -697,23 +669,42 @@ ToggleCPH:
   bringGameIntoFocus()
   return
 
+; Toggle In Building mode (the Interation Menu chagnes when the player is in certain buildings)
+ToggleInBuilding:
+  IsInBuilding := !IsInBuilding
+  if (IsInBuilding) {
+    SplashTextOn 350 * WindowScale, 20 * WindowScale, In Building, You are in a building
+  } else {
+    SplashTextOn 350 * WindowScale, 20 * WindowScale, In Building, You are not in a building
+  }
+  Sleep 2000
+  SplashTextOff
+  bringGameIntoFocus()
+  return
+
 ; Makes you CEO of an Organization and toggles VIP mode.
 TurnOnCEO:
-  openInteractionMenu(false, false, false)
-  Send {%IGB_Down%}{%IGB_Enter%}{%IGB_Enter%}{%IGB_Enter%}
+  openInteractionMenu()
+  Send {%IGB_Down%}
+  if (IsInBuilding)
+    Send {%IGB_Down%}
+  Send {%IGB_Enter% 3}
   IsVIPActivated := true
   return
 
 ; Makes you President of a MC Club and toggles VIP mode.
 TurnOnPres:
-  openInteractionMenu(false, false, false)
-  Send {%IGB_Down%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Enter%}{%IGB_Enter%}
+  openInteractionMenu()
+  Send {%IGB_Down%}
+  if (IsInBuilding)
+    Send {%IGB_Down%}
+  Send {%IGB_Enter%}{%IGB_Down%}{%IGB_Enter% 2}
   IsVIPActivated := true
   return
 
 ; Resigns your CEO position or Disbands your MC Club and toggles VIP mode.
 ResignOrDisband:
-  openInteractionMenu(false, false, false)
+  openInteractionMenu()
   Send {%IGB_Enter%}{%IGB_Up%}{%IGB_Enter%}
   IsVIPActivated := false
   return
@@ -726,6 +717,8 @@ AutoHeli:
     Send, {Blind}{%IGB_PitchForward% DownTemp}
   } else {
     SetTimer, AutoHeli, OFF
+    SetTimer, AutoPlane, OFF
+    SetTimer, AutoPlaneElevator, OFF
     Send, {Blind}{%IGB_ThrottleUp% Up}
     Send, {Blind}{%IGB_PitchForward% Up}
   }
@@ -750,7 +743,9 @@ AutoPlane:
   } else {
     SetTimer, AutoPlane, OFF
     SetTimer, AutoPlaneElevator, OFF
+    SetTimer, AutoHeli, OFF
     Send, {Blind}{%IGB_ThrottleUp% Up}
+    Send, {Blind}{%IGB_PitchForward% Up}
   }
   return
 
@@ -761,7 +756,6 @@ AutoPlaneElevator:
     Send {%IGB_PitchBack%}
   }
   return
-
 
 ToggleAutoPlane:
   autoHeliToggle := ( autoHeliToggle ? 0 : 1 )
@@ -774,116 +768,79 @@ ToggleAutoPlane:
   }
   return
 
-IncrementInventoryLocation:
-  InvLocation := InvLocation + 1
-  SplashTextOn 350 * WindowScale, 20 * WindowScale, Increase Inventory Line, The Inventory Line is now %InvLocation%
-  Sleep 2000
-  SplashTextOff
-  bringGameIntoFocus()
-  return
-
-DecrementInventoryLocation:
-  InvLocation := InvLocation - 1
-  if (InvLocation < 1) {
-    InvLocation := 1
-  }
-  SplashTextOn 350 * WindowScale, 20 * WindowScale, Decrease Inventory Line, The Inventory Line is now %InvLocation%
-  Sleep 2000
-  SplashTextOff
-  bringGameIntoFocus()
-  return
-
-IncrementSnackLocation:
-  AutoSnackLocation := AutoSnackLocation + 1
-  SplashTextOn 350 * WindowScale, 20 * WindowScale, Incease AutoSnack Line, The Snack Line is now %AutoSnackLocation%
-  Sleep 2000
-  SplashTextOff
-  bringGameIntoFocus()
-  return
-
-DecrementSnackLocation:
-  AutoSnackLocation := AutoSnackLocation - 1
-  if (AutoSnackLocation < 1) {
-  AutoSnackLocation := 1
-  }
-
-  SplashTextOn 350 * WindowScale, 20 * WindowScale, Decrease AutoSnack Line, The Snack Line is now %AutoSnackLocation%
-  Sleep 2000
-  SplashTextOff
-  bringGameIntoFocus()
-  return
-
 ; Open up snack menu for manual selection (or stock check) of snacks
 SnackMenu:
-  openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
-  openSnackMenu()
+  openSnackMenu(IsInBuilding)
   return
 
 ; Automatic snacking. Eats 2 snacks from AutoSnackLocation slot and close menu.
 AutoHealth:
-  openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
-  openSnackMenu()
-  if ManualInventoryLocation
-    TimesDown := AutoSnackLocation - 1
-  else
-    TimesDown := 1
+  openSnackMenu(IsInBuilding)
+  TimesDown := AutoSnackLocation - 1
   Loop %TimesDown% {
     Send {%IGB_Down%}
   }
-  Send {%IGB_Enter%}{%IGB_Enter%}{%IGB_Interaction%}
+  Send {%IGB_Enter% 2}{%IGB_Interaction%}
   return
 
 ; Open up armor menu for manual selection (or stock check) of armor
 ArmorMenu:
-  openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
-  openArmorMenu()
+  openArmorMenu(IsInBuilding)
   return
 
 ; Equips super heavy armor and exits menu automatically
 AutoArmor:
-  openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
-  openArmorMenu()
-  Send {%IGB_Down% 4}{%IGB_Enter%}{%IGB_Interaction%}
+  openArmorMenu(IsInBuilding)
+  TimesDown := AutoArmorLocation - 1
+  Loop %TimesDown% {
+    Send {%IGB_Down%}
+  }
+  Send {%IGB_Enter%}{%IGB_Interaction%}
   return
 
 ; Equips scarf to allow faster running with heist armor (see readme/misc)
 EquipScarf:
-  openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
-  if !ManualInventoryLocation
-    Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
-  ; Opens scarf menu
-  Send {%IGB_Down%}{%IGB_Enter%}
+  openAccessoriesMenu(IsInBuilding)
+  Send {%IGB_Down% 9}
   ; equip scarf and exit menu. This line can be changed to pick different scarfs.
-  Send {%IGB_Up% 4}{%IGB_Right%}{%IGB_Interaction%}
+  Send {%IGB_Right%}{%IGB_Interaction%}
   return
 
 ; Cycle between your saved outfits
 CycleOutfit:
-  openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
-  openOutfitMenu()
-  Send {%IGB_Right%}{%IGB_Enter%}{%IGB_Interaction%}
+  openAppearanceMenu(IsInBuilding)
+  Send {%IGB_Down% 3}{%IGB_Right%}{%IGB_Enter%}{%IGB_Interaction%}
+  return
+
+; Use the outfit option to create a manual save
+CreateManualSave:
+  openAppearanceMenu(IsInBuilding)
+  Send {%IGB_Down% 3}{%IGB_Enter%}{%IGB_Interaction%}
   return
 
 ; Toggle passive mode
 TogglePassive:
-  openInteractionMenu(false, false, false) ; Ignore VIP status when going up
+  openInteractionMenu()
   Send {%IGB_Up%}{%IGB_Enter%}{%IGB_Interaction%}
   return
 
 ; Retrieve your currently active vehicle
 RetrieveCar:
-  openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
-  if !ManualInventoryLocation
-    Send {%IGB_Down%}{%IGB_Down%}
-  Send {%IGB_Enter%}{%IGB_Enter%}{%IGB_Interaction%}
+  if (IsInBuilding) {
+    SplashTextOn 350 * WindowScale, 20 * WindowScale, Not Allowed, You cannot call your vehicle in a building
+    Sleep 2000
+    SplashTextOff
+    bringGameIntoFocus()
+  } else {
+    openManageVehicleMenu(false)
+    Send {%IGB_Enter% 2}{%IGB_Interaction%}
+  }
   return
 
 ; Return your currently active vehicle
 ReturnCar:
-  openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
-  if !ManualInventoryLocation
-    Send {%IGB_Down%}{%IGB_Down%}
-  Send {%IGB_Enter%}{%IGB_Up% 2}{%IGB_Enter%}{%IGB_Interaction%}
+  openManageVehicleMenu(IsInBuilding)
+  Send {%IGB_Up% 2}{%IGB_Enter%}{%IGB_Interaction%}
   return
 
 ; Chooses on-call random heist from phone options
@@ -894,55 +851,97 @@ RandomHeist:
   Send {%IGB_Enter%}
   sleep IntKeySendDelay
   scrollPhoneUp(2) ; scroll up twice to solo-q
-  Send {%IGB_Enter%}{%IGB_Enter%}
+  Send {%IGB_Enter% 2}
   return
 
 ; Calls in free CEO buzzard (if you are CEO)
 CEOBuzzard:
-  openInteractionMenu(false, false, false)
-  Send {%IGB_Enter%}{%IGB_Up% 2}{%IGB_Enter%}{%IGB_Down% 4}{%IGB_Enter%}
+  if (!IsVIPActivated) {
+    SplashTextOn 350 * WindowScale, 20 * WindowScale, Not Allowed, You must be a CEO to call the Buzzard
+    Sleep 2000
+    SplashTextOff
+    bringGameIntoFocus()
+  } else {
+    if (IsInBuilding) {
+      SplashTextOn 350 * WindowScale, 20 * WindowScale, Not Allowed, You cannot call your Buzzard in a building
+      Sleep 2000
+      SplashTextOff
+      bringGameIntoFocus()
+    } else {
+      openInteractionMenu()
+      Send {%IGB_Enter%}{%IGB_Up% 2}{%IGB_Enter%}{%IGB_Down% 4}{%IGB_Enter%}
+    }
+  }
   return
 
 ; Call in your Sparrow (or whatever you last requested moon pool vehicle was)
 RequestSparrow:
-  openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
-  if !ManualInventoryLocation
-    Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
-  Send {%IGB_Enter%}{%IGB_Up%}{%IGB_Up%}{%IGB_Enter%}{%IGB_Down%}{%IGB_Enter%}
+  if (IsInBuilding) {
+    SplashTextOn 350 * WindowScale, 20 * WindowScale, Not Allowed, You cannot call your Sparrow in a building
+    Sleep 2000
+    SplashTextOff
+    bringGameIntoFocus()
+  } else {
+    openServiceVehicleMenu(false)
+    ; Open Kosatka Menu
+    Send {%IGB_Up% 2}{%IGB_Enter%}
+    ; Call the Sparrow
+    Send {%IGB_Down%}{%IGB_Enter%}
+  }
   return
 
 ; Return your Sparrow to the Kosatka
 ReturnSparrow:
-  openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
-  if !ManualInventoryLocation
-    Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
-  Send {%IGB_Enter%}{%IGB_Up%}{%IGB_Up%}{%IGB_Enter%}{%IGB_Down% 3}{%IGB_Enter%}{%IGB_Up%}{%IGB_Up%}{%IGB_Enter%}
+  openServiceVehicleMenu(IsInBuilding)
+  ; Open Kosatka Menu
+  Send {%IGB_Up% 2}{%IGB_Enter%}
+  ; Open Return Options Menu
+  Send {%IGB_Down% 3}{%IGB_Enter%}
+  ; Return the Sparrow
+  Send {%IGB_Up% 2}{%IGB_Enter%}{%IGB_Interaction%}
   return
 
 ; Call in your Kosatka Submarine
 RequestKosatka:
-  openInteractionMenu(IsVIPActivated, IsCPHActivated, true)
-  if !ManualInventoryLocation
-    Send {%IGB_Down%}{%IGB_Down%}{%IGB_Down%}
-  Send {%IGB_Enter%}{%IGB_Up%}{%IGB_Up%}{%IGB_Enter%}{%IGB_Enter%}
+  openServiceVehicleMenu(IsInBuilding)
+  ; Open Kosatka Menu
+  Send {%IGB_Up% 2}{%IGB_Enter%}
+  ; Call Kosatka
+  Send {%IGB_Enter%}
   return
 
-; Join a New Invite Only Session
-NewInviteSession:
-  ; Open settings
+; Join a New Public Session
+NewPublicSession:
   turnCapslockOff()
   SoundPlay, %A_WinDir%\Media\Windows Battery Critical.wav
   Send {%IGB_Pause%}
-
-  ; Necessary delay to allow settings to open properly
-  sleep, IntPhoneMenuDelay2
-
-  ; Not using IGB_ variables on purpose as pause menu has static bindings
+  ; Necessary delay to allow pause menu to open properly
+  Sleep, IntPhoneMenuDelay2
   Send {Right}
   Sleep IntPhoneMenuDelay2 * 2
   Send {Enter} ; Online Menu
   Sleep IntPhoneMenuDelay2
-  Send {Up}{Up}{Up}{Up}
+  Send {Up 4}
+  Sleep IntPhoneMenuDelay2
+  Send {Enter} ; New Session Menu
+  Sleep IntPhoneMenuDelay2
+  Send {Enter} ; New Public Session
+  Sleep IntPhoneMenuDelay2
+  Send {Enter} ; Confirm Session Change
+  return
+
+; Join a New Invite Only Session
+NewInviteSession:
+  turnCapslockOff()
+  SoundPlay, %A_WinDir%\Media\Windows Battery Critical.wav
+  Send {%IGB_Pause%}
+  ; Necessary delay to allow pause menu to open properly
+  Sleep, IntPhoneMenuDelay2
+  Send {Right}
+  Sleep IntPhoneMenuDelay2 * 2
+  Send {Enter} ; Online Menu
+  Sleep IntPhoneMenuDelay2
+  Send {Up 4}
   Sleep IntPhoneMenuDelay2
   Send {Enter} ; New Session Menu
   Sleep IntPhoneMenuDelay2
@@ -955,24 +954,20 @@ NewInviteSession:
 
 ; Join a New Crew Only Session
 NewCrewSession:
-  ; Open settings
   turnCapslockOff()
   SoundPlay, %A_WinDir%\Media\Windows Battery Critical.wav
   Send {%IGB_Pause%}
-
-  ; Necessary delay to allow settings to open properly
-  sleep, IntPhoneMenuDelay2
-
-  ; Not using IGB_ variables on purpose as pause menu has static bindings
+  ; Necessary delay to allow pause menu to open properly
+  Sleep, IntPhoneMenuDelay2
   Send {Right}
   Sleep IntPhoneMenuDelay2 * 2
   Send {Enter} ; Online Menu
   Sleep IntPhoneMenuDelay2
-  Send {Up}{Up}{Up}{Up}
+  Send {Up 4}
   Sleep IntPhoneMenuDelay2
   Send {Enter} ; New Session Menu
   Sleep IntPhoneMenuDelay2
-  Send {Up}{Up}
+  Send {Up 2}
   Sleep IntPhoneMenuDelay2
   Send {Enter} ; New Crew Only Session
   Sleep IntPhoneMenuDelay2
@@ -981,20 +976,16 @@ NewCrewSession:
 
 ; Join a New Friend Only Session
 NewFriendSession:
-  ; Open settings
   turnCapslockOff()
   SoundPlay, %A_WinDir%\Media\Windows Battery Critical.wav
   Send {%IGB_Pause%}
-
-  ; Necessary delay to allow settings to open properly
-  sleep, IntPhoneMenuDelay2
-
-  ; Not using IGB_ variables on purpose as pause menu has static bindings
+  ; Necessary delay to allow pause menu to open properly
+  Sleep, IntPhoneMenuDelay2
   Send {Right}
   Sleep IntPhoneMenuDelay2 * 2
   Send {Enter} ; Online Menu
   Sleep IntPhoneMenuDelay2
-  Send {Up}{Up}{Up}{Up}
+  Send {Up 4}
   Sleep IntPhoneMenuDelay2
   Send {Enter} ; New Session Menu
   Sleep IntPhoneMenuDelay2
@@ -1109,10 +1100,17 @@ CallLester:
   return
 
 RemoveWantedLevel:
-  ;makeCall(12, true)
-  dialNumber("346-555-0102", true)
-  sleep 10000
-  Send {%IGB_Down%}{%IGB_Enter%}{%IGB_Interaction%}
+  if (IsInBuilding) {
+    SplashTextOn 350 * WindowScale, 20 * WindowScale, Not Allowed, You cannot do this in a building
+    Sleep 2000
+    SplashTextOff
+    bringGameIntoFocus()
+  } else {
+    ;makeCall(12, true)
+    dialNumber("346-555-0102", true)
+    sleep 8500
+    Send {%IGB_Down%}{%IGB_Enter%}{%IGB_Interaction%}
+  }
   return
 
 CallAssistant:
