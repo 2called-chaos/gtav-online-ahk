@@ -56,7 +56,7 @@ AutoSnackLocation    := 2     ; by default this is the snack that autosnack will
 AutoArmorLocation    := 5     ; by default this is Super Heavy Armor, but can be changed.
 
 ; Options (should be fine out of the box)
-WindowScale          := 2.0   ; Change this to reflect your Windows display scale (e.g. set it to 3 if you have UI scale set to 300%).
+WindowScale          := 1.0   ; Change this to reflect your Windows display scale (e.g. set it to 3 if you have UI scale set to 300%).
 DoConfirmKill        := true  ; If true the KillGame action will ask for confirmation before killing the process.
 DoConfirmDisconnect  := true  ; If true the ForceDisconnect action will ask for confirmation before suspending the process.
 IntDisconnectDelay   := 10    ; Amount of seconds to freeze the process for, 10 works fine.
